@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
 
+
+{% extends "master.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<body>
+  {% include "nav.html" %}
+  <div class="main-div">
+    <h2>Welcome to Ethics Office</h2>
+  </div>
 </body>
-</html>
+
+{% endblock %}
