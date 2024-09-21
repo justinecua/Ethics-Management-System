@@ -84,3 +84,13 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.date} {self. comment}"
+    
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    time = models.TimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title

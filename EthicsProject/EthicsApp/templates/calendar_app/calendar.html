@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Calendar</title>
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" />
+    <!-- Custom CSS for styling -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Event List Styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        li {
+            background-color: #fff;
+            border-left: 5px solid #4a90e2;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li span {
+            font-size: 1.1em;
+        }
+
+        /* Hover effect on event list */
+        li:hover {
+            background-color: #e9f5ff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Event Calendar</h1>
+    <div id="calendar"></div>
+
+    <!-- List of Events -->
+    <ul>
+        {% for event in events %}
+        <li>
+            <span>{{ event.title }} - {{ event.start_date }} ({{ event.time }})</span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- FullCalendar and jQuery JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                events: [
+                    {% for event in events %}
+                    {
+                        title: '{{ event.title }}',
+                        start: '{{ event.start_date }}',
+                        end: '{{ event.end_date }}',
+                    },
+                    {% endfor %}
+                ]
+            });
+        });
+        
+    </script>
+</body>
+</html>
