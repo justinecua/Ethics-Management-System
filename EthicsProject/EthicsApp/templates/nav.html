@@ -1,8 +1,8 @@
 <nav>
   <ul>
-    <li>Home</li>
-    <li>About</li>
-    <li>Login</li>
-    <li>Signup</li>
+    <li><a href="{% url 'index' %}"></a>Home</li>
+    <li><a href=""></a>About</li>
+    <a href="{% url 'login' %}"><li>Login</li></a>
+    <a href="{% url 'signup' %}"><li>Signup</li></a>
   </ul>
 </nav>
