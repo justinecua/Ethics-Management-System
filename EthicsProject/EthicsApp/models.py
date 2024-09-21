@@ -3,12 +3,12 @@ from django.db import models
 
 # Create your models here.
 class Student(models.Model):
-    first_name = models.Charfield(max_length =255) 
-    last_name = models.Charfield(max_length =255) 
-    smc_student_no = models.Charfield(max_length =255)
-    mobile_number = models.Charfield(max_length =255)
+    first_name = models.CharField(max_length =255) 
+    last_name = models.CharField(max_length =255) 
+    smc_student_no = models.CharField(max_length =255)
+    mobile_number = models.CharField(max_length =255)
     smc_email = models.EmailField(max_length =255)
-    receipt_no = models.Charfield(max_length =255)
+    receipt_no = models.CharField(max_length =255)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} "
@@ -23,17 +23,17 @@ class Apointments(models.Model):
         return f"{self.appointment_date} {self.appointment_name}"
 
 class Reviewer(models.Model):
-    first_name = models.Charfield(max_length =255) 
-    last_name = models.Charfield(max_length =255) 
+    first_name = models.CharField(max_length =255) 
+    last_name = models.CharField(max_length =255) 
     smc_email = models.EmailField(max_length =255)
-    smc_id_no = models.Charfield(max_length =255)
+    smc_id_no = models.CharField(max_length =255)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} "
 
 class College(models.Model):
-    college_name = models.Charfield(max_length =255)
-    college_initials = models.Charfield(max_length =255)
+    college_name = models.CharField(max_length =255)
+    college_initials = models.CharField(max_length =255)
 
     def __str__(self):
         return f"{self.college_name} {self.college_initials} "
@@ -65,7 +65,7 @@ class Manuscripts(models.Model):
 
 class Schedule(models.Model):
     date = models.DateField(null=True)
-    time = models.TimeFieldField(null=True)
+    time = models.TimeField(null=True)
 
     def __str__(self):
         return f"{self.date} {self.time}"
@@ -73,7 +73,7 @@ class Schedule(models.Model):
 class Notification(models.Model):
     date = models.DateField(null=True)
     status = models.CharField(max_length=100)
-    name = models.CharFieldField(null=True)
+    name = models.CharField(max_length=100)
  
     def __str__(self):
         return f"{self.date} {self. status} {self.name}"
