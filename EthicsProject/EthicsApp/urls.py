@@ -6,6 +6,7 @@ urlpatterns = [
     #-----------------------------------------Justine------------------------------------------------
     re_path(r'^accounts/login/$', views.login, name='login'),
     re_path(r'^accounts/signup/$', views.signup, name='signup'),
+    re_path(r'^try$', views.trys, name='try'),
 
 
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% block content %}
+<div class="application">
+    <h1>General information</h1>
+    <div class="input-group">
+        <label for="Title">Title of the Study:</label>
+        <input type="text" id="title" name="title" placeholder="please input title here" required>
+    </div>
+    
+
+    <label for="choices">Student:</label>
+    <select id="choices" name="choices">
+        <option value="option1">Undergraduate</option>
+        <option value="option2">Graduate</option>
+    </select>
+
+    <div class="input-group">
+        <label for="Institution">Institution:</label>
+        <input type="text" id="Institution" name="Institution" placeholder="Institution" required>
+
+        <label for="address">Institution Address:</label>
+        <input type="text" id="address" name="address" placeholder="please input address here" required>
+    </div>
+    
+    <div class="study-type">
+        <label for="choices">Type of Study:</label>
+            <select id="choices" name="choices">
+                <option value="option1">Clinical Trial(Sponsored)</option>
+                <option value="option2">Clinical Trial(Research Initiated)</option>
+                <option value="option3">Health Operations Research</option>
+                <option value="option4">Social/Behavioral Research</option>
+                <option value="option5">Technical Paper/Capstone</option>
+                <option value="option6">Biomedical Research</option>
+                <option value="option7">Business Management</option>
+                <option value="option8">Hospitality Management</option>
+            </select>
+        
+        <label for="choices">Type of Study:</label>
+            <select id="choices" name="choices">
+                <option value="option1">Self-Funded</option>
+                <option value="option2">Government-Funded</option>
+                <option value="option3">Scholarship/Research Grant</option>
+                <option value="option4">Institution-Funded</option>
+            </select>
+    </div>
+
+    
+
+
+
+
+</div>
+{% endblock %}
+
+
+
+    
+</body>
+</html>
