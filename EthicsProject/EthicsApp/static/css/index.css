@@ -15,6 +15,10 @@
 
 }
 
+body{
+  background-color: var(--bg-color);
+}
+
 nav{
   padding: 1rem;
   display: flex;

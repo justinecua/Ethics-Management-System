@@ -8,13 +8,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+
     <title>{% block title %}Ethics Office{% endblock %}</title>
+    <style>
+        body {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
     {% block css %}{% endblock %}
 </head>
 
 <body>
     {% block content %}
     {% endblock %}
+    <script>
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = 1;
+        });
+    </script>
+     <script>
+        function getCSRFToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+    </script>
 </body>
 
 </html>

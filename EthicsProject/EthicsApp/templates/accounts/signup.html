@@ -1,41 +1,82 @@
+
 {% extends "master.html" %}
+
 {% load static %}
 {% block css %}
+
 <link rel="stylesheet" href="{% static './css/login.css' %}">
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<script type="module" src="{% static 'js/appearance.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block content %}
-{% include "nav.html" %}
 
-<div class="wrapper"> 
-    <div class="register-container">
-        <div class="register">
-            <h2>Signup</h2>
-            <form action="/signup" method="post">
-                <div class="input-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
+
+<div class="wrapper">
+    <div class="login-container">
+        <div class="login">
+            <div class="LoginHeader">
+                <img src="../../static/images/logo.png" alt="">
+                <h3>ETHICS OFFICE</h3>
+            </div>
+            <div class="LoginMiddle">
+                <div class="LoginTop">
+                    <h2>Create Account</h2>
+                    <p>Are you sure your thesis is correct? Register an account</p>
                 </div>
-                <div class="input-group">
-                    <input type="email" id="email" name="email" placeholder="Email" required>
+
+                <div class="l-top">
+                    <div class="input-group">
+                        <button class="google-btn">
+                            <img src="../../static/images/google.png" alt="">Sign Up with Google
+                        </button>
+
+                    </div>
                 </div>
-                <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password2" name="password2" placeholder="Confirm Password" required>
-                </div>
+                <form action="/signup" method="post">
+                    <div class="input-group">
+                        <input type="text" id="username" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password2" name="password2" placeholder="Confirm Password" required>
+                    </div>
                     <button type="submit" class="signup-btn">Signup</button>
-                <div class="r-bot">
-                    <p>
-                        Already have an account? <a href="{% url 'login' %}">Login</a>
-                    </p>
-                </div>
-            </form>
+                    <div class="r-bot">
+                        <p>
+                            Already have an account? <a href="{% url 'login' %}">Login</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="LoginFooter">
+                <span> &#169; 2024 Ethics Office. All Rights Reserved</span>
+            </div>
+
         </div>
+
         <div class="pic">
-            <img src="https://static.vecteezy.com/system/resources/previews/022/515/438/non_2x/ai-generative3d-texture-colorful-abstract-background-for-desktop-wallpaper-image-free-photo.jpg" alt="Login Image">
+            <div class="video-overlay">
+                <div class="video-icons">
+                    <a href="https://www.youtube.com/@st.michaelscollegeofiligan7687"><img
+                            src="../../static/images/yt.png" alt=""></a>
+                    <a href="https://www.facebook.com/SMC.ILIGAN.INC"><img src="../../static/images/fb2.png" alt=""></a>
+                </div>
+                <video autoplay muted loop>
+                    <source src="../../static/images/cover.mp4" type="video/mp4">
+                </video>
+
+            </div>
         </div>
     </div>
-</div>  
-  {% endblock %}
+</div>
+
+{% endblock %}

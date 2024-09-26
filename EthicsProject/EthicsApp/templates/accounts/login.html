@@ -5,56 +5,74 @@
 
 <link rel="stylesheet" href="{% static './css/login.css' %}">
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="module" src="{% static 'js/appearance.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block content %}
-{% include "nav.html" %}
+
 
 <div class="wrapper">
     <div class="login-container">
         <div class="login">
-            <h2>Login to your account</h2>
-            <div class="l-top">
-                <div class="input-group">
-                    <button class="google-btn" onclick="loginWithGoogle()">
-                        <i class="fa-brands fa-google"></i> Login with Google
-                    </button>
-                   
+            <div class="LoginHeader">
+                <img src="../../static/images/logo.png" alt="">
+                <h3>ETHICS OFFICE</h3>
+            </div>
+            <div class="LoginMiddle">
+                <div class="LoginTop">
+                    <h2>Login to your account</h2>
+                    <p>Continue tracking your progress after logging in</p>
                 </div>
-                <div class="input-group">
-                    <button class="google-btn" onclick="loginWithGithub()">
-                        <i class="fa-brands fa-github"></i> Login with GitHub
-                    </button>
+
+                <div class="l-top">
+                    <div class="input-group">
+                        <button class="google-btn">
+                           <img src="../../static/images/google.png" alt="">Login with Google
+                        </button>
+
+                    </div>
                 </div>
+                <form action="/login" method="post">
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="username" name="username" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+
+                    <div class="l-bot">
+                        <p>
+                            Don't have an account? <a href="{% url 'signup' %}">Create one now</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="LoginFooter">
+                <span> &#169; 2024 Ethics Office. All Rights Reserved</span>
             </div>
 
-
-            <form action="/login" method="post">
-            <div class="divider">
-                <span>OR</span>
-            </div>
-                <div class="input-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="login-btn">Login</button>
-
-                <div class="l-bot">
-                    <p>
-                        Don't have an account? <a href="{% url 'signup' %}">Create one now</a>
-                    </p>
-                </div>
-            </form>
         </div>
 
         <div class="pic">
-            <img src="https://static.vecteezy.com/system/resources/previews/022/515/438/non_2x/ai-generative3d-texture-colorful-abstract-background-for-desktop-wallpaper-image-free-photo.jpg" alt="Login Image">
+            <div class="video-overlay">
+                <div class="video-icons">
+                    <a href="https://www.youtube.com/@st.michaelscollegeofiligan7687"><img src="../../static/images/yt.png" alt=""></a>
+                    <a href="https://www.facebook.com/SMC.ILIGAN.INC"><img src="../../static/images/fb2.png" alt=""></a>
+                </div>
+                <video autoplay muted loop>
+                    <source src="../../static/images/cover.mp4" type="video/mp4">
+                </video>
+
+            </div>
         </div>
     </div>
 </div>
 
-  {% endblock %}
+{% endblock %}
