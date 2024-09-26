@@ -121,7 +121,7 @@ input[type="password2"] {
   border-bottom-right-radius: 15px;
 }
 
-/*Register Part*/
+/* --------------------------Register Part--------------------------------*/
 .register-container {
   display: flex; 
   padding: 20px;

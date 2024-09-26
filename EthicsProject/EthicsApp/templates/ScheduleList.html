@@ -1,0 +1,44 @@
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/schedules.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Schedule List</h1>
+    
+    {% if schedules %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Schedule Name</th>
+                    <th>Date & Time</th>
+                    <th>Description</th>
+                    <th>Actions</th>  <!-- Add Actions header -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in schedules %}
+                <tr>
+                    <td>{{ schedule.schedname }}</td>
+                    <td>{{ schedule.datetime|date:"Y-m-d H:i" }}</td>
+                    <td>{{ schedule.description }}</td>
+                    <td>
+                        <a href="{% url 'update_schedule' schedule.id %}" class="btn">Edit</a>  <!-- Update link -->
+                        <form action="{% url 'delete_schedule' schedule.id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Delete</button>  <!-- Delete button -->
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No schedules available.</p>
+    {% endif %}
+
+    <a href="{% url 'AddSchedule' %}" class="btn">Add New Schedule</a>
+</div>
+{% endblock %}

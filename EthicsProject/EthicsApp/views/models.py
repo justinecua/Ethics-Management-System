@@ -51,7 +51,7 @@ class Accounts(models.Model):
         return f"{self.appointment_date} {self.appointment_name}"
 class Manuscripts(models.Model):
      thesis_title = models.CharField(max_length =255)
-     thesis_description = models.CharField(max_length =255)
+     thesis_description = models.TextField(null=True)
      category_name = models.CharField(max_length =255)
      type_of_study = models.CharField(max_length =700)
      study_site = models.CharField(max_length =255)
@@ -64,11 +64,12 @@ class Manuscripts(models.Model):
 
 
 class Schedule(models.Model):
-    date = models.DateField(null=True)
-    time = models.TimeField(null=True)
+    schedname = models.CharField(max_length=120, default="Unnamed Schedule")
+    datetime = models.DateTimeField(null=True)
+    description = models.TextField(null=True)
 
     def __str__(self):
-        return f"{self.date} {self.time}"
+        return f"{self.schedname} on {self.datetime}"
 
 class Notification(models.Model):
     date = models.DateField(null=True)

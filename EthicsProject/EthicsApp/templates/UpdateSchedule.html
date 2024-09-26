@@ -1,0 +1,25 @@
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/add_schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Edit Schedule</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="schedname">Schedule Name:</label>
+        <input type="text" name="schedname" id="schedname" value="{{ schedule.schedname }}" required>
+
+        <label for="datetime">Date & Time:</label>
+        <input type="datetime-local" name="datetime" id="datetime" value="{{ schedule.datetime|date:'Y-m-d\TH:i' }}" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description">{{ schedule.description }}</textarea>
+
+        <button type="submit">Update Schedule</button>
+    </form>
+    <a href="{% url 'schedule_list' %}" class="btn">Back to Schedule List</a>
+</div>
+{% endblock %}

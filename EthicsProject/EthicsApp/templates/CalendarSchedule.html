@@ -1,0 +1,145 @@
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
+{% endblock %}
+
+{% include "sidebar.html" %}
+
+{% block content %}
+    <div class="main-calendar">
+        <div id="calendar"></div>
+    </div>
+
+    <!-- Modal for displaying schedules -->
+    <div id="scheduleModal" class="modal" style="display:none;">
+        <h2>Schedules for <span id="modal-date"></span></h2>
+        <div id="schedule-list"></div>
+        <button id="addScheduleButton">Add Schedule</button>
+        <button class="closeModal">Close</button>
+    </div>
+
+    <!-- Modal for adding a new schedule -->
+    <div id="addScheduleModal" class="modal" style="display:none;">
+        <h2>Add New Schedule</h2>
+        <form id="addScheduleForm">
+            {% csrf_token %}
+            <label for="schedname">Schedule Name:</label>
+            <input type="text" name="schedname" id="schedname" required>
+
+            <label for="datetime">Date & Time:</label>
+            <input type="datetime-local" name="datetime" id="datetime" required>
+
+            <label for="description">Description:</label>
+            <textarea name="description" id="description"></textarea>
+
+            <button type="submit">Submit</button>
+            <button type="button" class="closeAddScheduleModal">Cancel</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarEl = document.getElementById('calendar');
+            const scheduleModal = document.getElementById('scheduleModal');
+            const addScheduleModal = document.getElementById('addScheduleModal');
+            const scheduleList = document.getElementById('schedule-list');
+            const events = [
+                {% for schedule in schedules %}
+                {
+                    title: '{{ schedule.schedname }}',
+                    start: '{{ schedule.datetime|date:"c" }}',
+                    description: '{{ schedule.description }}'
+                }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ];
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: events,
+                dateClick: ({ dateStr }) => showSchedulesForDate(dateStr),
+            });
+
+            calendar.render();
+
+            function showSchedulesForDate(dateStr) {
+                document.getElementById('modal-date').textContent = dateStr;
+                scheduleList.innerHTML = events
+                    .filter(event => event.start.startsWith(dateStr)) // Filter events for the selected date
+                    .map(event => {
+                        const eventDate = new Date(event.start);
+                        const hours = String(eventDate.getHours()).padStart(2, '0'); // Format hours
+                        const minutes = String(eventDate.getMinutes()).padStart(2, '0'); // Format minutes
+                        const formattedTime = `${hours}:${minutes}`; // Combine into HH:MM format
+                        return `<p>${event.title} at ${formattedTime} - ${event.description}</p>`;
+                    })
+                    .join('');
+                toggleModal(scheduleModal, true);
+            }
+
+            // Open add schedule modal
+            document.getElementById('addScheduleButton').addEventListener('click', () => {
+                toggleModal(scheduleModal, false);
+                
+                // Set the datetime input to the clicked date
+                const clickedDate = document.getElementById('modal-date').textContent;
+                const dateTimeInput = document.getElementById('datetime');
+                
+                // Format the date to match the datetime-local input value format (YYYY-MM-DDTHH:mm)
+                const formattedDate = new Date(clickedDate).toISOString().slice(0, 16);
+                dateTimeInput.value = formattedDate; // Set the datetime input value
+                
+                toggleModal(addScheduleModal, true);
+            });
+
+
+            // Close both modals when close buttons are clicked
+            document.querySelectorAll('.closeModal').forEach(btn => 
+                btn.addEventListener('click', () => toggleModal(scheduleModal, false))
+            );
+            document.querySelectorAll('.closeAddScheduleModal').forEach(btn => 
+                btn.addEventListener('click', () => toggleModal(addScheduleModal, false))
+            );
+
+            // Open add schedule modal
+            document.getElementById('addScheduleButton').addEventListener('click', () => {
+                toggleModal(scheduleModal, false);
+                toggleModal(addScheduleModal, true);
+            });
+
+            // Handle form submission
+            document.getElementById('addScheduleForm').onsubmit = async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                try {
+                    const response = await fetch("{% url 'AddSchedule' %}", {
+                        method: 'POST',
+                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                        body: new URLSearchParams(formData),
+                    });
+                    if (!response.ok) throw new Error('Failed to add schedule.');
+
+                    const data = await response.json();
+                    const newEvent = {
+                        title: formData.get('schedname'),
+                        start: formData.get('datetime'),
+                        description: formData.get('description'),
+                    };
+                    events.push(newEvent);
+                    calendar.addEvent(newEvent);
+                    e.target.reset();
+                    toggleModal(addScheduleModal, false);
+                } catch (error) {
+                    alert(error);
+                }
+            };
+
+            function toggleModal(modal, show) {
+                modal.style.display = show ? 'block' : 'none';
+            }
+        });
+
+    </script>
+{% endblock %}
