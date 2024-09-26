@@ -1,67 +1,195 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/try.css' %}">
+    {% endblock %}
     <title>Document</title>
 </head>
 <body>
 
     {% block content %}
 <div class="application">
-    <h1>General information</h1>
-    <div class="input-group">
-        <label for="Title">Title of the Study:</label>
-        <input type="text" id="title" name="title" placeholder="please input title here" required>
-    </div>
-    
+        <div class="gen-info">
+            <h1>General information</h1>
+            <div class="input-group">
+                <label for="Title">Title of the Study:</label>
+                <input type="text" id="title" name="title" placeholder="please input title here" required>
+            </div>
 
-    <label for="choices">Student:</label>
-    <select id="choices" name="choices">
-        <option value="option1">Undergraduate</option>
-        <option value="option2">Graduate</option>
-    </select>
+            <div class="input-group">
+                <label for="choices">Student:</label>
+                <select id="choices" name="choices">
+                    <option value="option1">Undergraduate</option>
+                    <option value="option2">Graduate</option>
+                </select>
+            </div>
 
-    <div class="input-group">
-        <label for="Institution">Institution:</label>
-        <input type="text" id="Institution" name="Institution" placeholder="Institution" required>
+            <div class="input-group">
+                <label for="Institution">Institution:</label>
+                <input type="text" id="Institution" name="Institution" placeholder="Institution" required>
+            </div>
 
-        <label for="address">Institution Address:</label>
-        <input type="text" id="address" name="address" placeholder="please input address here" required>
-    </div>
-    
-    <div class="study-type">
-        <label for="choices">Type of Study:</label>
-            <select id="choices" name="choices">
-                <option value="option1">Clinical Trial(Sponsored)</option>
-                <option value="option2">Clinical Trial(Research Initiated)</option>
-                <option value="option3">Health Operations Research</option>
-                <option value="option4">Social/Behavioral Research</option>
-                <option value="option5">Technical Paper/Capstone</option>
-                <option value="option6">Biomedical Research</option>
-                <option value="option7">Business Management</option>
-                <option value="option8">Hospitality Management</option>
-            </select>
+            <div class="input-group">
+                <label for="address">Institution Address:</label>
+                <input type="text" id="address" name="address" placeholder="please input address here" required>
+            </div>
+
+            <div class="study-type">
+                <label for="study-choices">Type of Study:</label>
+                <select id="study-choices" name="study-choices">
+                    <option value="option1">Clinical Trial (Sponsored)</option>
+                    <option value="option2">Clinical Trial (Research Initiated)</option>
+                    <option value="option3">Health Operations Research</option>
+                    <option value="option4">Social/Behavioral Research</option>
+                    <option value="option5">Technical Paper/Capstone</option>
+                    <option value="option6">Biomedical Research</option>
+                    <option value="option7">Business Management</option>
+                    <option value="option8">Hospitality Management</option>
+                </select>
+
+                <label for="funding-choices">Type of Funding:</label>
+                <select id="funding-choices" name="funding-choices">
+                    <option value="option1">Self-Funded</option>
+                    <option value="option2">Government-Funded</option>
+                    <option value="option3">Scholarship/Research Grant</option>
+                    <option value="option4">Institution-Funded</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <h1>Duration of the Study</h1>
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="start-date">
+
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="end-date">
+            </div>
+
+            <div class="stud-description">
+                <label for="message">Brief description of the study:</label>
+                <textarea id="message" name="message" rows="4" cols="50" placeholder="Brief description of the study here..."></textarea>
+            </div>
+        </div>
+
+    <div class="checklist">
+        <form action="/submit-br" method="post">
+            <div class="basic-req">
+                <h1>Basic Requirements:</h1>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task1" name="task1" value="completed">
+                        <label for="task1">Full Proposal/Study Protocol</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task2" name="task2" value="completed">
+                        <label for="task2">Technical Review Approval</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task3" name="task3" value="completed">
+                        <label for="task3">Curriculum Vitae of Researchers</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task4" name="task4" value="completed">
+                        <label for="task4">Inform Consent Form</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task5" name="task5" value="completed">
+                        <label for="task5">English Version</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task6" name="task6" value="completed">
+                        <label for="task6">Filipino Version</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="task7" name="task7" value="completed">
+                        <label for="task7">Assent Form</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Checklist</button>
+            </div>
+
+            <div class="supp-docu">
+                <h1>Supplementary Documents:</h1>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="supp1" name="supp1" value="completed">
+                        <label for="supp1">Questionnaire</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="supp2" name="supp2" value="completed">
+                        <label for="supp2">Data Collection Forms</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="supp3" name="supp3" value="completed">
+                        <label for="supp3">Product Brochure</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="supp4" name="supp4" value="completed">
+                        <label for="supp4">Philippine FDA Marketing Authorization or Import License</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="supp5" name="supp5" value="completed">
+                        <label for="supp5">Permit</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Checklist</button>
+            </div>
+        </form>
+
+
+        <div class="ERF">
+            <h1>Ethical Risk Filter</h1>
         
-        <label for="choices">Type of Study:</label>
-            <select id="choices" name="choices">
-                <option value="option1">Self-Funded</option>
-                <option value="option2">Government-Funded</option>
-                <option value="option3">Scholarship/Research Grant</option>
-                <option value="option4">Institution-Funded</option>
-            </select>
+            <div class="erf-form"> 
+                <h3>Will your study/research involve:</h3>
+        
+                <div class="erf-type">
+                    <label for="erf-choices-1">Live, non-human vertebrate animals and/or animal tissues (conducted on or off campus)?</label>
+                    <select id="erf-choices-1" name="erf-choices">
+                        <option value="option1">Yes</option>
+                        <option value="option2">No</option>
+                    </select>
+                </div>
+        
+                <div class="erf-type">
+                    <label for="erf-choices-2">Human participants, observational recording, and/or secondary data not in the public domain?</label>
+                    <select id="erf-choices-2" name="erf-choices">
+                        <option value="option1">Yes</option>
+                        <option value="option2">No</option>
+                    </select>
+                </div>
+        
+                <div class="erf-type">
+                    <label for="erf-choices-3">Secondary use of data (use of data initially collected for another purpose) - Health records, employee records, students' records, computer listings, banked tissue - if any form of identifier is involved and/or if private information about individuals is involved.</label>
+                    <select id="erf-choices-3" name="erf-choices">
+                        <option value="option1">Yes</option>
+                        <option value="option2">No</option>
+                    </select>
+                </div>
+        
+                <div class="erf-type">
+                    <label for="erf-choices-4">Potentially hazardous biological agents (microorganism, DNA and tissues, body fluids, including blood and blood products)?</label>
+                    <select id="erf-choices-4" name="erf-choices">
+                        <option value="option1">Yes</option>
+                        <option value="option2">No</option>
+                    </select>
+                </div>
+        
+                <div class="erf-type">
+                    <label for="erf-choices-5">Radioactive Materials?</label>
+                    <select id="erf-choices-5" name="erf-choices">
+                        <option value="option1">Yes</option>
+                        <option value="option2">No</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+        
     </div>
-
-    
-
-
-
-
+   
 </div>
-{% endblock %}
+    {% endblock %}
 
-
-
-    
 </body>
 </html>
