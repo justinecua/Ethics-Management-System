@@ -3,21 +3,14 @@
   padding: 0;
 
 }
-body {
-  background-color: #F2F2F2;
+
+.wrapper{
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 }
-
-
 .login-container {
   display: flex; 
-  background-color: white;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 3px 9px 19px 3px rgba(0,0,0,0.75);
   width: 900px; 
   height: 650px;
   justify-content: space-between; 
@@ -131,10 +124,8 @@ input[type="password2"] {
 /*Register Part*/
 .register-container {
   display: flex; 
-  background-color: white;
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 3px 9px 19px 3px rgba(0,0,0,0.75);
   width: 900px; 
   height: 650px;
   justify-content: space-between; 

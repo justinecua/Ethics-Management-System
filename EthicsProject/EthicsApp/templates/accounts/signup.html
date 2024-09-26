@@ -2,9 +2,11 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static './css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 
 {% block content %}
+{% include "nav.html" %}
 
 <div class="wrapper"> 
     <div class="register-container">
