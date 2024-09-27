@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.application {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    margin: 20px;
+}
+
+.gen-info h1,
+.basic-req h1,
+.supp-docu h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input[type="text"],
+.input-group input[type="date"],
+.study-type select,
+.stud-description textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.checkbox-group {
+    margin-bottom: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.submit-btn {
+    background-color: #0727e0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #03010b;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+
+/* Ethical Risk Filter (ERF) Styling */
+.ERF {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.ERF h1 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.erf-form h3 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.erf-type {
+    margin-bottom: 20px;
+}
+
+.erf-type label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.erf-type select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+}
