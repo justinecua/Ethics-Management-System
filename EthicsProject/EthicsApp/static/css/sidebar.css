@@ -1,0 +1,93 @@
+/* sidebar.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 80px; /* Default width of the collapsed sidebar */
+    height: 100vh;
+    background-color: #333;
+    padding-top: 20px;
+    position: fixed;
+    transition: width 0.3s ease; /* Smooth transition for width */
+    overflow: hidden; /* Hide content when collapsed */
+}
+
+.sidebar:hover {
+    width: 250px; /* Width when hovered */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: left;
+    color: white;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    white-space: nowrap; /* Prevent text from breaking when collapsed */
+}
+
+.sidebar ul li a:hover {
+    background-color: #444;
+}
+
+.menu-item span {
+    margin-left: 10px;
+    font-size: 16px;
+    transition: opacity 0.3s ease; /* Smooth transition for text appearance */
+    opacity: 0; /* Initially hide the text */
+}
+
+.sidebar:hover .menu-item span {
+    opacity: 1; /* Show text when hovered */
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+}
+
+.menu-item a:hover {
+    background-color: #555;
+}
+
+/* Ensure icons are visible */
+.menu-item {
+    display: flex;
+    align-items: center;
+}
+
+.menu-item lord-icon,
+.menu-item dotlottie-player {
+    width: 40px; 
+    height: 40px; 
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .menu-item span {
+        font-size: 14px;
+    }
+}
