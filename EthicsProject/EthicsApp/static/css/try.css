@@ -1,3 +1,7 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
 body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
@@ -9,22 +13,24 @@ body {
     min-height: 100vh;
 }
 
+
+/*-----------------------application top part-------------------------------------- */
 .application {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
-    margin: 20px;
+    width: 70%;
+    margin: 2rem;
 }
 
 .gen-info h1,
-.basic-req h1,
-.supp-docu h1 {
-    font-size: 24px;
+.supp-docu h1{
+    font-size: 1.5rem;
     margin-bottom: 20px;
     color: #333;
+    justify-content: center;
+    display: flex;
 }
 
 .input-group {
@@ -33,11 +39,225 @@ body {
 
 .input-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #555;
+    color: #050505;
 }
 
+.application-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 1rem; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 90%;
+}
+
+
+/*-------------Mid Part-------------------*/
+
+.application-mid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 1rem; 
+}
+
+.mid-group {
+    margin-bottom: 20px;
+}
+
+.mid-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #050505;
+}
+.application-mid input[type="date"]{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 40%;
+}
+
+.description{
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #050505;
+    justify-content:center;
+}
+
+.stud-description textarea {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1.2rem; /* Font size of the textarea text */
+    display: flex;
+    width: 200%;
+    margin-top: 0.5rem;
+    min-height: 200%;
+}
+
+.mid{
+    margin-top: 2rem;
+}
+
+/*-------------Basic requirements-------------------*/
+.basic-req{
+    max-width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.basic-req {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 15%;
+}
+
+.basic-req h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.checkbox-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 1.5rem; 
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px; 
+}
+
+.checkbox-group label {
+    font-size: 16px;
+}
+
+/*-------------Supplementary Documents-------------------*/
+.supp-docu{
+    max-width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.supp-docu h1{
+    font-size: 1.5rem;
+    margin-top: 2%;
+}
+.supp-docu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 5%;
+}
+
+.checkbox-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 1.5rem; 
+}
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px; 
+}
+
+.checkbox-group label {
+    font-size: 1rem;
+}
+
+/*-------------ERF-------------------*/
+.ERF h1{
+    margin-top: 5%;
+    font-size: 1.5rem;
+}
+
+.erf-form h3 {
+    font-size: 1rem;
+    margin-bottom: 2%;
+}
+
+.erf-type {
+    margin-bottom: 2%;
+}
+
+.erf-type label {
+    font-weight: bold;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 0.2rem;
+}
+
+.checkbox-group label {
+    font-size: 1rem;
+}
+
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed for spacing */
+}
+
+.submit-btn {
+    background-color: #0727e0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 20%;
+    
+}
+
+.submit-btn:hover {
+    background-color: #03010b;
+}
+
+
+
+
+
+
+
+
+
+/*
 .input-group input[type="text"],
 .input-group input[type="date"],
 .study-type select,
@@ -59,27 +279,13 @@ body {
     margin-right: 10px;
 }
 
-.submit-btn {
-    background-color: #0727e0;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-.submit-btn:hover {
-    background-color: #03010b;
-}
 
 form {
     margin-bottom: 20px;
 }
 
 
-/* Ethical Risk Filter (ERF) Styling */
+/* Ethical Risk Filter (ERF) Styling 
 .ERF {
     margin-top: 30px;
     padding: 20px;
@@ -121,3 +327,5 @@ form {
     color: #333;
     background-color: #fff;
 }
+
+*/
