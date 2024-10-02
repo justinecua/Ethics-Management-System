@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     #-----------------------------------------Justine------------------------------------------------
-    re_path(r'^accounts/login/$', views.login, name='login'),
+    re_path(r'^accounts/login/$', views.login2, name='login2'),
     re_path(r'^accounts/signup/$', views.signup, name='signup'),
   
 
@@ -33,8 +33,13 @@ urlpatterns = [
 
 
 
-    #----------------------------------------Feryl------------------------------------------------
+    #----------------------------------------Ferryl------------------------------------------------
   re_path(r'^try$', views.trys, name='try'),
+  re_path(r'^index$', views.index, name='index'),
+  re_path(r'^register$', views.register, name='register'),
+  re_path(r'^validatelogin$', views.validatelogin, name='validatelogin'),
+  re_path(r'^studentdashboard$', views.studentdashboard, name='studentdashboard'),
+  
 
 
 

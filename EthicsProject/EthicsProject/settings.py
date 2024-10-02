@@ -30,6 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['smcethicsoffice.live', '127.0.0.1:8000', '127.0.0.1', '68.183.181.232']
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,11 +56,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+<<<<<<< HEAD
     "allauth.account.middleware.AccountMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+=======
+     "allauth.account.middleware.AccountMiddleware",
+
+     
+>>>>>>> ferryl2
 ]
 
+
+
 ROOT_URLCONF = 'EthicsProject.urls'
+
 
 TEMPLATES = [
     {
