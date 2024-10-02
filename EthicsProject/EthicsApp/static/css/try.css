@@ -20,12 +20,14 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 70%;
+    width: 80%;
     margin: 2rem;
+    margin-top: 5%;
+    
 }
 
 .gen-info h1,
-.supp-docu h1{
+.supp-docu h1 {
     font-size: 1.5rem;
     margin-bottom: 20px;
     color: #333;
@@ -46,8 +48,8 @@ body {
 
 .application-top {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; 
-    gap: 1rem; 
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
 }
 
 .input-group {
@@ -61,13 +63,16 @@ label {
 }
 
 input[type="text"],
-select {
+select,
+input[type="date"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     width: 90%;
 }
+
+
 
 
 /*-------------Mid Part-------------------*/
@@ -96,6 +101,7 @@ select {
     width: 40%;
 }
 
+
 .description{
     margin-bottom: 1rem;
     font-weight: bold;
@@ -103,8 +109,10 @@ select {
     justify-content:center;
 }
 
+
+
 .stud-description textarea {
-    border: 1px solid #ccc; /* Light gray border */
+    border: 1px solid #ccc; 
     border-radius: 4px; /* Rounded corners */
     font-size: 1.2rem; /* Font size of the textarea text */
     display: flex;
@@ -118,18 +126,23 @@ select {
 }
 
 /*-------------Basic requirements-------------------*/
-.basic-req{
-    max-width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.checklist {
+    display: flex; 
+    justify-content: space-between;
+    gap: 1rem; 
+    max-width: 90%;
     margin: 0 auto;
+    padding: 2rem 0; 
+    margin-top: 10%;
 }
+
+/* Basic Requirements */
 .basic-req {
+    flex: 1; 
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 15%;
+    gap: 1rem;
+    margin-right: 10%;
 }
 
 .basic-req h1 {
@@ -139,8 +152,8 @@ select {
 
 .checkbox-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; 
-    gap: 1.5rem; 
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
 .checkbox-group {
@@ -149,50 +162,45 @@ select {
 }
 
 .checkbox-group input[type="checkbox"] {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .checkbox-group label {
     font-size: 16px;
 }
 
-/*-------------Supplementary Documents-------------------*/
-.supp-docu{
-    max-width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.supp-docu h1{
-    font-size: 1.5rem;
-    margin-top: 2%;
-}
+/* Supplementary Documents */
 .supp-docu {
+    flex: 1; /* Allow this section to take up available space */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-top: 5%;
 }
 
-.checkbox-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr; 
-    gap: 1.5rem; 
+.supp-docu h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
 }
+
+.supp-docu .checkbox-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
 .checkbox-group {
     display: flex;
     align-items: center;
 }
 
 .checkbox-group input[type="checkbox"] {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .checkbox-group label {
     font-size: 1rem;
 }
+
 
 /*-------------ERF-------------------*/
 .ERF h1{
