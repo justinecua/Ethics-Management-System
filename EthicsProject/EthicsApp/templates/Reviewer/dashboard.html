@@ -1,0 +1,40 @@
+{% load static %}
+
+{% include 'Reviewer/sidebar.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Schedules Dashboard</h1>
+    
+    <div class="total-schedules">
+        <h2>Total Schedules: {{ schedules.count }}</h2> 
+    </div>
+    
+    {% if schedules.count > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Schedule Name</th>
+                <th>Date & Time</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.schedname }}</td>
+                <td>{{ schedule.datetime }}</td>
+                <td>{{ schedule.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No schedules available</p>
+    {% endif %}
+</div>
+{% endblock %}

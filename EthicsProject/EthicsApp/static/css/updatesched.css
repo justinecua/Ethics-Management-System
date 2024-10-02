@@ -1,0 +1,124 @@
+/* updatesched.css */
+
+/* General body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh;
+    padding-left: 100px; /* Adjusted to account for the sidebar width */
+}
+
+/* Container styling */
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 20px;
+    text-align: center;
+    z-index: 0; /* Ensure it stays below the sidebar */
+}
+
+/* Title styling */
+.container h1 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Label styling */
+label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Input and textarea styling */
+input[type="text"],
+input[type="datetime-local"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+/* Input hover effect */
+input[type="text"]:focus,
+input[type="datetime-local"]:focus,
+textarea:focus {
+    border: 1px solid #007bff;
+    outline: none;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Back button styling */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 50px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .container h1 {
+        font-size: 22px;
+    }
+
+    button {
+        padding: 10px;
+    }
+
+    .btn {
+        padding: 8px 30px;
+    }
+
+    body {
+        padding-left: 60px; /* Adjusted for smaller sidebar width */
+    }
+}
