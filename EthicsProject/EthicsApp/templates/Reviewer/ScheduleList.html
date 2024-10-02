@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{% static 'css/schedules.css' %}">
 {% endblock %}
 
+{% include "Reviewer/sidebar.html" %}
+
 {% block content %}
 <div class="container">
     <h1>Schedule List</h1>
@@ -39,6 +41,6 @@
         <p>No schedules available.</p>
     {% endif %}
 
-    <a href="{% url 'AddSchedule' %}" class="btn">Add New Schedule</a>
+    <a href="{% url 'AddSchedule2' %}" class="btn">Add New Schedule</a>
 </div>
 {% endblock %}

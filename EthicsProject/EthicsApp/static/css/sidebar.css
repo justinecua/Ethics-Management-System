@@ -10,11 +10,14 @@ body {
 .sidebar {
     width: 80px; /* Default width of the collapsed sidebar */
     height: 100vh;
-    background-color: #333;
+    background-color: rgb(43, 41, 41);
     padding-top: 20px;
     position: fixed;
-    transition: width 0.3s ease; /* Smooth transition for width */
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
     overflow: hidden; /* Hide content when collapsed */
+    z-index: 1; /* Ensures it stays above other content */
 }
 
 .sidebar:hover {
@@ -24,6 +27,7 @@ body {
 .sidebar ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 .sidebar ul li {
@@ -38,7 +42,7 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    white-space: nowrap; /* Prevent text from breaking when collapsed */
+    white-space: nowrap;
 }
 
 .sidebar ul li a:hover {
@@ -48,7 +52,7 @@ body {
 .menu-item span {
     margin-left: 10px;
     font-size: 16px;
-    transition: opacity 0.3s ease; /* Smooth transition for text appearance */
+    transition: opacity 0.3s ease;
     opacity: 0; /* Initially hide the text */
 }
 
@@ -73,8 +77,8 @@ body {
 
 .menu-item lord-icon,
 .menu-item dotlottie-player {
-    width: 40px; 
-    height: 40px; 
+    width: 40px;
+    height: 40px;
 }
 
 /* Responsive design */

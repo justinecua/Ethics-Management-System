@@ -13,7 +13,7 @@
         <ul>
             <li class="menu-item">
                 <!-- Home -->
-                <a href="#">
+                <a href="{% url 'schedule_dashboard' %}">
                     <lord-icon
                         src="https://cdn.lordicon.com/epietrpn.json"
                         trigger="morph"
@@ -26,7 +26,7 @@
             </li>
             <li class="menu-item">
                 <!-- Calendar -->
-                <a href="#">
+                <a href="{% url 'schedule_view' %}">
                     <dotlottie-player
                         src="https://lottie.host/ef401012-df64-44bf-8f9c-dd8fd43883ce/0g070HPZAJ.json"
                         background="transparent"
@@ -40,23 +40,25 @@
             <li class="menu-item">
                 <!-- Schedule List -->
                 <a href="{% url 'schedule_list' %}">
-                    <dotlottie-player
-                        src="https://lottie.host/98c13f98-754d-406c-bd68-694a26595fec/zB47U0VnbP.json"
-                        background="transparent"
-                        speed="1"
-                        style="width: 40px; height: 40px;"
-                        loop autoplay>
-                    </dotlottie-player>
+                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                    <lord-icon
+                        src="https://cdn.lordicon.com/lsrcesku.json"
+                        trigger="hover"
+                        stroke="bold"
+                        style="width:40px;height:40px">
+                    </lord-icon>
                     <span>Schedule List</span>
                 </a>
             </li>
             <li class="menu-item">
                 <!-- Documents -->
                 <a href="#">
+                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
                     <lord-icon
-                        src="https://cdn.lordicon.com/yqiuuheo.json"
+                        src="https://cdn.lordicon.com/ujxzdfjx.json"
                         trigger="hover"
-                        colors="primary:#000000,secondary:#e4e4e4"
+                        stroke="bold"
+                        colors="primary:#121331,secondary:#e4e4e4"
                         style="width:40px;height:40px">
                     </lord-icon>
                     <span>Documents</span>
@@ -65,13 +67,14 @@
             <li class="menu-item">
                 <!-- Sign Out -->
                 <a href="#">
-                    <dotlottie-player
-                        src="https://lottie.host/d8fa901d-3728-44e7-a076-875395a7c09f/wljRe8U2XB.json"
-                        background="transparent"
-                        speed="1"
-                        style="width: 40px; height: 40px;"
-                        loop autoplay>
-                    </dotlottie-player>
+                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                    <lord-icon
+                        src="https://cdn.lordicon.com/eoacwhtz.json"
+                        trigger="hover"
+                        stroke="bold"
+                        colors="primary:#000000,secondary:#f9c9c0,tertiary:#3080e8,quaternary:#f24c00,quinary:#3a3347,senary:#b26836,septenary:#ffffff"
+                        style="width:40px;height:40px">
+                    </lord-icon>
                     <span>Sign Out</span>
                 </a>
             </li>
