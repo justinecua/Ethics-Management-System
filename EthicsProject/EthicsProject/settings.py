@@ -29,9 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['smcethicsoffice.live', '127.0.0.1:8000', '127.0.0.1', '68.183.181.232']
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,11 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'EthicsApp'
+    'EthicsApp',
+    'livereload',
 ]
 
 MIDDLEWARE = [
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'livereload.middleware.LiveReloadScript',
 ]
 
 

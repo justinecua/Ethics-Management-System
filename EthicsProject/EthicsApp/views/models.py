@@ -1,7 +1,8 @@
 from django.db import models
+from django.conf import settings
 
-# Create your models here.
 class Student(models.Model):
+    auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE) 
     smc_student_no = models.CharField(max_length =255)
     mobile_number = models.CharField(max_length =255)
     receipt_no = models.CharField(max_length =255)
@@ -36,15 +37,19 @@ class College(models.Model):
 
 class Account_Type(models.Model):
     Account_type = models.CharField(max_length =255)
+    
+    def __str__(self):
+        return f"{self.Account_type}"
+
 class Accounts(models.Model):
-    password = models.CharField(max_length =255)
     student_id= models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     reviewer_id= models.ForeignKey(Reviewer, on_delete=models.CASCADE, null=True)
     college_id= models.ForeignKey(College, on_delete=models.CASCADE, null=True)
     account_typeid= models.ForeignKey(Account_Type, on_delete=models.CASCADE, null=True)
    
     def __str__(self):
-        return f"{self.appointment_date} {self.appointment_name}"
+        return f"{self.student_id}"
+
 class Manuscripts(models.Model):
      thesis_title = models.CharField(max_length =255)
      thesis_description = models.TextField(null=True)

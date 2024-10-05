@@ -1,19 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from .models import Account_Type, Accounts, Student
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-from django.contrib.auth import login as auth_login
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib import messages
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib import messages
-
 
 @csrf_exempt
 def register(request):
@@ -23,24 +13,32 @@ def register(request):
         password1 = request.POST.get('password')
         password2 = request.POST.get('password2')
 
-        # Create the user
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password1,
-        )
+        if password1 == password2:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password1,
+            )
 
-        # Authenticate and log in the user
-        user = authenticate(request, username=username, password=password1)
-        if user is not None:
-            auth_login(request, user)
-            return redirect('studentdashboard')  # Make sure 'dashboard' is a valid URL name in your app
+            student = Student.objects.create(
+                auth_user=user,
+            )
 
-    return render(request, 'master.html')
+            student_account_type = Account_Type.objects.get(Account_type='Student')
 
+            newAcc = Accounts.objects.create(
+                student_id=student,
+                account_typeid=student_account_type
+            )
 
+            user = authenticate(request, username=username, password=password1)
+            if user is not None:
+                login(request, user)  
+                return redirect('studentdashboard')
+        else:    
+            messages.error(request, "Passwords do not match.")
 
-
+    return render(request, 'gotoRegisterPage.html')
 
 @csrf_exempt
 def validatelogin(request):
@@ -48,19 +46,33 @@ def validatelogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         
-        # Authenticate the user
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            # Log in the user
-            auth_login(request, user)
-            return redirect('studentdashboard')  # Redirect to the student dashboard after successful login
+            login(request, user)
+            
+            try:
+                profile = Accounts.objects.get(student_id__auth_user=user)
+                account_type = profile.account_typeid.Account_type
+
+                if account_type == 'Student':
+                    return redirect('studentdashboard')
+                elif account_type == 'Admin':
+                    return redirect('admindashboard')
+                elif account_type == 'Reviewer':
+                    return redirect('schedule_dashboard')
+                else:
+                    return redirect('defaultdashboard')
+
+            except Accounts.DoesNotExist:
+                messages.error(request, "User profile not found.")
+                return redirect('login')
+
         else:
-            # Invalid credentials
             messages.error(request, "Invalid username or password.")
     
-    # Render the login page
-    return render(request, 'master.html')  # Make sure your login template is named 'login.html'
+    return render(request, 'gotoLoginPage.html')
+
 
 
 
