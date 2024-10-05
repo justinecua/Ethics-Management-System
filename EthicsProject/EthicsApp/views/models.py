@@ -8,7 +8,7 @@ class Student(models.Model):
     receipt_no = models.CharField(max_length =255)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} "
+        return f"{self.auth_user}"
 
 class Apointments(models.Model):
     appointment_date = models.DateField(null=True)

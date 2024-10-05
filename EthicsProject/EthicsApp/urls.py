@@ -6,8 +6,8 @@ urlpatterns = [
     #-----------------------------------------Justine------------------------------------------------
     re_path(r'^accounts/login/$', views.login2, name='login2'),
     re_path(r'^accounts/signup/$', views.signup, name='signup'),
-  
-
+    re_path(r'^adminDashboard/$', views.adminDashboard, name='adminDashboard'), 
+    
 
 
 

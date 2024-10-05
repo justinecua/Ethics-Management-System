@@ -58,7 +58,7 @@ def validatelogin(request):
                 if account_type == 'Student':
                     return redirect('studentdashboard')
                 elif account_type == 'Admin':
-                    return redirect('admindashboard')
+                    return redirect('adminDashboard')
                 elif account_type == 'Reviewer':
                     return redirect('schedule_dashboard')
                 else:
