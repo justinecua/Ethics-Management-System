@@ -1,15 +1,21 @@
 from django.urls import path, re_path
 from . import views
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     #-----------------------------------------Justine------------------------------------------------
     re_path(r'^accounts/login/$', views.login2, name='login2'),
     re_path(r'^accounts/signup/$', views.signup, name='signup'),
     re_path(r'^adminDashboard/$', views.adminDashboard, name='adminDashboard'), 
+    re_path(r'^adminAccounts/$', views.adminAccounts, name='adminAccounts'),
+    re_path(r'^adminAppointments/$', views.adminAppointments, name='adminAppointments'),
+    re_path(r'^adminManuscripts/$', views.adminManuscripts, name='adminManuscripts'),
+    re_path(r'^adminSchedule/$', views.adminSchedule, name='adminSchedule'),
+    re_path(r'^adminSettings/$', views.adminSettings, name='adminSettings'),
+    re_path(r'^adminHelpSupport/$', views.adminHelpSupport, name='adminHelpSupport'),
+
     
-
-
 
 
 

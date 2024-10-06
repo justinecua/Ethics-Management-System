@@ -21,11 +21,9 @@
 </head>
 
 <body>
-    {% load livereload_tags %}
     {% block content %}
     {% endblock %}
-    {% livereload_script %}
-    <script>
+      <script>
         document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
 
         document.addEventListener('DOMContentLoaded', () => {
