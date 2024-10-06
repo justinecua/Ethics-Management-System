@@ -53,18 +53,18 @@ body {
 }
 
 .MC-Top {
-  border-top: 1px solid var(--container-border);
   border-bottom: 1px solid var(--container-border);
-  height: 2rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
-  padding: 0.5rem;
+  padding: 0.7rem;
 }
 
 
 .MC-Bottom {
+  display: flex;
   height: 100%;
-  padding: 0.5rem;
+  padding: 0.7rem;
 }
 
 .MCT-Left {
@@ -78,7 +78,6 @@ body {
 .MCT-Middle {
   width: 65%;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -125,7 +124,6 @@ body {
 
 nav {
   width: 15%;
-  height: 100%;
   border-right: 1px solid var(--container-border);
   display: flex;
   flex-direction: column;
