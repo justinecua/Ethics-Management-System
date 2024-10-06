@@ -68,6 +68,37 @@ buttons.forEach(function(button) {
 
 
 /*-----------------------Reviewer--------------------*/
+
+
+var MyScheduleBtn = document.getElementById('MySchedule-btn');
+MyScheduleBtn.classList.add('active-btn2');
+MyScheduleBtn.style.backgroundColor = "#ffffff";
+
+function refreshCalendar(calendarInstance) {
+    calendarInstance.render(); 
+}
+
+MyScheduleBtn.addEventListener('click', function(){
+    ScheduleContent.style.display = "flex";
+    ReviewerSchedule.style.display = "none";
+    refreshCalendar(calendar);
+    MyScheduleBtn.classList.add('active-btn2');
+    MyScheduleBtn.style.backgroundColor = "#ffffff";
+    Reviewerbtn.classList.remove('active-btn2');
+    Reviewerbtn.style.backgroundColor = "";
+});
+
+Reviewerbtn.addEventListener('click', function(){
+    ScheduleContent.style.display = "none";
+    ReviewerSchedule.style.display = "flex";
+    refreshCalendar(calendar2); 
+    MyScheduleBtn.classList.remove('active-btn2');
+    MyScheduleBtn.style.backgroundColor = "";
+    Reviewerbtn.classList.add('active-btn2');
+    Reviewerbtn.style.backgroundColor = "#ffffff";
+
+});
+
 var calendarEl2 = document.getElementById('calendar2');
 var calendar2 = new FullCalendar.Calendar(calendarEl2, {
     initialView: 'dayGridMonth',
@@ -106,16 +137,17 @@ yearSelect2.addEventListener('change', function () {
     calendar2.gotoDate(new Date(selectedYear2, selectedMonth2, currentDate2));
 });
 
-var MyScheduleBtn = document.getElementById('MySchedule-btn');
-MyScheduleBtn.classList.add('active-btn2');
-MyScheduleBtn.style.backgroundColor = "#ffffff";
 
-var buttons2 = document.querySelectorAll('.MCTM-Container button');
-buttons2.forEach(function(button) {
-    button.addEventListener('click', function() {
-        buttons2.forEach(function(btn) {
-            btn.classList.remove('active-btn2');
-            btn.style.backgroundColor = "";
+var monthViewButton2 = document.getElementById('monthView2');
+monthViewButton2.classList.add('active-btn2');
+monthViewButton2.style.backgroundColor = "#ffffff";
+
+var buttons2 = document.querySelectorAll('.RSC-CalendarView button');
+buttons2.forEach(function(button2) {
+    button2.addEventListener('click', function() {
+        buttons2.forEach(function(btn2) {
+            btn2.classList.remove('active-btn2');
+            btn2.style.backgroundColor = "";
         });
       
         this.classList.add('active-btn2');
@@ -130,14 +162,3 @@ buttons2.forEach(function(button) {
         }
     });
 });
-
-
-MyScheduleBtn.addEventListener('click', function(){
-  ScheduleContent.style.display = "flex";
-  ReviewerSchedule.style.display = "none";
-});
-
-Reviewerbtn.addEventListener('click', function(){
-  ScheduleContent.style.display = "none";
-  ReviewerSchedule.style.display = "flex";
-})

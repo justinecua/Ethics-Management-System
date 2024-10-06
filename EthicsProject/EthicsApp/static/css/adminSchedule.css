@@ -80,10 +80,6 @@
   background-color: var(--calendarView-btn-color);
 }
 
-.SC-CalendarView {
-  background-color: var(--calendarView-btn-color);
-  border-radius: 7px;
-}
 
 #calendar {
   width: 100%;
@@ -127,7 +123,21 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.SC-CalendarView {
+  background-color: var(--calendarView-btn-color);
+  border-radius: 7px;
+}
+
 .SC-CalendarView button {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.RSC-CalendarView {
+  background-color: var(--calendarView-btn-color);
+  border-radius: 7px;
+}
+
+.RSC-CalendarView button {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -157,16 +167,13 @@
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Add this CSS to your stylesheet */
 .fade {
   opacity: 0;
   transition: opacity 0.5s ease;
   display: none;
-  /* Hide the element initially */
 }
 
 .fade.show {
   opacity: 1;
   display: flex;
-  /* Show the element when fading in */
 }
