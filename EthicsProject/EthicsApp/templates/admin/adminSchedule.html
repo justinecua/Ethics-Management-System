@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block content %}
+{% include 'modal/adminSchedule.html' %}
 <div class="MainContainer">
     <div class="MC-Top">
         <div class="MCT-Left">
@@ -19,8 +20,9 @@
         </div> 
         <div class="MCT-Middle">
           <div class="MCTM-Container">
-              <button id="MySchedule-btn">My Schedule</button>
+              <button id="MySchedule-btn">Calendar</button>
               <button id="Reviewer-btn">Reviewer</button>
+              <button id="Reviewer-btn">My Schedule</button>
           </div>
         </div>
         <div class="MCT-Right">

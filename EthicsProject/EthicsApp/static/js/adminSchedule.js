@@ -1,10 +1,26 @@
+
+let ModalScheduleOverlay = document.getElementById('Modal-Schedule-Overlay');
+let scheduledate = document.getElementById('schedule-date');
+let cancelsched = document.getElementById('cancel-sched');
+
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     height: 'auto',
-    initialDate: new Date()  
+    initialDate: new Date(),
+    dateClick: function(info) {
+        ModalScheduleOverlay.style.display = "flex";
+        scheduledate.value = info.dateStr;
+        var ClickedDate = info.dateStr;
+        console.log(ClickedDate);
+    }
 });
 calendar.render();
+
+cancelsched.addEventListener('click', function(event){
+  event.stopPropagation();
+  ModalScheduleOverlay.style.display = "none";
+})
 
 var monthSelect = document.getElementById('monthSelect');
 var yearSelect = document.getElementById('yearSelect');
