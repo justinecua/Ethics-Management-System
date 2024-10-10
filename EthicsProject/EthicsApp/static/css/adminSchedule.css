@@ -58,6 +58,7 @@
   border-bottom: 1px solid var(--container-border);
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .SC-Top select {
@@ -88,6 +89,7 @@
   height: 100%;
   padding: 1rem;
   border: none;
+
 }
 
 #calendar2 {
@@ -97,53 +99,69 @@
   border: none;
 }
 
+.fc-daygrid-day {
+  height: 80px;
+  box-shadow: 0px 0px 25px white;
+}
+
+.fc-daygrid-event {
+
+  overflow: hidden;
+}
+
+.fc .fc-day {
+  padding: 1rem;
+  background-color: white;
+}
+
+.fc .fc-day:hover {
+  background-color: var(--nav-hover);
+  cursor: pointer;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #e3f2fd;
+}
+
 .fc .fc-toolbar.fc-header-toolbar {
   display: none;
 }
 
 .fc {
-  font-family: "Montserrat", sans-serif;
+  font-family: "montserrat", sans-serif;
   border: none;
 }
 
-.fc .fc-daygrid-event {
-  background-color: #28a745;
-  color: white;
-}
-
-.fc-daygrid-day-frame {
-  padding: 10px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
-.fc .fc-day {
-  padding: 1rem;
-  background-color: #f8f8fa;
-  border: none;
+.event-container {
+  width: 100%;
+  padding: 0.6rem 1rem;
   border-radius: 10px;
 }
 
-.fc .fc-day:hover {
-  background-color: #e9ecef;
-  cursor: pointer;
+.event-container.Available {
+  border: 1px solid #089a66;
+  color: #089a66 !important;
 }
 
-.fc-daygrid-day {
-  box-shadow: 0px 0px 15px white;
+.event-container.Not-Available {
+  border: 1px solid #ec6257;
+  color: #ec6257 !important;
 }
 
-.fc-daygrid-day:hover {
+.event-time {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #333;
+}
 
-  background-color: #e3f2fd;
+.event-title {
+  font-size: 0.8rem;
 }
 
 .fc-day:not(.fc-daygrid-day) {
   background-color: #fff3e0;
   font-weight: 500;
-  font-family: "Montserrat", sans-serif;
-  box-shadow: 0px 0px 10px white;
+  font-family: "montserrat", sans-serif;
 }
 
 .fc-col-header-cell {
@@ -152,10 +170,6 @@
 }
 
 .fc .fc-scrollgrid {
-  border: none;
-}
-
-.fc .fc-scrollgrid-section {
   border: none;
 }
 
@@ -229,10 +243,34 @@
   position: fixed;
   display: none;
   overflow: hidden;
-
 }
 
 #MS-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 25rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 2.4rem;
+}
+
+#EModal-Schedule-Overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #565a6241;
+  z-index: 5;
+  position: fixed;
+  display: none;
+  overflow: hidden;
+
+}
+
+#EMS-Container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -292,6 +330,28 @@
 
 #add-sched:hover {
   background-color: var(--button-hover);
+  cursor: pointer;
+}
+
+#eadd-sched {
+  background-color: var(--button-color);
+  border: none;
+  color: white;
+}
+
+#eadd-sched:hover {
+  background-color: var(--button-hover);
+  cursor: pointer;
+}
+
+#ecancel-sched {
+  border: 1px solid var(--container-border);
+  background-color: var(--modal-container);
+  margin-right: 0.5rem;
+}
+
+#ecancel-sched:hover {
+  background-color: var(--nav-hover);
   cursor: pointer;
 }
 

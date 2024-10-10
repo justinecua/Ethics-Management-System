@@ -1,25 +1,66 @@
 
 let ModalScheduleOverlay = document.getElementById('Modal-Schedule-Overlay');
+let EModalScheduleOverlay = document.getElementById('EModal-Schedule-Overlay');
 let scheduledate = document.getElementById('schedule-date');
 let cancelsched = document.getElementById('cancel-sched');
+let ecancelsched = document.getElementById('ecancel-sched');
 
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     height: 'auto',
+    events: '/api/schedules/',
     initialDate: new Date(),
+    hiddenDays: [0],
+    eventClick: function(info) {
+        var event = info.event;
+        var scheduleId = event.extendedProps.schedule_id;
+
+        EModalScheduleOverlay.style.display = "flex";
+        document.getElementById('eschedule-type').value = event.extendedProps.schedule_type || "Available";
+        document.getElementById('eschedule-date').value = event.extendedProps.schedule_date;
+
+        document.getElementById('eschedule-start-time').value = 
+            event.start ? event.start.getHours().toString().padStart(2, '0') + ':' + event.start.getMinutes().toString().padStart(2, '0') : '';
+        
+        document.getElementById('eschedule-end-time').value = 
+            event.end ? event.end.getHours().toString().padStart(2, '0') + ':' + event.end.getMinutes().toString().padStart(2, '0') : '';
+
+        document.getElementById('edit-schedule-form').action = `/schedules/edit/${scheduleId}/`;
+    },
     dateClick: function(info) {
         ModalScheduleOverlay.style.display = "flex";
         scheduledate.value = info.dateStr;
-        var ClickedDate = info.dateStr;
-        console.log(ClickedDate);
-    }
+    },
+    eventContent: function(arg) {
+        var startTime = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+        var scheduleTypeClass = arg.event.extendedProps.schedule_type === "Available" ? "Available" : "Not-Available";
+
+        return {
+            html: `
+                <div class="event-container ${scheduleTypeClass}">
+                    <div class="event-time">${startTime} - ${endTime}</div>
+                    <strong class="event-title">${arg.event.title}</strong>
+                </div>
+            `
+        };
+    },
 });
+
 calendar.render();
+
+
+
 
 cancelsched.addEventListener('click', function(event){
   event.stopPropagation();
   ModalScheduleOverlay.style.display = "none";
+})
+
+ecancelsched.addEventListener('click', function(event){
+  event.stopPropagation();
+  EModalScheduleOverlay.style.display = "none";
 })
 
 var monthSelect = document.getElementById('monthSelect');
@@ -68,7 +109,7 @@ buttons.forEach(function(button) {
             btn.classList.remove('active-btn');
             btn.style.backgroundColor = "";
         });
-      
+
         this.classList.add('active-btn');
         this.style.backgroundColor = '#ffffff';
 
@@ -91,7 +132,7 @@ MyScheduleBtn.classList.add('active-btn2');
 MyScheduleBtn.style.backgroundColor = "#ffffff";
 
 function refreshCalendar(calendarInstance) {
-    calendarInstance.render(); 
+    calendarInstance.render();
 }
 
 MyScheduleBtn.addEventListener('click', function(){
@@ -107,7 +148,7 @@ MyScheduleBtn.addEventListener('click', function(){
 Reviewerbtn.addEventListener('click', function(){
     ScheduleContent.style.display = "none";
     ReviewerSchedule.style.display = "flex";
-    refreshCalendar(calendar2); 
+    refreshCalendar(calendar2);
     MyScheduleBtn.classList.remove('active-btn2');
     MyScheduleBtn.style.backgroundColor = "";
     Reviewerbtn.classList.add('active-btn2');
@@ -119,7 +160,7 @@ var calendarEl2 = document.getElementById('calendar2');
 var calendar2 = new FullCalendar.Calendar(calendarEl2, {
     initialView: 'dayGridMonth',
     height: 'auto',
-    initialDate: new Date()  
+    initialDate: new Date()
 });
 calendar2.render();
 
@@ -165,10 +206,10 @@ buttons2.forEach(function(button2) {
             btn2.classList.remove('active-btn2');
             btn2.style.backgroundColor = "";
         });
-      
+
         this.classList.add('active-btn2');
         this.style.backgroundColor = '#ffffff';
-        
+
           if (this.id === 'dayView2') {
             calendar2.changeView('timeGridDay');
         } else if (this.id === 'weekView2') {
@@ -177,4 +218,19 @@ buttons2.forEach(function(button2) {
             calendar2.changeView('dayGridMonth');
         }
     });
+});
+
+
+/*-------------------------------------------------------------------*/
+let MSContainer = document.getElementById('MS-Container');
+let EMSContainer = document.getElementById('EMS-Container');
+
+
+document.addEventListener('click', function(event) {
+    if (event.target === ModalScheduleOverlay) {
+        ModalScheduleOverlay.style.display = "none";
+    }
+    if (event.target === EModalScheduleOverlay) {
+        EModalScheduleOverlay.style.display = "none";
+    }
 });

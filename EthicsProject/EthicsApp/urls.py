@@ -1,7 +1,6 @@
 from django.urls import path, re_path
 from . import views
 
-
 urlpatterns = [
     path('', views.index, name='index'),
     #-----------------------------------------Justine------------------------------------------------
@@ -14,10 +13,9 @@ urlpatterns = [
     re_path(r'^adminSchedule/$', views.adminSchedule, name='adminSchedule'),
     re_path(r'^adminSettings/$', views.adminSettings, name='adminSettings'),
     re_path(r'^adminHelpSupport/$', views.adminHelpSupport, name='adminHelpSupport'),
-
-    
-
-
+    re_path(r'^ScheduleView/$', views.ScheduleView.as_view(), name='ScheduleView'),
+    re_path(r'^api/schedules/$', views.ScheduleDataView.as_view(), name='get_schedule_data'),
+    path('schedules/edit/<int:scheduleId>/', views.edit_schedule, name='edit_schedule'),
 
 
 

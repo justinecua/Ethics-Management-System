@@ -12,7 +12,19 @@
 
 {% block content %}
 {% include 'modal/adminSchedule.html' %}
+{% include 'modal/editAdminSchedule.html' %}
 <div class="MainContainer">
+     <div id="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <div class="{% if 'success' in message.tags %}message-success{% elif 'error' in message.tags %}message-error{% endif %}">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="MC-Top">
         <div class="MCT-Left">
             <img src="../../static/images/logo.png" alt="">
@@ -90,6 +102,20 @@
 </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const messages = document.getElementById('messages');
+
+    if (messages) { 
+        setTimeout(() => {
+            messages.style.display = "flex";
+        }, 100); 
+                
+        setTimeout(() => {
+          messages.style.display = "none";
+        }, 4000); 
+    }
+});
+
    </script>
 {% endblock %}
 

@@ -1,0 +1,32 @@
+<form method="POST" action="" id="edit-schedule-form"> 
+  {% csrf_token %}
+  <div id="EModal-Schedule-Overlay">
+    <div id="EMS-Container">
+      <div class="MSC-Top">
+        <h3>Edit Schedule</h3>
+      </div>
+      <div class="MSC-Bottom">
+        <label for="schedule-type">Type</label>
+        <select id="eschedule-type" name="eschedule-type">
+          <option value="Available">Available</option>
+          <option value="Not-Available">Not Available</option>
+        </select>
+        
+        <label for="schedule-date">Date</label>
+        <input type="date" id="eschedule-date" name="eschedule-date" required placeholder="Select date">
+        
+        <label for="schedule-start-time">Start Time</label>
+        <input type="time" id="eschedule-start-time" name="eschedule-start-time" required placeholder="Select start time">
+        
+        <label for="schedule-end-time">End Time</label>
+        <input type="time" id="eschedule-end-time" name="eschedule-end-time" required placeholder="Select end time">
+      </div>
+      
+      <div class="MSC-Bottom2">
+        <button type="button" id="ecancel-sched">Cancel</button>
+        <button type="submit" id="eadd-sched">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
+
