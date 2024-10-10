@@ -7,7 +7,7 @@ body {
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
   height: 90vh;
-  background-color: var(--bg-color);
+  background-color: var(--login-container);
 }
 
 [data-theme="dark"] {
@@ -163,7 +163,6 @@ nav ul li img {
   filter: var(--icon-filter);
   width: 1rem;
   height: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 nav ul li p {
@@ -188,10 +187,11 @@ nav ul a {
 
 #messages {
   display: none;
+
 }
 
 .message-success {
-  background-color: #d4edda;
+  background-color: #d1fadf;
   color: #155724;
   padding: 10px;
   border-radius: 5px;
@@ -207,11 +207,11 @@ nav ul a {
   bottom: 1.5rem;
   transition: all 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
-
+  z-index: 15;
 }
 
 .message-error {
-  background-color: #f8d7da;
+  background-color: #fee4e2;
   color: #ec6257;
   padding: 10px;
   font-size: clamp(0.8rem, 0.9vw, 0.8rem);
@@ -226,5 +226,5 @@ nav ul a {
   bottom: 1.5rem;
   transition: all 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
-
+  z-index: 15;
 }

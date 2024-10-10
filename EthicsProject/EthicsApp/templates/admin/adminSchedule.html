@@ -34,7 +34,6 @@
           <div class="MCTM-Container">
               <button id="MySchedule-btn">Calendar</button>
               <button id="Reviewer-btn">Reviewer</button>
-              <button id="Reviewer-btn">My Schedule</button>
           </div>
         </div>
         <div class="MCT-Right">
@@ -48,7 +47,8 @@
         {% include './adminNav.html' %}      
         <div id="Schedule-Content">
             <div class="SC-Top">
-                <select id="monthSelect">
+              <div class="SCT-Left">
+               <select id="monthSelect">
                     <option value="0">January</option>
                     <option value="1">February</option>
                     <option value="2">March</option>
@@ -68,35 +68,47 @@
                     <button id="dayView">D</button>
                     <button id="weekView">W</button>
                     <button id="monthView">M</button> 
-                  </div>
+                  </div> 
+              </div>
+                <div class="SCT-Right">
+                  <button id="prevSchedule"><</button>
+                   <button id="nextSchedule">></button>
+                </div>
             </div>
             <div id='calendar'></div>
         </div>
         <div id="Reviewer-Schedule">
-            <div class="SC-Top">
-            <select id="monthSelect2">
-                  <option value="0">January</option>
-                  <option value="1">February</option>
-                  <option value="2">March</option>
-                  <option value="3">April</option>
-                  <option value="4">May</option>
-                  <option value="5">June</option>
-                  <option value="6">July</option>
-                  <option value="7">August</option>
-                  <option value="8">September</option>
-                  <option value="9">October</option>
-                  <option value="10">November</option>
-                  <option value="11">December</option>
-            </select>
+          <div class="SC-Top">
+              <div class="SCT-Left">
+               <select id="monthSelect2">
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
 
-              <select id="yearSelect2"></select>
-                <div class="RSC-CalendarView">
-                  <button id="dayView2">D</button>
-                  <button id="weekView2">W</button>
-                  <button id="monthView2">M</button> 
+                <select id="yearSelect2"></select>
+                  <div class="RSC-CalendarView">
+                    <button id="dayView2">D</button>
+                    <button id="weekView2">W</button>
+                    <button id="monthView2">M</button> 
+                  </div> 
+              </div>
+                <div class="SCT-Right">
+                  <button id="prevSchedule2"><</button>
+                   <button id="nextSchedule2">></button>
                 </div>
             </div>
-          <div id='calendar2'></div>
+
+            <div id='calendar2'></div>
         </div>
     </div>
 </div>

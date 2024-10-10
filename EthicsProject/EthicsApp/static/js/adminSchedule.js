@@ -36,22 +36,36 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         var startTime = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
         var scheduleTypeClass = arg.event.extendedProps.schedule_type === "Available" ? "Available" : "Not-Available";
+        var scheduleId = arg.event.extendedProps.schedule_id;
 
-        return {
-            html: `
-                <div class="event-container ${scheduleTypeClass}">
-                    <div class="event-time">${startTime} - ${endTime}</div>
-                    <strong class="event-title">${arg.event.title}</strong>
-                </div>
-            `
-        };
+        var deleteButton = document.createElement('img');
+        deleteButton.className = 'delete-event';
+        deleteButton.src = '../static/images/Delete-2--Streamline-Block---Free.png';
+        deleteButton.dataset.scheduleId = scheduleId;
+
+        deleteButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            deleteEvent(scheduleId);
+        });
+
+        var eventContainer = document.createElement('div');
+        eventContainer.className = `event-container ${scheduleTypeClass}`;
+        
+        var availabilityIndicator = document.createElement('div');
+        availabilityIndicator.className = `availability-indicator ${arg.event.extendedProps.schedule_type === 'Available' ? 'green' : 'red'}`;
+        
+        var eventTime = document.createElement('div');
+        eventTime.className = 'event-time';
+        eventTime.innerText = `${startTime} - ${endTime}`;
+
+        availabilityIndicator.append(eventTime);
+        eventContainer.appendChild(availabilityIndicator);
+
+        return { domNodes: [eventContainer] };
     },
 });
 
 calendar.render();
-
-
-
 
 cancelsched.addEventListener('click', function(event){
   event.stopPropagation();
@@ -69,13 +83,6 @@ var currentYear = new Date().getFullYear();
 var currentMonth = new Date().getMonth();
 var currentDate = new Date().getDate();
 
-var ReviewerSchedule = document.getElementById('Reviewer-Schedule');
-var ScheduleContent = document.getElementById('Schedule-Content');
-var Reviewerbtn = document.getElementById('Reviewer-btn');
-
-monthSelect.value = currentMonth;
-yearSelect.value = currentYear;
-
 for (var year = currentYear - 5; year <= currentYear + 5; year++) {
     var option = document.createElement("option");
     option.value = year;
@@ -83,7 +90,14 @@ for (var year = currentYear - 5; year <= currentYear + 5; year++) {
     yearSelect.appendChild(option);
 }
 
+monthSelect.value = currentMonth;
 yearSelect.value = currentYear;
+
+function updateMonthYearSelect() {
+    var currentCalendarDate = calendar.getDate();
+    monthSelect.value = currentCalendarDate.getMonth();
+    yearSelect.value = currentCalendarDate.getFullYear();
+}
 
 monthSelect.addEventListener('change', function () {
     var selectedMonth = parseInt(this.value);
@@ -96,7 +110,6 @@ yearSelect.addEventListener('change', function () {
     var selectedYear = parseInt(this.value);
     calendar.gotoDate(new Date(selectedYear, selectedMonth, currentDate));
 });
-
 
 var monthViewButton = document.getElementById('monthView');
 monthViewButton.classList.add('active-btn');
@@ -120,16 +133,29 @@ buttons.forEach(function(button) {
         } else if (this.id === 'monthView') {
             calendar.changeView('dayGridMonth');
         }
+        updateMonthYearSelect();
     });
 });
 
+document.getElementById('prevSchedule').addEventListener('click', function() {
+    calendar.prev();
+    updateMonthYearSelect();
+});
+
+document.getElementById('nextSchedule').addEventListener('click', function() {
+    calendar.next();
+    updateMonthYearSelect();
+});
 
 /*-----------------------Reviewer--------------------*/
 
 
 var MyScheduleBtn = document.getElementById('MySchedule-btn');
+var Reviewerbtn = document.getElementById('Reviewer-btn');
 MyScheduleBtn.classList.add('active-btn2');
 MyScheduleBtn.style.backgroundColor = "#ffffff";
+var ReviewerSchedule = document.getElementById('Reviewer-Schedule');
+var ScheduleContent = document.getElementById('Schedule-Content');
 
 function refreshCalendar(calendarInstance) {
     calendarInstance.render();
@@ -160,6 +186,7 @@ var calendarEl2 = document.getElementById('calendar2');
 var calendar2 = new FullCalendar.Calendar(calendarEl2, {
     initialView: 'dayGridMonth',
     height: 'auto',
+    hiddenDays: [0],
     initialDate: new Date()
 });
 calendar2.render();
@@ -170,9 +197,6 @@ var currentYear2 = new Date().getFullYear();
 var currentMonth2 = new Date().getMonth();
 var currentDate2 = new Date().getDate();
 
-monthSelect2.value = currentMonth2;
-yearSelect2.value = currentYear2;
-
 for (var year = currentYear - 5; year <= currentYear2 + 5; year++) {
     var option = document.createElement("option");
     option.value = year;
@@ -180,7 +204,14 @@ for (var year = currentYear - 5; year <= currentYear2 + 5; year++) {
     yearSelect2.appendChild(option);
 }
 
+monthSelect2.value = currentMonth2;
 yearSelect2.value = currentYear2;
+
+function updateMonthYearSelect2() {
+    var currentCalendarDate2 = calendar2.getDate();
+    monthSelect2.value = currentCalendarDate2.getMonth();
+    yearSelect2.value = currentCalendarDate2.getFullYear();
+}
 
 monthSelect2.addEventListener('change', function () {
     var selectedMonth2 = parseInt(this.value);
@@ -220,6 +251,15 @@ buttons2.forEach(function(button2) {
     });
 });
 
+document.getElementById('prevSchedule2').addEventListener('click', function() {
+    calendar2.prev();
+    updateMonthYearSelect2();
+});
+
+document.getElementById('nextSchedule2').addEventListener('click', function() {
+    calendar2.next();
+    updateMonthYearSelect2();
+});
 
 /*-------------------------------------------------------------------*/
 let MSContainer = document.getElementById('MS-Container');
