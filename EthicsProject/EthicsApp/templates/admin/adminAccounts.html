@@ -4,14 +4,15 @@
 {% block css %}
 
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
-
+<link rel="stylesheet" href="{% static './css/adminAccount.css' %}">
+<script type="module" src="{% static 'js/adminAccounts.js' %}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block content %}
-
+{% include 'modal/addAccountAdmin.html' %}
 <div class="MainContainer">
     <div class="MC-Top">
         <div class="MCT-Left">
@@ -30,6 +31,66 @@
     </div>
     <div class="MC-Bottom">
         {% include './adminNav.html' %}      
+        
+        <div id="Accounts-Content">
+            <div class="AC-Top">
+              <div class="ACT-Left">
+                    <button id="Students-Accounts">Students</button>
+                    <button id="Reviewer-Accounts">Reviewer</button>
+                    <button id="Admin-Accounts">Admin</button> 
+                </div> 
+                <div class="ACT-Right">
+                    <button type="">Invite</button> 
+                </div> 
+              </div>
+             <div id="StudentAcc-Area">
+                <table>
+                  <tr>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>College</th>
+                  </tr>
+                  {% for student in students %}
+                  <tr>
+                    <td>{{ student.auth_user.username }}</td>
+                    <td>{{ student.auth_user.firstname }}</td>
+                    <td>{{ student.auth_user.lastname }}</td>
+                    <td>{{ student.auth_user.email }}</td>
+                    <td>
+                      {% for account in student.accounts_set.all %}
+                        {{ account.college_id.college_name }}{% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+              <div id="ReviewerAcc-Area">
+                <h2>b</h2>
+              </div>
+              <div id="AdminAcc-Area">
+                <table>
+                  <tr>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+
+                  </tr>
+                  {% for admin in admins %}
+                  <tr>
+                    <td>{{ admin.auth_user.username }}</td>
+                    <td>{{ admin.auth_user.firstname }}</td>
+                    <td>{{ admin.auth_user.lastname }}</td>
+                    <td>{{ admin.auth_user.email }}</td>
+
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+        </div>
     </div>
 </div>
 

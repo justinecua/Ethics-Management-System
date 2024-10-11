@@ -59,7 +59,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  padding: 0.1rem;
 }
 
 .SCT-Left {
@@ -145,6 +145,7 @@
 .fc .fc-day {
   padding: 1rem;
   background-color: white;
+
 }
 
 .fc .fc-day:hover {
@@ -163,6 +164,7 @@
 .fc {
   font-family: "montserrat", sans-serif;
   border: none;
+
 }
 
 .event-container {
@@ -233,6 +235,8 @@
 }
 
 .fc-col-header-cell {
+  height: 1rem;
+  font-size: 0.9rem;
   background-color: #ffffff !important;
   border: 1px solid var(--container-border);
 }

@@ -62,8 +62,8 @@ body {
 
 .MC-Bottom {
   display: flex;
-  height: 100%;
-  padding: 0.7rem;
+  height: 93vh;
+
 }
 
 .MCT-Left {
@@ -71,6 +71,7 @@ body {
   display: flex;
   align-items: center;
   border-right: 1px solid var(--container-border);
+
 }
 
 
@@ -122,6 +123,7 @@ body {
 }
 
 nav {
+  padding: 0.4rem;
   width: 15%;
   border-right: 1px solid var(--container-border);
   display: flex;

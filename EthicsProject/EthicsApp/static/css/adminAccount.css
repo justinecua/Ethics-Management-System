@@ -1,0 +1,175 @@
+[data-theme="dark"] {
+  --bg-color: #0a0a0a;
+  --text-color: #BABABA;
+  --login-container: #1d1d1d;
+  --border: #DCDCDE;
+  --button-color: #0084ff;
+  --button-hover: #0b1e9a;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.8);
+  --nav-bg-icon: #f8f8fa;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: #1e5cc3;
+  --calendarView-btn-color: #f3f4f7;
+  --modal-container: #ffffff;
+}
+
+[data-theme="light"] {
+  --bg-color: #f8f9ff;
+  --text-color: #373131;
+  --login-container: #ffffff;
+  --border: #DCDCDE;
+  --button-color: #0084ff;
+  --button-hover: #0b1e9a;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.4);
+  --nav-bg-icon: #f3f4f7;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: black;
+  --calendarView-btn-color: #f3f4f7;
+  --modal-container: #ffffff;
+}
+
+#Accounts-Content {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.AC-Top {
+  width: 98%;
+  height: 4rem;
+  border-bottom: 1px solid var(--container-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.1rem;
+}
+
+.ACT-Left {
+  background-color: var(--calendarView-btn-color);
+  border-radius: 7px;
+
+}
+
+.ACT-Right button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  background-color: var(--button-color);
+  color: white;
+  box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+}
+
+.ACT-Right button:hover {
+  background-color: var(--button-hover);
+}
+
+.ACT-Left button {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ACT-Left button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  background-color: var(--calendarView-btn-color);
+}
+
+.active-btn {
+  border: 1px solid var(--container-border);
+  background-color: #ffffff;
+  box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#StudentAcc-Area {
+  width: 97%;
+  border: none;
+  display: flex;
+  padding: 1rem;
+}
+
+#ReviewerAcc-Area {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border: none;
+  display: none;
+}
+
+#AdminAcc-Area {
+  width: 97%;
+  padding: 1rem;
+  border: none;
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: auto;
+}
+
+
+th,
+td {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  padding: 1rem;
+  border: 1px solid var(--container-border);
+  background-color: var(--modal-container);
+}
+
+th {
+  font-weight: 500;
+}
+
+td {
+
+  vertical-align: middle;
+}
+
+td {
+  min-height: 2rem;
+}
+
+#Modal-AddAccount-Overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #565a6241;
+  z-index: 7;
+  position: absolute;
+  display: flex;
+  overflow: hidden;
+
+}
+
+#MSAA-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 25rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 2.4rem;
+}
