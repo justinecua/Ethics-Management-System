@@ -1,8 +1,26 @@
-<form method="POST" action=""> 
+<form method="POST" action="{% url 'send_invitation_email' %}">
   {% csrf_token %}
   <div id="Modal-AddAccount-Overlay">
     <div id="MSAA-Container">
-      <h3>Invite a user</h3> 
+      <h3>Invite a user</h3>
+      <p>Send an invite link to a gmail account. The role can be changed later.</p>
+    
+      <div class="MSAAC-Bottom">
+        <input type="email" name="email" placeholder="Input Email Address" required>
+        <select id="AccountType" name="role" required>
+          {% for accountType in accountTypes %} 
+          <option value="{{ accountType }}">{{ accountType }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    
+      <div class="MSAAC-Bottom2">
+        <button id="AddAccount-Cancel" type="button">Cancel</button>
+        <button id="AddAccount-Submit" type="submit">Submit</button>
+      </div>
     </div>
   </div>
 </form>
+
+    
+

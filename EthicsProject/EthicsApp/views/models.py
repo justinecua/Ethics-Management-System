@@ -20,13 +20,11 @@ class Apointments(models.Model):
         return f"{self.appointment_date} {self.appointment_name}"
 
 class Reviewer(models.Model):
-    first_name = models.CharField(max_length =255) 
-    last_name = models.CharField(max_length =255) 
-    smc_email = models.EmailField(max_length =255)
-    smc_id_no = models.CharField(max_length =255)
+    auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE) 
+    smc_id_no = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} "
+        return f"{self.auth_user}"
 
 class College(models.Model):
     college_name = models.CharField(max_length =255)
@@ -46,7 +44,8 @@ class Accounts(models.Model):
     reviewer_id= models.ForeignKey(Reviewer, on_delete=models.CASCADE, null=True)
     college_id= models.ForeignKey(College, on_delete=models.CASCADE, null=True)
     account_typeid= models.ForeignKey(Account_Type, on_delete=models.CASCADE, null=True)
-   
+    invite_status= models.CharField(max_length=255, null=True)
+
     def __str__(self):
         return f"{self.student_id}"
 

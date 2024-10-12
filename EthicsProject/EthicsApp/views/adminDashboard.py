@@ -1,19 +1,48 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .models import Student, Reviewer
+from .models import Student, Accounts, Reviewer, Account_Type
+from django.db.models import Prefetch
 
 def adminDashboard(request):
     return render(request, 'admin/adminDashboard.html')
 
 def adminAccounts(request):
-    students = Student.objects.filter(auth_user__isnull=False, auth_user__is_superuser=False).prefetch_related('accounts_set')
-    reviewers = Reviewer.objects.all()
-    admins = Student.objects.filter(auth_user__isnull=False, auth_user__is_superuser=True).prefetch_related('accounts_set')
-    
+    students = Student.objects.filter(
+        auth_user__isnull=False,
+        auth_user__is_superuser=False
+    ).prefetch_related(
+        Prefetch(
+            'accounts_set',
+            queryset=Accounts.objects.filter(account_typeid__Account_type='Student')
+        )
+    )
+
+    reviewers = Reviewer.objects.filter(
+        auth_user__isnull=False,
+        auth_user__is_superuser=False
+    ).prefetch_related(
+        Prefetch(
+            'accounts_set',
+            queryset=Accounts.objects.filter(account_typeid__Account_type='Reviewer')
+        )
+    )
+
+    admins = Student.objects.filter(
+        auth_user__isnull=False,
+        auth_user__is_superuser=True
+    ).prefetch_related(
+        Prefetch(
+            'accounts_set',
+            queryset=Accounts.objects.filter(account_typeid__Account_type='Admin')
+        )
+    )    
+    accountType = Account_Type.objects.exclude(Account_type='Student')
+
     return render(request, 'admin/adminAccounts.html', {
         'students': students,
         'reviewers': reviewers,
-        'admins': admins
+        'admins': admins,
+        'accountTypes': accountType,
     })
 
 def adminAppointments(request):

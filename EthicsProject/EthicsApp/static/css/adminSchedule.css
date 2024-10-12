@@ -41,7 +41,14 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #f8f8fa;
+}
+
+.fc-daygrid-day.fc-day-other {
+  background-color: #f8f8fa !important;
 }
 
 #Reviewer-Schedule {
@@ -49,17 +56,20 @@
   height: 100%;
   display: none;
   flex-direction: column;
-  margin-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #f8f8fa;
 }
 
 .SC-Top {
-  width: 100%;
-  height: 4rem;
-  border-bottom: 1px solid var(--container-border);
+  height: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.1rem;
+  padding: 0.8rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
 }
 
 .SCT-Left {
@@ -127,9 +137,7 @@
 #calendar {
   width: 100%;
   height: 100%;
-  padding: 1rem;
   border: none;
-
 }
 
 #calendar2 {
@@ -145,7 +153,8 @@
 .fc .fc-day {
   padding: 1rem;
   background-color: white;
-
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px, rgba(0, 0, 0, 0.05) 10px 10px 5px;
 }
 
 .fc .fc-day:hover {
@@ -238,12 +247,14 @@
   height: 1rem;
   font-size: 0.9rem;
   background-color: #ffffff !important;
-  border: 1px solid var(--container-border);
+
 }
 
 .fc .fc-scrollgrid {
+  background-color: var(--modal-container);
+  border-radius: 10px;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
 }
 
 .active-btn {
@@ -251,6 +262,7 @@
   background-color: #ffffff;
   box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
 }
 
 .SC-CalendarView {

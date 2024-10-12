@@ -4,7 +4,7 @@
   --login-container: #1d1d1d;
   --border: #DCDCDE;
   --button-color: #0084ff;
-  --button-hover: #0b1e9a;
+  --button-hover: #0179e8;
   --container-border: #d7dde0;
   --h3-Top: #07192a;
   --input-bg: #f3f4f7;
@@ -23,7 +23,7 @@
   --login-container: #ffffff;
   --border: #DCDCDE;
   --button-color: #0084ff;
-  --button-hover: #0b1e9a;
+  --button-hover: #0179e8;
   --container-border: #d7dde0;
   --h3-Top: #07192a;
   --input-bg: #f3f4f7;
@@ -41,17 +41,20 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #f8f8fa;
 }
 
 .AC-Top {
-  width: 98%;
-  height: 4rem;
-  border-bottom: 1px solid var(--container-border);
+  height: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.1rem;
+  padding: 0.8rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
 }
 
 .ACT-Left {
@@ -61,10 +64,10 @@
 }
 
 .ACT-Right button {
+  font-weight: 600;
   padding: 0.6rem 1rem;
   border: none;
   border-radius: 7px;
-  font-weight: 600;
   font-family: "Montserrat", sans-serif;
   cursor: pointer;
   background-color: var(--button-color);
@@ -84,7 +87,7 @@
   padding: 0.6rem 1rem;
   border: none;
   border-radius: 7px;
-  font-weight: 600;
+
   font-family: "Montserrat", sans-serif;
   cursor: pointer;
   background-color: var(--calendarView-btn-color);
@@ -98,25 +101,24 @@
 }
 
 #StudentAcc-Area {
-  width: 97%;
+  width: 100%;
   border: none;
   display: flex;
-  padding: 1rem;
+  background-color: var(--modal-container);
 }
 
 #ReviewerAcc-Area {
   width: 100%;
-  height: 100%;
-  padding: 1rem;
   border: none;
   display: none;
+  background-color: var(--modal-container);
 }
 
 #AdminAcc-Area {
-  width: 97%;
-  padding: 1rem;
+  width: 100%;
   border: none;
   display: none;
+  background-color: var(--modal-container);
 }
 
 table {
@@ -132,7 +134,6 @@ td {
   font-family: "Montserrat", sans-serif;
   font-size: 0.8rem;
   padding: 1rem;
-  border: 1px solid var(--container-border);
   background-color: var(--modal-container);
 }
 
@@ -155,7 +156,7 @@ td {
   background-color: #565a6241;
   z-index: 7;
   position: absolute;
-  display: flex;
+  display: none;
   overflow: hidden;
 
 }
@@ -172,4 +173,82 @@ td {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.3s ease-out forwards;
   padding: 2.4rem;
+}
+
+#MSAA-Container h3 {
+  font-size: 1.4rem;
+  width: 100%;
+  display: flex;
+  text-align: left;
+  margin-bottom: 0.6rem;
+}
+
+#MSAA-Container p {
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.MSAAC-Bottom {
+  width: 100%;
+}
+
+.MSAAC-Bottom input {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--container-border);
+  outline: none;
+  width: 60%;
+  font-family: "Montserrat", sans-serif;
+}
+
+.MSAAC-Bottom select {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 30%;
+  cursor: pointer;
+  background-color: var(--container-border);
+  font-family: "Montserrat", sans-serif;
+}
+
+.MSAAC-Bottom2 {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+
+}
+
+#AddAccount-Cancel {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+#AddAccount-Cancel:hover {
+  background-color: var(--nav-hover);
+  cursor: pointer;
+}
+
+#AddAccount-Submit:hover {
+  background-color: var(--button-hover);
+  cursor: pointer;
+}
+
+#AddAccount-Submit {
+  background-color: var(--button-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.MSAAC-Bottom2 button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--container-border);
+  outline: none;
 }

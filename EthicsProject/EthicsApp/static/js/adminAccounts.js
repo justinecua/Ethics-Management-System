@@ -4,6 +4,9 @@ let AdminAccounts = document.getElementById('AdminAccounts');
 let StudentAccArea = document.getElementById('StudentAcc-Area');
 let ReviewerAccArea = document.getElementById('ReviewerAcc-Area');
 let AdminAccArea = document.getElementById('AdminAcc-Area');
+let InviteAccbtn = document.getElementById('InviteAcc-btn');
+let ModalAddAccountOverlay = document.getElementById('Modal-AddAccount-Overlay');
+let AddAccountCancel = document.getElementById('AddAccount-Cancel');
 
 StudentsAccounts.classList.add('active-btn');
 StudentsAccounts.style.backgroundColor = "#ffffff";
@@ -34,3 +37,22 @@ areas.forEach(function(area) {
         }
     });
 });
+
+InviteAccbtn.addEventListener('click', function(event){
+  event.stopPropagation();
+  ModalAddAccountOverlay.style.display = "flex";
+})
+
+AddAccountCancel.addEventListener('click', function(event){
+  event.stopPropagation();
+  ModalAddAccountOverlay.style.dislay = "none";
+})
+
+document.addEventListener('click', function(event) {
+    event.stopPropagation();
+    if (event.target === ModalAddAccountOverlay) {
+        ModalAddAccountOverlay.style.display = "none";
+    }
+});
+
+
