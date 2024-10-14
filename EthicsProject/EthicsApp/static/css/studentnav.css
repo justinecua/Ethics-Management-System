@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    width: 15%;
+    height: 90vh;
+    margin-left: 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    border-radius: 1rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.nav-title {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.nav-title img {
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-right: 0.6rem;
+}
+
+.nav-title h3 {
+    font-size: 1.5rem;
+}
+
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15%;
+}
+
+.nav-list {
+    list-style-type: none;
+    width: 100%;
+    padding: 1rem;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #1b1b1b;
+}
+
+.nav-list li {
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: flex-start;
+}
+
+.NavContainer {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.NavContainer img {
+    width: 100%;
+    height: auto;
+}
+
+/* Active state for the current page */
+.active {
+    background-color: #101010;
+    border-radius: 5px;
+}
+
+.active p {
+    color: #ffffff;
+}
+
+.nav-list li p {
+    margin: 0;
+    font-size: 16px;
+    color: #1f1f1f;
+}
+
+.nav-list li:hover {
+    background-color: #fc9bff;
+    border-radius: 5px;
+}
+
+.nav-list li:hover p {
+    color: #000000;
+}
+
+.nav-list li:hover .NavContainer img {
+    filter: brightness(1.2);
+}
+
+/* Content Section */
+.content {
+    margin-left: 17%; /* Adjust based on sidebar width */
+    padding: 2rem;
+    width: 80%;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+p {
+    font-size: 1rem;
+    color: #666;
+}

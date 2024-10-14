@@ -38,11 +38,12 @@ urlpatterns = [
 
 
     #----------------------------------------Ferryl------------------------------------------------
-  re_path(r'^try$', views.trys, name='try'),
+  re_path(r'^trys$', views.trys, name='trys'),
   re_path(r'^index$', views.index, name='index'),
   re_path(r'^register$', views.register, name='register'),
   re_path(r'^validatelogin$', views.validatelogin, name='validatelogin'),
   re_path(r'^studentdashboard$', views.studentdashboard, name='studentdashboard'),
+  re_path(r'^studentAppointment$', views.studentAppointment, name='studentAppointment'),
   
 
 

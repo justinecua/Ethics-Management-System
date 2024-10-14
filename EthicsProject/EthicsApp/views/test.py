@@ -3,6 +3,6 @@ from django.template import loader
 from django.http import HttpResponse
 
 def trys(request):
-  template = loader.get_template('try.html')
+  template = loader.get_template('students/try.html')
   return HttpResponse(template.render())
 

@@ -19,7 +19,6 @@ class ScheduleView(View):
         start_time_str = f"{schedule_date} {schedule_start_time}"
         end_time_str = f"{schedule_date} {schedule_end_time}"
 
-      
         try:
             start_time = datetime.strptime(start_time_str, "%Y-%m-%d %H:%M")
             end_time = datetime.strptime(end_time_str, "%Y-%m-%d %H:%M")
@@ -61,7 +60,9 @@ class ScheduleView(View):
 
 class ScheduleDataView(View):
     def get(self, request):
-        schedules = Schedule.objects.all()
+        # Filter schedules that are in the future or today (removes past schedules)
+        today = datetime.now().date()
+        schedules = Schedule.objects.filter(schedule_date__gte=today)
         events = []
         
         for schedule in schedules:
@@ -92,8 +93,3 @@ class ScheduleDataView(View):
                 })
 
         return JsonResponse(events, safe=False)
-
-
-
-
-
