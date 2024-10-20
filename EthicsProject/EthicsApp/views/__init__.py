@@ -8,6 +8,7 @@ from .studentdashboard import *
 from .adminDashboard import *
 from .addScheduleAdmin import *
 
+
 #----------------------------Justine-------------------------
 
 
@@ -35,7 +36,7 @@ from .addScheduleAdmin import *
 
 
 #---------------------------Ferryl---------------------------
-
+from .studentside import *
 
 
 

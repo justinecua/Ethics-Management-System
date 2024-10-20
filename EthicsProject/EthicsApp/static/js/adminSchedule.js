@@ -182,6 +182,17 @@ Reviewerbtn.addEventListener('click', function(){
 
 });
 
+Reviewerbtn.addEventListener('click', function(){
+    ScheduleContent.style.display = "none";
+    ReviewerSchedule.style.display = "flex";
+    refreshCalendar(calendar2);
+    MyScheduleBtn.classList.remove('active-btn2');
+    MyScheduleBtn.style.backgroundColor = "";
+    Reviewerbtn.classList.add('active-btn2');
+    Reviewerbtn.style.backgroundColor = "#ffffff";
+
+});
+
 var calendarEl2 = document.getElementById('calendar2');
 var calendar2 = new FullCalendar.Calendar(calendarEl2, {
     initialView: 'dayGridMonth',
