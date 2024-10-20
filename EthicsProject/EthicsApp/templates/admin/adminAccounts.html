@@ -71,7 +71,7 @@
                     <td>{{ student.auth_user.email }}</td>
                     <td>
                       {% for account in student.accounts_set.all %}
-                        {{ account.college_id.college_name }}}
+                        {{ account.college_id.college_name }}
                       {% endfor %}
                     </td>
                   </tr>
