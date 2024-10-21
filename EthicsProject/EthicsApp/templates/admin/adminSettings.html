@@ -4,7 +4,7 @@
 {% block css %}
 
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
-
+<link rel="stylesheet" href="{% static './css/adminSettings.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,24 +13,21 @@
 {% block content %}
 
 <div class="MainContainer">
-    <div class="MC-Top">
-        <div class="MCT-Left">
-            <img src="../../static/images/logo.png" alt="">
-            <h3>SMC Ethics Office</h3>
-        </div> 
-          <div class="MCT-Middle">
-            
-          </div>
-        <div class="MCT-Right">
-          <input type="" name="" id="HomeSearch" placeholder="Search"> 
-          <div class="NotifAdmin">
-            <img src="../../static/images/Bell-Notification--Streamline-Flex.png" alt="">
-          </div>
-        </div>
-    </div>
+    {% include './adminTopNav.html' %}
     <div class="MC-Bottom">
         {% include './adminNav.html' %}      
+    
+        <div id="Settings-Content">
+            <h2>Link Your Gmail Account</h2>
+            <p>Click the button below to link your Gmail account for seamless integration:</p>
+            <a href="{% url 'socialaccount_connections' %}">
+                <button class="btn btn-primary">
+                    <i class="fas fa-link"></i> Link Gmail Account
+                </button>
+            </a>
+        </div>
     </div>
 </div>
 
 {% endblock %}
+

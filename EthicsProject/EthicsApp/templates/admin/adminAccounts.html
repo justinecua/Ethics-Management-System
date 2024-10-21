@@ -14,32 +14,19 @@
 {% block content %}
 {% include 'modal/addAccountAdmin.html' %}
 <div class="MainContainer">
-     <div class="messages">
+     <div class="messagesA">
         {% if messages %}
             {% for message in messages %}
-                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
-                    <div class="{% if 'success' in message.tags %}message-success{% elif 'error' in message.tags %}message-error{% else %}message-info{% endif %}">
+                <div class="messageA {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <div class="{% if 'success' in message.tags %}message-successA{% elif 'error' in message.tags %}message-errorA{% else %}message-info{% endif %}">
                         {{ message }}
                     </div>
                 </div>
             {% endfor %}
         {% endif %}
     </div>
-    <div class="MC-Top">
-        <div class="MCT-Left">
-            <img src="../../static/images/logo.png" alt="">
-            <h3>SMC Ethics Office</h3>
-        </div> 
-          <div class="MCT-Middle">
-            
-          </div>
-        <div class="MCT-Right">
-          <input type="" name="" id="HomeSearch" placeholder="Search"> 
-          <div class="NotifAdmin">
-            <img src="../../static/images/Bell-Notification--Streamline-Flex.png" alt="">
-          </div>
-        </div>
-    </div>
+    {% include './adminTopNav.html' %}    
+
     <div class="MC-Bottom">
         {% include './adminNav.html' %}      
         
@@ -57,6 +44,7 @@
              <div id="StudentAcc-Area">
                 <table>
                   <tr>
+                    <th>Profile</th>
                     <th>Username</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -65,6 +53,13 @@
                   </tr>
                   {% for student in students %}
                   <tr>
+                    <td>
+                        {% if student.google_picture %}
+                            <img class="studentProfilePic" src="{{ student.google_picture }}" />
+                        {% else %}
+                            <img class="studentProfilePic2" src="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
+                        {% endif %}    
+                    </td>
                     <td>{{ student.auth_user.username }}</td>
                     <td>{{ student.auth_user.firstname }}</td>
                     <td>{{ student.auth_user.lastname }}</td>
@@ -81,7 +76,7 @@
               <div id="ReviewerAcc-Area">
                <table>
                   <tr>
-                    <th>Username</th>
+                    <th>Profile</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -90,7 +85,13 @@
                   </tr>
                   {% for reviewer in reviewers %}
                   <tr>
-                    <td>{{ reviewer.auth_user.username }}</td>
+                    <td>
+                        {% if reviewer.google_picture %}
+                            <img class="studentProfilePic" src="{{ reviewer.google_picture }}" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
+                        {% else %}
+                            <img class="studentProfilePic2" src="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
+                        {% endif %}    
+                    </td>
                     <td>{{ reviewer.auth_user.firstname }}</td>
                     <td>{{ reviewer.auth_user.lastname }}</td>
                     <td>{{ reviewer.auth_user.email }}</td>
@@ -107,7 +108,7 @@
               <div id="AdminAcc-Area">
                 <table>
                   <tr>
-                    <th>Username</th>
+                    <th>Profile</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -115,7 +116,13 @@
                   </tr>
                   {% for admin in admins %}
                   <tr>
-                    <td>{{ admin.auth_user.username }}</td>
+                    <td>
+                        {% if admin.google_picture %}
+                            <img class="studentProfilePic" src="{{ admin.google_picture }}" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
+                        {% else %}
+                            <img class="studentProfilePic2" src="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
+                        {% endif %}    
+                    </td>
                     <td>{{ admin.auth_user.firstname }}</td>
                     <td>{{ admin.auth_user.lastname }}</td>
                     <td>{{ admin.auth_user.email }}</td>

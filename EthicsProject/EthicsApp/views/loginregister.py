@@ -40,6 +40,8 @@ def register(request):
 
     return render(request, 'gotoRegisterPage.html')
 
+from allauth.socialaccount.models import SocialAccount
+
 @csrf_exempt
 def validatelogin(request):
     if request.method == 'POST':
@@ -54,6 +56,12 @@ def validatelogin(request):
             try:
                 profile = Accounts.objects.get(student_id__auth_user=user)
                 account_type = profile.account_typeid.Account_type
+                
+                social_account = SocialAccount.objects.filter(user=user, provider='google').first()
+                profile_picture = social_account.extra_data.get('picture') if social_account else None
+                
+                request.session['profile_picture'] = profile_picture
+                request.session['account_type'] = account_type
 
                 if account_type == 'Student':
                     return redirect('studentdashboard')

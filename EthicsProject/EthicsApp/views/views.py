@@ -12,7 +12,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.contrib.auth import login
+from django.contrib.auth import login, get_backends
 
 
 def index(request):
@@ -328,15 +328,39 @@ def set_password(request, uidb64, token):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
+        account = Accounts.objects.filter(
+            reviewer_id__auth_user=user
+        ).first()
+        
+        role = None
+        if account:
+            role = account.account_typeid.Account_type
+
         if request.method == 'POST':
             form = SetPasswordForm(user, request.POST)
             if form.is_valid():
                 form.save()
-                login(request, user)
-                return redirect('success_url') 
+
+                if account:
+                    account.invite_status = "Completed"
+                    account.save()
+                 
+                messages.success(request, "Your password has been set successfully. You are now logged in.")
+                
+                return render(request, 'emails/success_invitation.html') 
+            else:
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, f"{field.capitalize()}: {error}")
+
         else:
             form = SetPasswordForm(user)
-        return render(request, 'emails/set_password.html', {'form': form})
+
+        return render(request, 'emails/set_password.html', {
+            'form': form,
+            'role': role  
+        })
     else:
+        messages.error(request, "The password reset link is invalid or has expired.")
         return render(request, 'emails/password_reset_invalid.html')
 

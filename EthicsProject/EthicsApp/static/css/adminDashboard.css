@@ -58,7 +58,7 @@ body {
 .MC-Top {
   height: 2.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding: 0.7rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -71,51 +71,52 @@ body {
 }
 
 .MCT-Left {
-  width: 15%;
+  width: 20%;
   display: flex;
   align-items: center;
 }
 
 
 .MCT-Middle {
-  width: 65%;
+  width: 80%;
   display: flex;
   align-items: center;
 }
 
 .MCT-Right {
-  width: 20%;
+  width: 30%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .MCT-Left img {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.9rem;
+  height: 2.9rem;
   margin-right: 0.6rem;
 }
 
 .MCT-Left h3 {
-  color: var(--h3-Top);
+
   font-size: 0.9rem;
+  font-family: Arial;
 }
 
 .MCT-Right input {
   background-color: var(--input-bg);
   border: none;
   padding: 0.7rem;
-  width: 70%;
+  width: 57%;
   border: 1px solid var(--container-border);
   border-radius: 5px;
 }
 
 .NotifAdmin {
-  padding: 0.6rem;
+  padding: 0.6rem 0.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--container-border);
   border-radius: 5px;
+  border: 1px solid var(--container-border);
 }
 
 .NotifAdmin img {
@@ -250,4 +251,94 @@ nav ul a {
   transition: all 0.3s ease-in-out;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
   z-index: 15;
+}
+
+
+.messagesA {
+  display: none;
+
+}
+
+.message-successA {
+  background-color: #d1fadf;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #089a66;
+  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
+  font-weight: 600;
+  padding: 1.2rem 1.8rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border-radius: 10px;
+  right: 1rem;
+  bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+  z-index: 15;
+}
+
+.message-errorA {
+  background-color: #fee4e2;
+  color: #ec6257;
+  padding: 10px;
+  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
+  font-weight: 600;
+  padding: 1.2rem 1.8rem;
+  border: 1px solid #ec6257;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border-radius: 10px;
+  right: 1rem;
+  bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+  z-index: 15;
+}
+
+table th {
+  background-color: #f8f9fd;
+}
+
+.ProfilePic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  background-color: var(--nav-hover);
+}
+
+.ProfilePic img {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ProfilePic p {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--button-color);
+  font-weight: 600;
+}
+
+.PPProf {
+  border-radius: 5px;
+  padding: 0.3rem 0.4rem;
+  background-color: var(--modal-container);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.PPProf img {
+  width: 1.2rem;
+  height: 1.2rem;
+  object-fit: cover;
+  filter: invert(34%) sepia(88%) saturate(7471%) hue-rotate(180deg) brightness(1.1) contrast(1);
 }
