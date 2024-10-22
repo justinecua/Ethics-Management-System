@@ -111,7 +111,7 @@ body {
 .LoginTop p {
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
-  margin-top: -0.5rem;
+  margin-top: 0.1rem;
 }
 
 .login {
@@ -144,7 +144,7 @@ input[type="username"],
 input[type="email"],
 input[type="password2"] {
   width: 100%;
-  padding: 0.7rem 1rem;
+  padding: 0.9rem 1rem;
   border: none;
   border-bottom: 1px solid #ccc;
   border-radius: 0;
