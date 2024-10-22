@@ -13,21 +13,7 @@
 {% block content %}
 
 <div class="MainContainer">
-    <div class="MC-Top">
-        <div class="MCT-Left">
-            <img src="../../static/images/logo.png" alt="">
-            <h3>SMC Ethics Office</h3>
-        </div> 
-          <div class="MCT-Middle">
-            
-          </div>
-        <div class="MCT-Right">
-          <input type="" name="" id="HomeSearch" placeholder="Search"> 
-          <div class="NotifAdmin">
-            <img src="../../static/images/Bell-Notification--Streamline-Flex.png" alt="">
-          </div>
-        </div>
-    </div>
+    {% include './studentTopNav.html' %}
     <div class="MC-Bottom">
         {% include 'students/studentnav.html' %}    
         <div id='calendar2'></div>  

@@ -42,16 +42,6 @@ def register(request):
 
     return render(request, 'accounts/login.html')
 
-
-from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
-from .models import Accounts  # Ensure correct path based on your project structure
-from allauth.socialaccount.models import SocialAccount
-
 @csrf_exempt
 def validatelogin(request):
     if request.method == 'POST':
@@ -70,7 +60,6 @@ def validatelogin(request):
             login(request, user)
             
             try:
-                # Check if the user is linked to an account via student_id, reviewer_id, or college_id
                 profile = Accounts.objects.filter(
                     Q(student_id__auth_user=user) | 
                     Q(reviewer_id__auth_user=user) 
