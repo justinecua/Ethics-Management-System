@@ -1,56 +1,53 @@
-{% load static %}
-{% block css %}
-<link rel="stylesheet" href="{% static './css/studentnav.css' %}">
-{% endblock %}
-
-<div class="sidebar">
-        <div class="nav-title">
-            <div class="nav-left">
-                <img src="{% static 'images/Logo.png' %}" alt="Logo">
-                <h3>Student Dashboard</h3>
-            </div>
-        </div>  
-
-
-
+<nav>
     <div class="nav-content">
-        <ul class="nav-list">
-      
-            <a href="">
-                <li class="{% if request.path == '/adminDashboard/' %}active{% endif %}">
-                    <div class="NavContainer">
-                        <img src="{% static 'images/Home-2--Streamline-Flex.png' %}" alt="Home Icon">
-                    </div>
-                    <p>Home</p>
-                </li>
-            </a>
+      <ul>
+        <a href="{% url 'studentdashboard' %}">
+          <li class="{% if request.path == '/studentdashboard/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Home-2--Streamline-Flex.png" alt="">
+            </div>
+            <p>Home</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'studentAppointment' %}">
+          <li class="{% if request.path == '/studentAppointment/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Calendar-Note--Streamline-Plump (1).png" alt="">
+            </div>
+            <p>Appointments</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'studentManuscript' %}">
+          <li class="{% if request.path == '/studentManuscript/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/manuscript.png" alt="">
+            </div>
+            <p>Manuscripts</p>
+          </li>
+        </a>
 
-         
-            <a href="{% url 'studentAppointment' %}">
-                <li class="{% if request.path == '/appointments/' %}active{% endif %}">
-                    <div class="NavContainer">
-                        <img src="{% static 'images/appointment.png' %}" alt="Appointments Icon">
-                    </div>
-                    <p>Appointments</p>
-                </li>
-            </a>
+        <a href="{% url 'studentSettings' %}">
+          <li class="{% if request.path == '/studentSettings/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Cog-Setting--Streamline-Micro.png" alt="">
+            </div>
+            <p>Settings</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'logout' %}">
+          <li>
+            <div class="NavContainer">
+              <img src="../../static/images/Logout-3--Streamline-Solar.png" alt="">
+            </div>
+            <p>Logout</p>
+          </li>
+        </a>
+      </ul>
 
-            <a href="">
-                <li class="{% if request.path == '/history/' %}active{% endif %}">
-                    <div class="NavContainer">
-                        <img src="{% static 'images/history-icon.png' %}" alt="History Icon">
-                    </div>
-                    <p>Update Account</p>
-                </li>
-            </a>
-            <a href="{% url 'logout' %}">
-                <li>
-                  <div class="NavContainer">
-                    <img src="../../static/images/Logout-3--Streamline-Solar.png" alt="">
-                  </div>
-                  <p>Logout</p>
-                </li>
-              </a>
-        </ul>
     </div>
-</div>
+  </nav>
+  
+  
