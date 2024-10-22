@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/master.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -17,9 +19,21 @@
 
 <body>
 
+
     {% block content %}
 
     {% endblock %}
+        <div id="messages" class="messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <div class="{% if 'success' in message.tags %}message-success{% elif 'error' in message.tags %}message-error{% endif %}">
+                        {{ message }} 
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
       <script>
         document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
 
@@ -33,7 +47,21 @@
         }
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const messages = document.getElementsByClassName('messages');
 
+       Array.from(messages).forEach(message => {
+        if (message) {
+            setTimeout(() => {
+                message.style.display = "flex";
+            }, 100);
+
+            setTimeout(() => {
+                message.style.display = "none";
+            }, 4000);
+        }
+    });
+});
 
 </script>
 </body>

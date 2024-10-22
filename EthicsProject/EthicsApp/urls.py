@@ -18,8 +18,8 @@ urlpatterns = [
     path('schedules/edit/<int:scheduleId>/', views.edit_schedule, name='edit_schedule'),
     path('send_invitation_email/', views.send_invitation_email, name='send_invitation_email'),
     path('set-password/<uidb64>/<token>/', views.set_password, name='set_password'),
-
-
+    re_path(r'^adminColleges/$', views.adminColleges, name='adminColleges'),
+    re_path(r'^adminAddColleges/$', views.adminAddColleges, name='adminAddColleges'),
 
 
 

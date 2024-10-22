@@ -28,6 +28,15 @@
         </li>
       </a>
 
+      <a href="{% url 'adminColleges' %}">
+        <li class="{% if request.path == '/adminColleges/' %}active{% endif %}">
+          <div class="NavContainer">
+            <img src="../../static/images/Graduation-Cap--Streamline-Sharp.png" alt="">
+          </div>
+          <p>Colleges</p>
+        </li>
+      </a>
+
       <a href="{% url 'adminManuscripts' %}">
         <li class="{% if request.path == '/adminManuscripts/' %}active{% endif %}">
           <div class="NavContainer">

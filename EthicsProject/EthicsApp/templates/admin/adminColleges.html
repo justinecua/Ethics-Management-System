@@ -1,0 +1,55 @@
+{% extends "master.html" %}
+
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
+<link rel="stylesheet" href="{% static './css/adminColleges.css' %}">
+<script type="module" src="{% static 'js/adminCollege.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+{% include 'modal/adminAddCollege.html' %}
+<div class="MainContainer">
+      {% include './adminTopNav.html' %}    
+
+    <div class="MC-Bottom">
+        {% include './adminNav.html' %}      
+        
+        <div id="College-Content">
+            <div class="CC-Top">
+              <div class="CCT-Left">
+                    <button id="ListOfColleges">Colleges</button>
+              </div> 
+                <div class="CCT-Right">
+                    <button id="AddCollege-btn">Add College</button> 
+                </div> 
+              </div>
+             <div id="StudentAcc-Area">
+                <table>
+                  <tr>
+                  <th>College Initials</th>
+                  <th>College</th>
+                  <th>Options</th>
+                  </tr>
+                    {% for college in colleges %}
+                  <tr>
+                    <td> {{ college.college_initials }}</td>
+                    <td> {{ college.college_name }}</td>
+                    <td>
+                      <button type="">Edit</button>
+                      <button type="">Delete</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+          </div>
+    </div>
+</div>
+
+
+{% endblock %}

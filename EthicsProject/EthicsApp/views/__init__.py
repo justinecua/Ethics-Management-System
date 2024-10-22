@@ -7,7 +7,7 @@ from .loginregister import *
 from .studentdashboard import *
 from .adminDashboard import *
 from .addScheduleAdmin import *
-
+from .addCollege import *
 
 #----------------------------Justine-------------------------
 

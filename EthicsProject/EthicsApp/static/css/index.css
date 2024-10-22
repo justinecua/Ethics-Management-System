@@ -17,6 +17,8 @@
 
 body {
   background-color: var(--bg-color);
+  font-family: "Montserrat", sans-serif;
+  background-color: #f4f6f9;
 }
 
 nav {
@@ -49,97 +51,99 @@ nav ul li {
   font-family: "Montserrat", sans-serif;
 }
 
+
+
 .password-reset-container {
-  max-width: 450px;
-  margin: 0 auto;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 8px;
   padding: 30px;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+}
+
+.password-reset-container p {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+
 }
 
 h2 {
-  text-align: center;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
   color: #333;
+  text-align: center;
+  margin-bottom: 0.4rem;
 }
 
 .form-group {
   margin-bottom: 20px;
 }
 
-.form-text {
-  font-size: 0.9em;
-  color: #6c757d;
+.form-group label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.form-group ul {
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group input,
+select {
+  outline: none;
+}
+
+.form-text {
+  font-size: 12px;
+  color: #777;
+}
+
+.form-text ul {
   padding-left: 20px;
   margin-top: 5px;
 }
 
-.form-group ul li {
-  list-style-type: disc;
-}
-
-.btn-primary {
+.btn {
   width: 100%;
-  padding: 10px;
-  font-size: 1em;
+  padding: 12px;
   background-color: #007bff;
-  border-color: #007bff;
+  border: none;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
+.btn:hover {
   background-color: #0056b3;
-  border-color: #004085;
 }
 
-
-#messages3 {
-  display: flex;
-
+select.form-control {
+  height: 40px;
 }
 
-.message-success3 {
-  background-color: #d1fadf;
-  color: #155724;
+.password-requirements {
+  background: #f9f9f9;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #089a66;
-  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
-  font-weight: 600;
-  padding: 1.2rem 1.8rem;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  border-radius: 10px;
-  right: 1rem;
-  bottom: 1.5rem;
-  transition: all 0.3s ease-in-out;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
-  z-index: 15;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
 }
 
-.message-error3 {
-  background-color: #fee4e2;
-  color: #ec6257;
-  padding: 10px;
-  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
-  font-weight: 600;
-  padding: 1.2rem 1.8rem;
-  border: 1px solid #ec6257;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  border-radius: 10px;
-  right: 1rem;
-  bottom: 1.5rem;
-  transition: all 0.3s ease-in-out;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
-  z-index: 15;
+.password-requirements ul {
+  list-style-type: disc;
+  padding-left: 20px;
 }

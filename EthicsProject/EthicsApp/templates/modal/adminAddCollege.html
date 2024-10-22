@@ -1,0 +1,25 @@
+<form method="POST" action="{% url 'adminAddColleges' %}"> 
+  {% csrf_token %}
+  <div id="Modal-College-Overlay">
+    <div id="CO-Container">
+      <div class="CO-Top">
+        <h3>Add College</h3>
+      </div>
+      <div class="CO-Bottom">
+    
+        <label for="college-initial">College Initial</label>
+        <input type="text" id="college-initial" name="college-initial" required placeholder="College Initial">
+        
+        <label for="college-name">College Name</label>
+        <input type="text" id="college-name" name="college-name" required placeholder="College Name">
+        
+        </div>
+      
+      <div class="CO-Bottom2">
+        <button type="button" id="cancel-college">Cancel</button>
+        <button type="submit" id="add-college">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
+

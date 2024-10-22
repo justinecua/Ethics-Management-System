@@ -5,12 +5,12 @@
   }
 
 
-  #messages3 {
-    display: flex;
+  .messages {
+    display: none;
 
   }
 
-  .message-success3 {
+  .message-success {
     background-color: #d1fadf;
     color: #155724;
     padding: 10px;
@@ -30,7 +30,7 @@
     z-index: 15;
   }
 
-  .message-error3 {
+  .message-error {
     background-color: #fee4e2;
     color: #ec6257;
     padding: 10px;
