@@ -42,8 +42,10 @@ urlpatterns = [
   re_path(r'^index$', views.index, name='index'),
   re_path(r'^register$', views.register, name='register'),
   re_path(r'^validatelogin$', views.validatelogin, name='validatelogin'),
-  re_path(r'^studentdashboard$', views.studentdashboard, name='studentdashboard'),
-  re_path(r'^studentAppointment$', views.studentAppointment, name='studentAppointment'),
+  re_path(r'^studentdashboard/$', views.studentdashboard, name='studentdashboard'),
+  re_path(r'^studentAppointment/$', views.studentAppointment, name='studentAppointment'),
+  re_path(r'^studentManuscript/$', views.studentManuscript, name='studentManuscript'),
+   re_path(r'^studentSettings/$', views.studentSettings, name='studentSettings'),
   
 
 
