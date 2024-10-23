@@ -88,6 +88,8 @@ urlpatterns = [
 
     path('schedule_list/', views.schedule_list, name='schedule_list'),
 
+    path('student/appointment/', views.student_appointment, name='student_appointment'),
+
 
 
 

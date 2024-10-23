@@ -41,7 +41,7 @@
         background-color: #f0f8ff !important;  /* Light blue highlight for today's date */
       }
       .fc-daygrid-day:hover {
-        background-color: #1834E7; 
+        background-color: #ebebff; 
         cursor: pointer;
       }
 
