@@ -46,7 +46,10 @@ urlpatterns = [
    re_path(r'^studentSettings/$', views.studentSettings, name='studentSettings'),
 
 
-
+  re_path(r'^reviewerdashboard/$', views.reviewerdashboard, name='reviewerdashboard'),
+  re_path(r'^reviewerManuscript/$', views.reviewerManuscript, name='reviewerManuscript'),
+  re_path(r'^reviewerSchedule/$', views.reviewerSchedule, name='reviewerSchedule'),
+  re_path(r'^reviewerSettings/$', views.reviewerSettings, name='reviewerSettings'),
 
 
 
@@ -84,11 +87,10 @@ urlpatterns = [
     path('Reviewer/calendar/schedule-list/', views.schedule_list, name='schedule_list'),
     path('schedules/update/<int:schedule_id>/', views.update_schedule, name='update_schedule'),
     path('schedules/delete/<int:schedule_id>/', views.delete_schedule, name='delete_schedule'),
-    path('Reviewer/dashboard/', views.dashboard, name='schedule_dashboard'),
+
 
 
     path('schedule_list/', views.schedule_list, name='schedule_list'),
-
 
 
 
