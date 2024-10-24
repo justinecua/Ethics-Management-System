@@ -1,0 +1,53 @@
+<nav>
+    <div class="nav-content">
+      <ul>
+        <a href="{% url 'reviewerdashboard' %}">
+          <li class="{% if request.path == '/reviewerdashboard/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Home-2--Streamline-Flex.png" alt="">
+            </div>
+            <p>Home</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'reviewerSchedule' %}">
+          <li class="{% if request.path == '/reviewerSchedule/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Schedule--Streamline-Unicons.png" alt="">
+            </div>
+            <p>Schedule</p>
+          </li>
+        </a>
+
+        <a href="{% url 'reviewerManuscript' %}">
+          <li class="{% if request.path == '/reviewerManuscript/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/File-Copy-Fill--Streamline-Sharp-Fill---Material-Symbols.png" alt="">
+            </div>
+            <p>Manuscripts</p>
+          </li>
+        </a>
+
+        <a href="{% url 'reviewerSettings' %}">
+          <li class="{% if request.path == '/reviewerSettings/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Cog-Setting--Streamline-Micro.png" alt="">
+            </div>
+            <p>Settings</p>
+          </li>
+        </a>
+
+  
+        <a href="{% url 'logout' %}">
+          <li>
+            <div class="NavContainer">
+              <img src="../../static/images/Logout-3--Streamline-Solar.png" alt="">
+            </div>
+            <p>Logout</p>
+          </li>
+        </a>
+      </ul>
+
+    </div>
+  </nav>
+  

@@ -1,0 +1,31 @@
+<div class="MC-Top">
+    <div class="MCT-Left">
+        <img src="../../static/images/smethicslogo.png" alt="">
+        <h3>SMC Ethics Office</h3>
+    </div> 
+    <div class="MCT-Middle">
+        
+    </div>
+    <div class="MCT-Right">
+        <input type="" name="" id="HomeSearch" placeholder="Search"> 
+        <div class="NotifAdmin">
+            <img src="../../static/images/Bell-Notification--Streamline-Flex.png" alt="">
+        </div>
+        <div class="ProfilePic">
+            {% if profile_picture %}
+                <img src="{{ profile_picture }}" alt="Profile Picture">
+            {% else %}
+              <div class="PPProf">
+                <img src="../../static/images/Account-Circle-Fill--Streamline-Remix-Fill.png" alt="Default Profile">              
+              </div>
+            {% endif %}
+        
+              {% if account_type %}
+                  <p>{{ account_type }}</p>
+              {% endif %}
+      </div>
+    </div>
+</div>
+
+
+

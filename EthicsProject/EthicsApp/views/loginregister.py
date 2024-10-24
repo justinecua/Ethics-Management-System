@@ -68,9 +68,9 @@ def validatelogin(request):
             
             try:
                 profile = Accounts.objects.filter(
-                    Q(student_id__auth_user=user) | 
-                    Q(reviewer_id__auth_user=user) |
-                    Q(account_typeid__Account_type='Student', student_id__isnull=True)
+                    Q(student_id__auth_user=user, account_typeid__Account_type='Student', student_id__isnull=True) | 
+                    Q(reviewer_id__auth_user=user, account_typeid__Account_type='Reviewer') 
+                    
                 ).first()
 
                 if profile:
@@ -88,7 +88,7 @@ def validatelogin(request):
                     elif account_type == 'Admin':
                         return redirect('adminDashboard')
                     elif account_type == 'Reviewer':
-                        return redirect('schedule_dashboard')
+                        return redirect('reviewerdashboard')
                     else:
                         return redirect('defaultdashboard')
 
