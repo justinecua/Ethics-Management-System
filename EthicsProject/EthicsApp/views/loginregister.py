@@ -41,10 +41,10 @@ def register(request):
 
                 request.session['profile_picture'] = profile_picture
                 request.session['account_type'] = student_account_type.Account_type
-                request.session['username'] = user.username 
+                request.session['username'] = user.username
 
                 return redirect('studentdashboard')
-        else:    
+        else:
             messages.error(request, "Passwords do not match.")
 
     return render(request, 'accounts/login.html')
@@ -54,7 +54,7 @@ def validatelogin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        
+
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
@@ -65,20 +65,20 @@ def validatelogin(request):
 
         if user is not None:
             login(request, user)
-            
+
             try:
                 profile = Accounts.objects.filter(
-                    Q(student_id__auth_user=user, account_typeid__Account_type='Student', student_id__isnull=True) | 
-                    Q(reviewer_id__auth_user=user, account_typeid__Account_type='Reviewer') 
-                    
+                    Q(student_id__auth_user=user) |
+                    Q(reviewer_id__auth_user=user) |
+                    Q(account_typeid__Account_type='Student', student_id__isnull=True)
                 ).first()
 
                 if profile:
                     account_type = profile.account_typeid.Account_type
-                
+
                     social_account = SocialAccount.objects.filter(user=user, provider='google').first()
                     profile_picture = social_account.extra_data.get('picture') if social_account else None
-                
+
                     request.session['profile_picture'] = profile_picture
                     request.session['account_type'] = account_type
                     request.session['username'] = user.username
@@ -102,7 +102,7 @@ def validatelogin(request):
 
         else:
             messages.error(request, "Invalid email or password.")
-    
+
     return render(request, 'accounts/login.html')
 
 
