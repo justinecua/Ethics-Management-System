@@ -17,7 +17,7 @@
                             <ion-icon name="book-sharp"></ion-icon>
                         </span>
                         <span class="title">Ethics Office System</span>
-                        
+
                     </a>
                 </li>
 
@@ -30,7 +30,7 @@
                         <input type="text" placeholder="Search..." class="search-bar">
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="{% url 'studentdashboard' %}">
                         <span class="icon">
@@ -41,7 +41,7 @@
                 </li>
 
                 <li>
-                    <a href="{% url 'student_appointment' %}">
+                    <a href="">
                         <span class="icon">
                             <ion-icon name="calendar-sharp"></ion-icon>
                         </span>
@@ -102,20 +102,20 @@
 
     <script>
         let list = document.querySelectorAll(".navigation li");
-    
+
         function activeLink() {
             list.forEach((item) => {
                 item.classList.remove("hovered");
             });
             this.classList.add("hovered");
         }
-    
+
         list.forEach((item) => item.addEventListener("mouseover", activeLink));
-    
+
         // Search bar toggle logic
         const searchToggle = document.getElementById("search-toggle");
         const searchBarContainer = document.querySelector(".search-bar-container");
-    
+
         searchToggle.addEventListener("click", (e) => {
             e.preventDefault();
             searchBarContainer.classList.toggle("visible"); // Toggle visibility of the search bar

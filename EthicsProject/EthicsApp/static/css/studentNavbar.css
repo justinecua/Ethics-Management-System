@@ -40,7 +40,8 @@ body {
 }
 
 .navigation:hover {
-  width: 300px; /* Full width when hovered */
+  width: 300px;
+  /* Full width when hovered */
 }
 
 .navigation ul {
@@ -107,7 +108,8 @@ body {
 }
 
 .navigation:hover ul li a .title {
-  opacity: 1; /* Make text visible */
+  opacity: 1;
+  /* Make text visible */
 }
 
 /* ------- curve outside -------- */
@@ -165,11 +167,13 @@ body {
 }
 
 .search-item:hover .title {
-  display: none; /* Hide the "Search" text when hovering */
+  display: none;
+  /* Hide the "Search" text when hovering */
 }
 
 .search-item:hover .search-bar {
-  display: inline-block; /* Show the search bar when hovering */
+  display: inline-block;
+  /* Show the search bar when hovering */
 }
 
 .search-bar {
@@ -190,12 +194,15 @@ body {
 
 /* Ensure the "title" for other icons does not hide when hovered */
 .navigation ul li:not(.search-item):hover .title {
-  display: block; /* Ensure title stays visible for non-search items */
-  opacity: 1; /* Keep title visible */
+  display: block;
+  /* Ensure title stays visible for non-search items */
+  opacity: 1;
+  /* Keep title visible */
 }
 
 .navigation ul li a:hover .title {
-  display: block; /* Ensure title doesn't hide on hover for non-search items */
+  display: block;
+  /* Ensure title doesn't hide on hover for non-search items */
 }
 
 .navigation ul li a .icon ion-icon {
