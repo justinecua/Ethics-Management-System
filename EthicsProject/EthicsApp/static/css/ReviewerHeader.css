@@ -1,0 +1,232 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+  height: 90vh;
+  background-color: var(--login-container);
+}
+
+[data-theme="dark"] {
+  --bg-color: #0a0a0a;
+  --text-color: #BABABA;
+  --login-container: #1d1d1d;
+  --border: #DCDCDE;
+  --button-color: #1834E7;
+  --button-hover: #0b1e9a;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.8);
+  --nav-bg-icon: #f8f8fa;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: #1e5cc3;
+}
+
+[data-theme="light"] {
+  --bg-color: #f8f9ff;
+  --text-color: #373131;
+  --login-container: #ffffff;
+  --border: #DCDCDE;
+  --button-color: #1834E7;
+  --button-hover: #0b1e9a;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.4);
+  --nav-bg-icon: #f3f4f7;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: black;
+}
+
+
+.MainContainer {
+  width: 100%;
+  height: 12%;
+  background-color: var(--login-container);
+}
+
+.MC-Top {
+  border-bottom: 1px solid var(--container-border);
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.7rem;
+}
+
+
+.MC-Bottom {
+  display: flex;
+  height: 93vh;
+
+}
+
+.MCT-Left {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--container-border);
+
+}
+
+
+.MCT-Middle {
+  width: 65%;
+  display: flex;
+  align-items: center;
+}
+
+.MCT-Right {
+  width: 20%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.MCT-Left img {
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-right: 0.6rem;
+}
+
+.MCT-Left h3 {
+  color: var(--h3-Top);
+  font-size: 0.9rem;
+}
+
+.MCT-Right input {
+  background-color: var(--input-bg);
+  border: none;
+  padding: 0.7rem;
+  width: 70%;
+  border: 1px solid var(--container-border);
+  border-radius: 5px;
+}
+
+.NotifAdmin {
+  padding: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--container-border);
+  border-radius: 5px;
+}
+
+.NotifAdmin img {
+  filter: var(--icon-filter);
+  width: 1rem;
+  height: 1rem;
+}
+
+nav {
+  padding: 0.4rem;
+  width: 15%;
+  border-right: 1px solid var(--container-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.NavContainer {
+  padding: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--container-border);
+  border-radius: 5px;
+  margin-right: 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+nav ul li img {
+  filter: var(--icon-filter);
+  width: 1rem;
+  height: 1rem;
+}
+
+nav ul li p {
+  font-weight: 560;
+  color: var(--nav-p);
+}
+
+nav ul li:hover {
+  cursor: pointer;
+  background-color: var(--nav-hover);
+  color: var(--nav-p-hovered);
+}
+
+.active {
+  background-color: var(--nav-hover);
+  color: var(--nav-active-color);
+}
+
+nav ul a {
+  text-decoration: none;
+}
+
+#messages {
+  display: none;
+
+}
+
+.message-success {
+  background-color: #d1fadf;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #089a66;
+  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
+  font-weight: 600;
+  padding: 1.2rem 1.8rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border-radius: 10px;
+  right: 1rem;
+  bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+  z-index: 15;
+}
+
+.message-error {
+  background-color: #fee4e2;
+  color: #ec6257;
+  padding: 10px;
+  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
+  font-weight: 600;
+  padding: 1.2rem 1.8rem;
+  border: 1px solid #ec6257;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  border-radius: 10px;
+  right: 1rem;
+  bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+  z-index: 15;
+}

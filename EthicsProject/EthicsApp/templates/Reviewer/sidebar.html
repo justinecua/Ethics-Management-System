@@ -1,84 +1,81 @@
-{% load static %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-{% endblock %}
-
-{% block content %}
-<script src="https://cdn.lordicon.com/lordicon.js"></script>
-<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-
-<body>
-    <div class="sidebar">
-        <ul>
-            <li class="menu-item">
-                <!-- Home -->
-                <a href="{% url 'schedule_dashboard' %}">
-                    <lord-icon
-                        src="https://cdn.lordicon.com/epietrpn.json"
-                        trigger="morph"
-                        state="morph-neighbourhood"
-                        colors="primary:#121331,secondary:#4bb3fd"
-                        style="width:40px;height:40px">
-                    </lord-icon>
-                    <span>Home</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <!-- Calendar -->
-                <a href="{% url 'schedule_view' %}">
-                    <dotlottie-player
-                        src="https://lottie.host/ef401012-df64-44bf-8f9c-dd8fd43883ce/0g070HPZAJ.json"
-                        background="transparent"
-                        speed="1"
-                        style="width: 40px; height: 40px;"
-                        loop autoplay>
-                    </dotlottie-player>
-                    <span>Calendar</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <!-- Schedule List -->
-                <a href="{% url 'schedule_list' %}">
-                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                    <lord-icon
-                        src="https://cdn.lordicon.com/lsrcesku.json"
-                        trigger="hover"
-                        stroke="bold"
-                        style="width:40px;height:40px">
-                    </lord-icon>
-                    <span>Schedule List</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <!-- Documents -->
-                <a href="#">
-                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                    <lord-icon
-                        src="https://cdn.lordicon.com/ujxzdfjx.json"
-                        trigger="hover"
-                        stroke="bold"
-                        colors="primary:#121331,secondary:#e4e4e4"
-                        style="width:40px;height:40px">
-                    </lord-icon>
-                    <span>Documents</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <!-- Sign Out -->
-                <a href="#">
-                    <script src="https://cdn.lordicon.com/lordicon.js"></script>
-                    <lord-icon
-                        src="https://cdn.lordicon.com/eoacwhtz.json"
-                        trigger="hover"
-                        stroke="bold"
-                        colors="primary:#000000,secondary:#f9c9c0,tertiary:#3080e8,quaternary:#f24c00,quinary:#3a3347,senary:#b26836,septenary:#ffffff"
-                        style="width:40px;height:40px">
-                    </lord-icon>
-                    <span>Sign Out</span>
-                </a>
-            </li>
-        </ul>
+<nav>
+    <div class="nav-content">
+      <ul>
+        <a href="{% url 'adminDashboard' %}">
+          <li class="{% if request.path == '/adminDashboard/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Home-2--Streamline-Flex.png" alt="">
+            </div>
+            <p>Home</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'adminAccounts' %}">
+          <li class="{% if request.path == '/adminAccounts/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Supervisor-Account-Fill--Streamline-Rounded-Fill---Material-Symbols.png" alt="">
+            </div>
+            <p>Accounts</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'adminAppointments' %}">
+          <li class="{% if request.path == '/adminAppointments/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Calendar-Note--Streamline-Plump (1).png" alt="">
+            </div>
+            <p>Appointments</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'adminManuscripts' %}">
+          <li class="{% if request.path == '/adminManuscripts/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/File-Copy-Fill--Streamline-Sharp-Fill---Material-Symbols.png" alt="">
+            </div>
+            <p>Manuscripts</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'adminSchedule' %}">
+          <li class="{% if request.path == '/adminSchedule/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Schedule--Streamline-Unicons.png" alt="">
+            </div>
+            <p>Schedule</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'adminSettings' %}">
+          <li class="{% if request.path == '/adminSettings/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Cog-Setting--Streamline-Micro.png" alt="">
+            </div>
+            <p>Settings</p>
+          </li>
+        </a>
+  
+        <a href="{% url 'logout' %}">
+          <li>
+            <div class="NavContainer">
+              <img src="../../static/images/Logout-3--Streamline-Solar.png" alt="">
+            </div>
+            <p>Logout</p>
+          </li>
+        </a>
+      </ul>
+  
+      <ul>
+        <a href="{% url 'adminHelpSupport' %}">
+          <li class="{% if request.path == '/adminHelpSupport/' %}active{% endif %}">
+            <div class="NavContainer">
+              <img src="../../static/images/Question-Square--Streamline-Solar.png" alt="">
+            </div>
+            <p>Help & Support</p>
+          </li>
+        </a>
+      </ul>
     </div>
-</body>
-{% endblock %}
+  </nav>
+  
+  

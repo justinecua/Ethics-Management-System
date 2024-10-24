@@ -2,12 +2,18 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ReviewerSideboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ReviewerHeader.css' %}">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css' rel='stylesheet' />
 {% endblock %}
 
+{% include "Reviewer/ReviewerHeader.html" %}
 {% include "Reviewer/sidebar.html" %}
 
+
+
 {% block content %}
+
     <div class="main-calendar">
         <div id="calendar"></div>
     </div>
