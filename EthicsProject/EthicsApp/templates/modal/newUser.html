@@ -1,0 +1,102 @@
+<div id="Modal-NewUser-Overlay">
+    <div id="MNU-Container">
+        <div class="MNUC-Top">
+            <div class="NumContainer">
+                <div id="Num1" class="NumProgress">1</div>
+                <p class="NumLabel">Start</p>
+            </div>
+            <div class="ProgressLine"></div>
+
+            <div class="NumContainer">
+                <div id="Num2" class="NumProgress">2</div>
+                <p class="NumLabel">Account</p>
+            </div>
+            <div class="ProgressLine"></div>
+
+            <div class="NumContainer">
+                <div id="Num3" class="NumProgress">3</div>
+                <p class="NumLabel">Members</p>
+            </div>
+            <div class="ProgressLine"></div>
+
+            <div class="NumContainer">
+                <div id="Num4" class="NumProgress">4</div>
+                <p class="NumLabel">Manuscript</p>
+            </div>
+            <div class="ProgressLine"></div>
+
+            <div class="NumContainer">
+                <div id="Num5" class="NumProgress">5</div>
+                <p class="NumLabel">Finish</p>
+            </div>
+        </div>
+
+        <div id="NewUserContainer1" class="NewUserContainer">
+        {% if username %}
+            <h3>{{ username|capfirst }}! Ready to set up for Ethics Review?</h3>
+            <p>Let's get your account configured.</p>
+            <div class="NUC-ImageContainer">
+              <img src="../../static/images/Welcome-3--Streamline-Brooklyn.png" alt="">  
+            </div>
+
+            <button class="SendButton" type="" id="GetStarted">Get Started</button>
+        {% endif %}  
+        </div>
+
+        <div id="NewUserContainer2" class="NewUserContainer">
+            <h3>Set Up Your Account</h3>
+            <p>Please provide the necessary information.</p>
+            
+            <div class="NUC-Inputs">
+                <label for="Student-FirstName">First Name</label>
+                <input type="text" id="Student-FirstName" name="Student-FirstName" placeholder="Enter your first name" value="">
+
+                <label for="Student-LastName">Last Name</label>
+                <input type="text" id="Student-LastName" name="Student-LastName" placeholder="Enter your last name" value="">
+
+                <label for="Student-MobileNumber">Mobile Number</label>
+                <input type="text" id="Student-MobileNumber" name="Student-MobileNumber" placeholder="Enter your mobile number" value="">
+
+                <label for="Student-ReceiptNo">Receipt No</label>
+                <input type="text" id="Student-ReceiptNo" name="Student-ReceiptNo" placeholder="Enter your receipt number" value="">
+
+            </div>
+              <button class="SendButton" id=""type="">Submit</button>
+        </div>
+        
+        <div id="NewUserContainer3" class="NewUserContainer">
+          <h3>Invite Thesis Members</h3>
+          <p>If you do not have any members to invite, skip this step.</p>
+
+          <div class="NUC-Inputs">
+                <label for="Student-Email1">Member 1</label>
+                <input type="email" id="Student-Email1" name="Student-Email1" placeholder="Enter member`s email address" value="">
+
+                <label for="Student-Email2">Member 2</label>
+                <input type="email" id="Student-Email2" name="Student-Email2" placeholder="Enter member`s email address" value="">
+
+                <label for="Student-Email3">Member 3</label>
+                <input type="email" id="Student-Email3" name="Student-Email3" placeholder="Enter member`s email address" value="">
+
+          </div>
+              <button class="SendButton" id="" type="">Invite</button>
+              <button class="SkipButton" type="">Skip</button> 
+          </div>
+          
+        <div id="NewUserContainer4" class="NewUserContainer">
+          <h3> Thesis Information</h3>
+          <p>Please provide the details of your thesis for review and processing.</p>
+
+
+          <div class="NUC-Inputs">
+                <label for="Student-ThesisTitle">Theisis Title</label>
+                <input type="text" id="StudentThesisTitle" name="Student-ThesisTitle" placeholder="Enter thesis title" value="">
+
+                <label for="Student-ThesisDescription">Thesis Description</label>
+                <input type="text" id="Student-ThesisDescription" name="Student-ThesisDescription" placeholder="Enter brief description about the study" value="">
+          </div>
+              <button class="SendButton" id="" type="">Submit</button>
+          </div>
+    </div>
+</div>
+

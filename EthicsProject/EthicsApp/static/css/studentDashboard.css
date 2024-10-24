@@ -1,0 +1,222 @@
+[data-theme="dark"] {
+  --bg-color: #0a0a0a;
+  --text-color: #BABABA;
+  --login-container: #1d1d1d;
+  --border: #DCDCDE;
+  --button-color: #0084ff;
+  --button-hover: #0179e8;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.8);
+  --nav-bg-icon: #f8f8fa;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: #1e5cc3;
+  --calendarView-btn-color: #f3f4f7;
+  --modal-container: #ffffff;
+}
+
+[data-theme="light"] {
+  --bg-color: #f8f9ff;
+  --text-color: #373131;
+  --login-container: #ffffff;
+  --border: #DCDCDE;
+  --button-color: #0084ff;
+  --button-hover: #0179e8;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.4);
+  --nav-bg-icon: #f3f4f7;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: black;
+  --calendarView-btn-color: #f3f4f7;
+  --modal-container: #ffffff;
+}
+
+#Modal-NewUser-Overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #565a6241;
+  z-index: 7;
+  position: absolute;
+  display: flex;
+  overflow: hidden;
+
+}
+
+#MNU-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 25rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 2rem;
+}
+
+.NewUserContainer h3 {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-weight: 550;
+  text-align: center;
+}
+
+.NewUserContainer p {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+}
+
+.NUC-ImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--container-border);
+}
+
+#MNU-Container img {
+  width: 16rem;
+  height: 16rem;
+}
+
+.MNUC-Top {
+  width: 95%;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NumProgress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 50%;
+  color: var(--modal-container);
+  font-weight: 600;
+  font-size: 0.7rem;
+  background-color: var(--button-color);
+}
+
+.ProgressLine {
+  flex: 1;
+  height: 0.15rem;
+  background-color: var(--container-border);
+  margin: 0 5px;
+  position: relative;
+  z-index: 0;
+  top: -0.5rem;
+}
+
+.NumContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 3rem;
+  max-width: 3rem;
+}
+
+.NumContainer p {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: #333;
+  text-align: center;
+}
+
+#NewUserContainer1 {
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.NewUserContainer .SendButton {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  background-color: var(--button-color);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.NewUserContainer .SkipButton {
+  color: var(--button-color);
+  border: 1px solid var(--container-border);
+  border-radius: 5px;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  background-color: var(--input-bg);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.NewUserContainer .SendButton:hover {
+  cursor: pointer;
+  background-color: var(--button-hover);
+}
+
+#NewUserContainer2 {
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.NUC-Inputs label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: 100%;
+
+}
+
+.NUC-Inputs input {
+  outline: none;
+  text-indent: 10px;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  width: 100%;
+  border-radius: 5px;
+  padding: 0.8rem 0rem;
+  background-color: var(--input-bg);
+  border: 1px solid var(--container-border);
+}
+
+
+#Newusercontainer3 {
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#Newusercontainer4 {
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

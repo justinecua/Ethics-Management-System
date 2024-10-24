@@ -29,13 +29,20 @@ def register(request):
             student_account_type = Account_Type.objects.get(Account_type='Student')
 
             newAcc = Accounts.objects.create(
-                student_id=student,
                 account_typeid=student_account_type
             )
 
             user = authenticate(request, username=username, password=password1)
             if user is not None:
-                login(request, user)  
+                login(request, user)
+
+                social_account = SocialAccount.objects.filter(user=user, provider='google').first()
+                profile_picture = social_account.extra_data.get('picture') if social_account else None
+
+                request.session['profile_picture'] = profile_picture
+                request.session['account_type'] = student_account_type.Account_type
+                request.session['username'] = user.username 
+
                 return redirect('studentdashboard')
         else:    
             messages.error(request, "Passwords do not match.")
@@ -62,7 +69,8 @@ def validatelogin(request):
             try:
                 profile = Accounts.objects.filter(
                     Q(student_id__auth_user=user) | 
-                    Q(reviewer_id__auth_user=user) 
+                    Q(reviewer_id__auth_user=user) |
+                    Q(account_typeid__Account_type='Student', student_id__isnull=True)
                 ).first()
 
                 if profile:
@@ -73,6 +81,7 @@ def validatelogin(request):
                 
                     request.session['profile_picture'] = profile_picture
                     request.session['account_type'] = account_type
+                    request.session['username'] = user.username
 
                     if account_type == 'Student':
                         return redirect('studentdashboard')

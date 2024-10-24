@@ -4,7 +4,6 @@ from .gotoRegisterPage import *
 from .test import *
 from .models import *
 from .loginregister import *
-from .studentdashboard import *
 from .adminDashboard import *
 from .addScheduleAdmin import *
 from .addCollege import *
