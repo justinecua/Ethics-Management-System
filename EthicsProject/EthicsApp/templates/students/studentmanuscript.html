@@ -3,7 +3,7 @@
 {% load static %}
 {% block css %}
 
-<link rel="stylesheet" href="{% static './css/studentnav.css' %}">
+<link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
 <link rel="stylesheet" href="{% static './css/studentmanuscript.css' %}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -14,9 +14,9 @@
 {% block content %}
 
 <div class="MainContainer">
-    {% include './studentTopNav.html' %}
+
     <div class="MC-Bottom">
-        {% include 'students/studentnav.html' %}    
+        {% include 'students/studentNavbar.html' %}    
         
         <div class="container">
             <h1>Create Manuscript</h1>

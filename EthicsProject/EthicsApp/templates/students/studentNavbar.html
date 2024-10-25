@@ -6,115 +6,84 @@
 <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
 {% endblock %}
 
-{% block content  %}
+{% block content %}
 
-    <div class="Snavbar-container">
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="book-sharp"></ion-icon>
-                        </span>
-                        <span class="title">Ethics Office System</span>
+<div class="Snavbar-container">
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="#">
+                    <span class="icon">
+                        <ion-icon name="book-sharp"></ion-icon>
+                    </span>
+                    <span class="title">Ethics Office System</span>
+                </a>
+            </li>
 
-                    </a>
-                </li>
+            <li class="{% if request.path == '/studentdashboard/' %}active{% endif %}">
+                <a href="{% url 'studentdashboard' %}">
+                    <span class="icon">
+                        <ion-icon name="{% if request.path == '/studentdashboard/' %}home-sharp{% else %}home-outline{% endif %}"></ion-icon>
+                    </span>
+                    <span class="title">Home</span>
+                </a>
+            </li>
 
-                <li class="search-item">
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="search-outline"></ion-icon>
-                        </span>
-                        <span class="title">Search</span>
-                    </a>
-                </li>
+            <li class="{% if request.path == '/studentAppointment/' %}active{% endif %}">
+                <a href="{% url 'studentAppointment' %}">
+                    <span class="icon">
+                        <ion-icon name="{% if request.path == '/studentAppointment/' %}calendar-sharp{% else %}calendar-outline{% endif %}"></ion-icon>
+                    </span>
+                    <span class="title">Appointment</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="{% url 'studentdashboard' %}">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title">Home</span>
-                    </a>
-                </li>
+            <li class="{% if request.path == '/studentManuscript/' %}active{% endif %}">
+                <a href="{% url 'studentManuscript' %}">
+                    <span class="icon">
+                        <ion-icon name="{% if request.path == '/studentManuscript/' %}briefcase-sharp{% else %}briefcase-outline{% endif %}"></ion-icon>
+                    </span>
+                    <span class="title">Manuscript</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="">
-                        <span class="icon">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </span>
-                        <span class="title">Appointment</span>
-                    </a>
-                </li>
+            <li class="{% if request.path == '/studentSettings/' %}active{% endif %}">
+                <a href="{% url 'studentSettings' %}">
+                    <span class="icon">
+                        <ion-icon name="{% if request.path == '/studentSettings/' %}settings-sharp{% else %}settings-outline{% endif %}"></ion-icon>
+                    </span>
+                    <span class="title">Settings</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="briefcase-outline"></ion-icon>
-                        </span>
-                        <span class="title">Manuscript</span>
-                    </a>
-                </li>
+            <li>
+                <a href="#">
+                    <span class="icon">
+                        <ion-icon name="help-circle-outline"></ion-icon>
+                    </span>
+                    <span class="title">Help</span>
+                </a>
+            </li>
 
-                  <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
-                        </span>
-                        <span class="title">Settings</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="help-circle-outline"></ion-icon>
-                        </span>
-                        <span class="title">Help</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'logout' %}">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">Sign out</span>
-                    </a>
-                </li>
-
-
-            </ul>
-        </div>
+            <li>
+                <a href="{% url 'logout' %}">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sign out</span>
+                </a>
+            </li>
+        </ul>
     </div>
+</div>
 
+<script>
+    let list = document.querySelectorAll(".navigation li");
+</script>
 
-    <script>
-        let list = document.querySelectorAll(".navigation li");
-
-        function activeLink() {
-            list.forEach((item) => {
-                item.classList.remove("hovered");
-            });
-            this.classList.add("hovered");
-        }
-
-        list.forEach((item) => item.addEventListener("mouseover", activeLink));
-
-        // Search bar toggle logic
-        const searchToggle = document.getElementById("search-toggle");
-        const searchBarContainer = document.querySelector(".search-bar-container");
-
-        searchToggle.addEventListener("click", (e) => {
-            e.preventDefault();
-            searchBarContainer.classList.toggle("visible"); // Toggle visibility of the search bar
-        });
-    </script>
-
-    <!-- ion icons -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+<!-- ion icons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 {% endblock %}
+

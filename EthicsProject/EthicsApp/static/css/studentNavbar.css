@@ -19,6 +19,7 @@
   --nav-p-hovered: #1e5cc3;
   --calendarView-btn-color: #f3f4f7;
   --modal-container: #ffffff;
+  --body-bg-student: #ebeff3;
 }
 
 [data-theme="light"] {
@@ -38,6 +39,7 @@
   --nav-p-hovered: black;
   --calendarView-btn-color: #f3f4f7;
   --modal-container: #ffffff;
+  --body-bg-student: #ebeff3;
 }
 
 * {
@@ -56,7 +58,7 @@
 }
 
 body {
-  background-color: #f8f8fa;
+  background-color: var(--body-bg-student);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -69,6 +71,7 @@ body {
 /* ------ NAVIGATION -------- */
 
 .navigation {
+  border-radius: 1rem;
   position: fixed;
   width: 80px;
   height: 100%;
@@ -254,4 +257,13 @@ body {
 .navigation ul li a .icon ion-icon {
   font-size: 1.2rem;
   color: var(--nav-p);
+}
+
+.active {
+  border-radius: 10px;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.active .icon ion-icon {
+  color: var(--button-color) !important;
 }

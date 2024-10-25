@@ -53,7 +53,7 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 25rem;
+  width: 30rem;
   background-color: var(--modal-container);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -105,11 +105,11 @@
   align-items: center;
   width: 0.5rem;
   height: 0.5rem;
-  padding: 0.7rem;
+  padding: 1rem;
   border-radius: 50%;
   color: var(--modal-container);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   background-color: var(--button-color);
 }
 
@@ -142,7 +142,7 @@
 
 #NewUserContainer1 {
   width: 100%;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
