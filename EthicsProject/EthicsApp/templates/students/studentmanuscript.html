@@ -4,6 +4,7 @@
 {% block css %}
 
 <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
+<link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
 <link rel="stylesheet" href="{% static './css/studentmanuscript.css' %}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -12,13 +13,9 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="MainContainer">
-
-    <div class="MC-Bottom">
-        {% include 'students/studentNavbar.html' %}    
-        
-        <div class="container">
+{% include 'students/studentNavbar.html' %}
+  <div class="StudentMain-Content">
+             <div class="container">
             <h1>Create Manuscript</h1>
             <form method="post" action="">
                 {% csrf_token %}
@@ -51,8 +48,10 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
-    </div>
-</div>
+   
+  </div>
 
+
+{% include './navJsConfig.html' %}
 {% endblock %}
 

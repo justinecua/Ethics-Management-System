@@ -87,9 +87,6 @@ def schedule_list(request):
     return JsonResponse(schedule_events, safe=False)
 
 
-def student_appointment(request):
-    return render(request, 'students/studentAppointment.html')
-
 @require_POST
 def save_schedule(request):
     schedule_type = request.POST.get('schedule-type')

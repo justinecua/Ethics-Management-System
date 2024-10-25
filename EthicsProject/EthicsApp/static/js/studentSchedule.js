@@ -72,11 +72,13 @@ cancelsched.addEventListener('click', function(event){
   ModalScheduleOverlay.style.display = "none";
 })
 
+/*
 ecancelsched.addEventListener('click', function(event){
   event.stopPropagation();
   EModalScheduleOverlay.style.display = "none";
 })
 
+*/
 var monthSelect = document.getElementById('monthSelect');
 var yearSelect = document.getElementById('yearSelect');
 var currentYear = new Date().getFullYear();

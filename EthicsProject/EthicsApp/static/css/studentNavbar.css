@@ -43,7 +43,7 @@
 }
 
 * {
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -57,11 +57,6 @@
   --black2: #999;
 }
 
-body {
-  background-color: var(--body-bg-student);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
 
 .Snavbar-container {
   position: relative;
@@ -79,13 +74,9 @@ body {
   border-left: 10px solid var(--blue);
   transition: 0.5s;
   overflow: hidden;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.navigation:hover {
-  width: 300px;
-  /* Full width when hovered */
-}
+
 
 .navigation ul {
   position: absolute;
@@ -100,17 +91,20 @@ body {
   list-style: none;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+  font-size: 0.9rem;
 }
 
 .navigation ul li:hover,
 .navigation ul li.hovered {
-  background-color: var(--white);
+  background-color: var(--body-bg-student);
   box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
 
 .navigation ul li:nth-child(1) {
-  margin-bottom: 40px;
+  margin-bottom: 10rem;
   pointer-events: none;
+  font-weight: 600;
+  margin-top: 1rem;
 }
 
 .navigation ul li a {
@@ -137,6 +131,11 @@ body {
   text-align: center;
 }
 
+.icon img {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
 .navigation ul li a .icon ion-icon {
   font-size: 1.5rem;
 }
@@ -144,7 +143,7 @@ body {
 .navigation ul li a .title {
   position: relative;
   display: block;
-  padding: 0 10px;
+
   height: 60px;
   line-height: 60px;
   text-align: start;
@@ -155,21 +154,19 @@ body {
 
 .navigation:hover ul li a .title {
   opacity: 1;
-  /* Make text visible */
 }
 
 /* ------- curve outside -------- */
 
 .navigation ul li:hover,
 .navigation ul li.hovered {
-  background-color: var(--white);
-  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  background-color: var(--body-bg-student);
 }
 
 .navigation ul li:hover a,
 .navigation ul li.hovered a {
-  color: var(--blue);
-
+  color: var(--button-hover);
+  font-weight: 600;
 }
 
 .navigation ul li:hover a::before,
@@ -182,7 +179,7 @@ body {
   height: 50px;
   background-color: transparent;
   border-radius: 50%;
-  box-shadow: 35px 35px 0 10px var(--white);
+  box-shadow: 35px 35px 0 10px var(--body-bg-student);
   pointer-events: none;
 }
 
@@ -196,13 +193,12 @@ body {
   height: 50px;
   background-color: transparent;
   border-radius: 50%;
-  box-shadow: 35px -35px 0 10px var(--white);
+  box-shadow: 35px -35px 0 10px var(--body-bg-student);
   pointer-events: none;
 }
 
 /* ------ SEARCH BAR ------- */
 
-/* Search bar specific styles */
 .search-item .search-bar {
   display: none;
   width: 100%;
@@ -216,19 +212,16 @@ body {
 
 .search-item:hover .title {
   display: none;
-  /* Hide the "Search" text when hovering */
 }
 
 .search-item:hover .search-bar {
   display: inline-block;
-  /* Show the search bar when hovering */
 }
 
 .search-bar {
   opacity: 1;
 }
 
-/* Add transition for smooth toggle */
 .search-item .search-bar {
   transition: all 0.3s ease;
 }
@@ -238,20 +231,14 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* Additional styles for other elements */
-
-/* Ensure the "title" for other icons does not hide when hovered */
 .navigation ul li:not(.search-item):hover .title {
   display: block;
-  /* Ensure title stays visible for non-search items */
   opacity: 1;
-  /* Keep title visible */
 }
 
 .navigation ul li a:hover .title {
   display: block;
-  color: var(--nav-p);
-  /* Ensure title doesn't hide on hover for non-search items */
+  color: var(--button-color);
 }
 
 .navigation ul li a .icon ion-icon {
@@ -260,10 +247,36 @@ body {
 }
 
 .active {
-  border-radius: 10px;
+  background-color: var(--body-bg-student);
   box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
 
 .active .icon ion-icon {
   color: var(--button-color) !important;
+}
+
+.active::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px 35px 0 10px var(--body-bg-student);
+  pointer-events: none;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 35px -35px 0 10px var(--body-bg-student);
+  pointer-events: none;
 }

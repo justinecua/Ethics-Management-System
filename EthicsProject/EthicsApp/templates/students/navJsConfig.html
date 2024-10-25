@@ -1,0 +1,18 @@
+<script>
+    const nav = document.querySelector('.navigation');
+    const content = document.querySelector('.StudentMain-Content');
+
+    nav.addEventListener('mouseenter', () => {
+        nav.style.width = '16rem';
+        content.style.marginLeft = '17rem';
+    });
+
+    nav.addEventListener('mouseleave', () => {
+        nav.style.width = '5rem';
+        content.style.marginLeft = '6rem';
+    });
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+

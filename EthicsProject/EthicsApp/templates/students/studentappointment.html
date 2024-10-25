@@ -2,6 +2,8 @@
 
 {% load static %}
 {% block css %}
+<link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
+<link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
 <link rel="stylesheet" href="{% static './css/studentSchedule.css' %}">
 <script type="module" src="{% static 'js/studentSchedule.js' %}"></script>
 
@@ -11,11 +13,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="MC-Bottom">
         {% include './studentNavbar.html' %}
         {% include 'modal/studentSchedule.html' %}        
-        
-        <div id="Schedule-Content">
+
+  <div class="StudentMain-Content">
+              <div id="Schedule-Content">
             <div class="SC-Top">
               <div class="SCT-Left">
                <select id="monthSelect">
@@ -48,23 +50,25 @@
             <div id='calendar'></div>
         </div>
     </div>
-</div>
-
+    
+  </div>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const messages = document.getElementById('messages');
+    const nav = document.querySelector('.navigation');
+    const content = document.querySelector('.StudentMain-Content');
 
-    if (messages) { 
-        setTimeout(() => {
-            messages.style.display = "flex";
-        }, 100); 
-                
-        setTimeout(() => {
-          messages.style.display = "none";
-        }, 4000); 
-    }
-});
+    nav.addEventListener('mouseenter', () => {
+        nav.style.width = '16rem';
+        content.style.marginLeft = '17rem';
+    });
 
-   </script>
+    nav.addEventListener('mouseleave', () => {
+        nav.style.width = '5rem';
+        content.style.marginLeft = '6rem';
+    });
+</script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
 {% endblock %}
 
