@@ -7,6 +7,8 @@ from django.contrib import messages
 from allauth.socialaccount.models import SocialAccount
 from django.db.models import Q
 
+
+
 @csrf_exempt
 def register(request):
     if request.method == 'POST':
@@ -69,7 +71,8 @@ def validatelogin(request):
             try:
                 profile = Accounts.objects.filter(
                     Q(student_id__auth_user=user, account_typeid__Account_type='Student', student_id__isnull=True) | 
-                    Q(reviewer_id__auth_user=user, account_typeid__Account_type='Reviewer') 
+                    Q(reviewer_id__auth_user=user, account_typeid__Account_type='Reviewer') |
+                    Q(reviewer_id__auth_user=user, account_typeid__Account_type='Admin') 
                     
                 ).first()
 
