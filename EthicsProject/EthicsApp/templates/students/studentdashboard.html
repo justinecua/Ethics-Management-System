@@ -1,7 +1,12 @@
 {% load static %}
 
-{% include 'students/studentNavbar.html' %}
+{% block css %}
+<link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
+{% endblock %}
 
+
+{% include 'students/studentNavbar.html' %}
+{% include '../modal/newUser.html' %}
 <body>
 
 

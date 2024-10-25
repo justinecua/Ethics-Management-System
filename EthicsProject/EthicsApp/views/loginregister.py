@@ -27,9 +27,11 @@ def register(request):
             )
 
             student_account_type = Account_Type.objects.get(Account_type='Student')
-
+            studentAccStatus = "Not Complete"
             newAcc = Accounts.objects.create(
-                account_typeid=student_account_type
+                account_typeid=student_account_type,
+                student_id = student,
+                invite_status = studentAccStatus
             )
 
             user = authenticate(request, username=username, password=password1)

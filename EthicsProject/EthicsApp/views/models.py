@@ -47,7 +47,7 @@ class Accounts(models.Model):
     invite_status= models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return f"{self.student_id}"
+        return f"{self.account_typeid}"
 
 class Manuscripts(models.Model):
      thesis_title = models.CharField(max_length =255)

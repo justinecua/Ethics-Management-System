@@ -42,7 +42,7 @@
   background-color: #565a6241;
   z-index: 7;
   position: absolute;
-  display: flex;
+  display: none;
   overflow: hidden;
 
 }
