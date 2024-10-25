@@ -1,0 +1,88 @@
+<form method="POST" action="{% url 'save_schedule' %}">
+  {% csrf_token %}
+  <div id="Modal-Schedule-Overlay">
+      <div id="MS-Container">
+          <!-- Step 1: Schedule Details -->
+          <div id="schedule-step-1">
+              <div class="MSC-Top">
+                  <h3>Add Schedule - Step 1</h3>
+              </div>
+              <div class="MSC-Bottom">
+                  <label for="schedule-type">Type</label>
+                  <select id="schedule-type" name="schedule-type">
+                      <option value="Available">Ethics Review</option>
+                      <option value="Not-Available">Other</option>
+                  </select>
+
+                  <label for="schedule-date">Date</label>
+                  <input type="date" id="schedule-date" name="schedule-date" required placeholder="Select date">
+
+                  <label for="schedule-start-time">Start Time</label>
+                  <input type="time" id="schedule-start-time" name="schedule-start-time" required placeholder="Select start time">
+
+                  <label for="schedule-end-time">End Time</label>
+                  <input type="time" id="schedule-end-time" name="schedule-end-time" required placeholder="Select end time">
+              </div>
+
+              <div class="MSC-Bottom2">
+                  <button type="button" id="cancel-sched">Cancel</button>
+                  <button type="button" id="next-step">Next</button>
+              </div>
+          </div>
+
+          <!-- Step 2: Additional Information Form -->
+          <div id="schedule-step-2" style="display: none;">
+              <div class="MSC-Top">
+                  <h3>Add Schedule - Step 2</h3>
+              </div>
+              <div class="MSC-Bottom">
+                  <!-- Additional fields for student appointment details -->
+                  <label for="student-name">Student Name</label>
+                  <input type="text" id="student-name" name="student-name" required placeholder="Enter your name">
+
+                  <label for="student-id">Student ID</label>
+                  <input type="text" id="student-id" name="student-id" required placeholder="Enter your ID">
+
+                  <!-- Add more fields as necessary -->
+              </div>
+
+              <div class="MSC-Bottom2">
+                  <button type="button" id="back-step">Back</button>
+                  <button type="submit" id="submit-sched">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+
+<script>
+  // Get references to modal sections and buttons
+const modalOverlay = document.getElementById('Modal-Schedule-Overlay');
+const step1 = document.getElementById('schedule-step-1');
+const step2 = document.getElementById('schedule-step-2');
+const nextStepBtn = document.getElementById('next-step');
+const backStepBtn = document.getElementById('back-step');
+const cancelBtn = document.getElementById('cancel-sched');
+
+// Show step 2 when "Next" is clicked
+nextStepBtn.addEventListener('click', function() {
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+});
+
+// Go back to step 1 when "Back" is clicked
+backStepBtn.addEventListener('click', function() {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+});
+
+// Close the modal when "Cancel" is clicked
+cancelBtn.addEventListener('click', function() {
+    modalOverlay.style.display = 'none';
+    // Reset to step 1 if modal is reopened
+    step1.style.display = 'block';
+    step2.style.display = 'none';
+});
+
+</script>
