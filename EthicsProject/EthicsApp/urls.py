@@ -91,6 +91,10 @@ urlpatterns = [
 
 
     path('schedule_list/', views.schedule_list, name='schedule_list'),
+    path('student_appointment/', views.student_appointment, name='student_appointment'),
+
+    path('api/schedules/', views.schedule_list, name='schedule_list'),
+    path('schedule/save/', views.save_schedule, name='save_schedule'),
 
 
 

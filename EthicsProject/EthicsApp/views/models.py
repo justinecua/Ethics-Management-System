@@ -63,14 +63,15 @@ class Manuscripts(models.Model):
         return f"{self.thesis_title} {self.thesis_description}"
 
 
-class Schedule(models.Model):    
+class Schedule(models.Model):
+    account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)    
     schedule_type = models.CharField(max_length=255, null=True)
     schedule_date = models.DateField(null=True)  
     schedule_start_time = models.TimeField(null=True)
     schedule_end_time = models.TimeField(null=True)
 
     def __str__(self):
-        return f"Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})"
+        return f"{self.account_id} Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})"
 
 class Notification(models.Model):
     date = models.DateField(null=True)

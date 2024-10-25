@@ -3,7 +3,8 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static './css/studentSchedule.css' %}">
-<script type="module" src="{% static 'js/adminSchedule.js' %}"></script>
+<script type="module" src="{% static 'js/studentSchedule.js' %}"></script>
+
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@6.1.15/main.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/main.min.css" rel="stylesheet" />
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
@@ -11,10 +12,11 @@
 
 {% block content %}
     <div class="MC-Bottom">
-        {% include './studentNavbar.html' %}      
+        {% include './studentNavbar.html' %}
+        {% include 'modal/studentSchedule.html' %}        
         
         <div id="Schedule-Content">
-            <!-- <div class="SC-Top">
+            <div class="SC-Top">
               <div class="SCT-Left">
                <select id="monthSelect">
                     <option value="0">January</option>
@@ -42,7 +44,7 @@
                   <button id="prevSchedule"><</button>
                    <button id="nextSchedule">></button>
                 </div>
-            </div> -->
+            </div>
             <div id='calendar'></div>
         </div>
     </div>
