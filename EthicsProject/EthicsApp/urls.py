@@ -50,7 +50,7 @@ urlpatterns = [
   re_path(r'^reviewerManuscript/$', views.reviewerManuscript, name='reviewerManuscript'),
   re_path(r'^reviewerSchedule/$', views.reviewerSchedule, name='reviewerSchedule'),
   re_path(r'^reviewerSettings/$', views.reviewerSettings, name='reviewerSettings'),
-
+ 
 
 
 
