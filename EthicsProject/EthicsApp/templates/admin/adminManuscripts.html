@@ -4,19 +4,56 @@
 {% block css %}
 
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
-
+<link rel="stylesheet" href="{% static './css/adminCategory.css' %}">
+<script type="module" src="{% static 'js/adminCategory.js' %}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block content %}
-
+{% include 'modal/adminCategory.html' %}
 <div class="MainContainer">
-     {% include './adminTopNav.html' %}
+
+    {% include './adminTopNav.html' %}
      <div class="MC-Bottom">
-        {% include './adminNav.html' %}      
+        {% include './adminNav.html' %}    
+        
+        <div id="Category-content">
+            <div class="CC-Top">
+                <div class="CCT-Left">  
+                    <button id="MySchedule-btn">Category</button>
+                    <button id="Reviewer-btn">Type of Study</button>
+                    <button id="History-btn">Basic Requirements</button>
+                    <button id="History-btn">Supplementary Documents</button>
+                </div> 
+                
+                  <div class="CCT-Right">
+                      <button id="AddCategory-btn">Add Category</button> 
+                  </div> 
+            </div>
+
+                <div id="StudentAcc-Area">
+                    <table>
+                        <tr>
+                            <th>Category Name</th>
+                        </tr>
+                        {% if categories %}
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.category_name }}</td>
+                                <td>
+                                    <button type="button">Edit</button>
+                                    <button type="button">Delete</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% endif %}
+     
+                  </div>
+              </div>
+        </div>
+
     </div>
-</div>
 
 {% endblock %}

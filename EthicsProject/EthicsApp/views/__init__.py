@@ -37,6 +37,7 @@ from .addCollege import *
 #---------------------------Ferryl---------------------------
 from .studentside import *
 from .reviewerside import *
+from .addCategory import *
 
 
 

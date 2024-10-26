@@ -21,32 +21,32 @@
         
         <div id="College-Content">
             <div class="CC-Top">
-              <div class="CCT-Left">
-                    <button id="ListOfColleges">Colleges</button>
-              </div> 
-                <div class="CCT-Right">
-                    <button id="AddCollege-btn">Add College</button> 
+                <div class="CCT-Left">  
+                      <button id="ListOfColleges">Colleges</button>
                 </div> 
-              </div>
-             <div id="StudentAcc-Area">
-                <table>
-                  <tr>
-                  <th>College Initials</th>
-                  <th>College</th>
-                  <th>Options</th>
-                  </tr>
-                    {% for college in colleges %}
-                  <tr>
-                    <td> {{ college.college_initials }}</td>
-                    <td> {{ college.college_name }}</td>
-                    <td>
-                      <button type="">Edit</button>
-                      <button type="">Delete</button>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </table>
-              </div>
+                  <div class="CCT-Right">
+                      <button id="AddCollege-btn">Add College</button> 
+                  </div> 
+                </div>
+              <div id="StudentAcc-Area">
+                  <table>
+                    <tr>
+                    <th>College Initials</th>
+                    <th>College</th>
+                    <th>Options</th>
+                    </tr>
+                      {% for college in colleges %}
+                    <tr>
+                      <td> {{ college.college_initials }}</td>
+                      <td> {{ college.college_name }}</td>
+                      <td>
+                        <button type="">Edit</button>
+                        <button type="">Delete</button>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                </div>
           </div>
     </div>
 </div>

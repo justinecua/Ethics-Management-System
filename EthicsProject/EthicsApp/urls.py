@@ -55,8 +55,7 @@ urlpatterns = [
 
 
 
-
-
+  re_path(r'^adminAddCategory/$', views.adminAddCategory, name='adminAddCategory'),
 
 
 

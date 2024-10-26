@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Prefetch
-from .models import Student, Accounts, Reviewer, Account_Type, College
+from .models import Student, Accounts, Reviewer, Account_Type, College, Category
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -87,10 +87,24 @@ def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
     
-    return render(request, 'admin/adminManuscripts.html', {
-        'profile_picture': profile_picture,
-        'account_type': account_type
-    })
+    categories = Category.objects.all()
+    category_data = []
+
+    # Loop through each category, extract 'category_name', and print it
+    for category in categories:
+        print(f"Category Name: {category.category_name}")  # This will print in the console
+        category_data.append({
+            'category_name': category.category_name,
+        })
+
+    # Define the context with the necessary data
+    context = {
+        'categories': category_data,
+          'profile_picture': profile_picture,
+        'account_type': account_type,
+    }
+
+    return render(request, 'admin/adminManuscripts.html', context)
 
 def adminSchedule(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -138,5 +152,6 @@ def adminColleges(request):
     }
 
     return render(request, 'admin/adminColleges.html', context)
+
 
 
