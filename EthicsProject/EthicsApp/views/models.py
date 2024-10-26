@@ -57,7 +57,8 @@ class Manuscripts(models.Model):
      study_site = models.CharField(max_length =255)
      no_studyparticipants= models.CharField(max_length =255)
      file = models.URLField(verbose_name="File Url")
-     account_id= models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
+     student_id= models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+     Reviewer_id = models.ForeignKey(Reviewer, on_delete=models.CASCADE, null=True)
     
      def __str__(self):
         return f"{self.thesis_title} {self.thesis_description}"

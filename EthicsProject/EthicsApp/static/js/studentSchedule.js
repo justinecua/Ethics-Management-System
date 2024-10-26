@@ -9,22 +9,23 @@ var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     height: 'auto',
-    events: '/api/schedules/',  // Fetching schedules from the Django view
+    events: '/api/student_appointments/', // Ensure this is the correct endpoint for appointments and schedules
     initialDate: new Date(),
     hiddenDays: [0],
     eventClick: function(info) {
         var event = info.event;
         var scheduleId = event.extendedProps.schedule_id;
 
+        // Populate modal for editing/viewing schedule
         EModalScheduleOverlay.style.display = "flex";
         document.getElementById('eschedule-type').value = event.extendedProps.schedule_type || "Available";
         document.getElementById('eschedule-date').value = event.extendedProps.schedule_date;
 
         document.getElementById('eschedule-start-time').value = 
-            event.start ? event.start.getHours().toString().padStart(2, '0') + ':' + event.start.getMinutes().toString().padStart(2, '0') : '';
+            event.start ? event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
         
         document.getElementById('eschedule-end-time').value = 
-            event.end ? event.end.getHours().toString().padStart(2, '0') + ':' + event.end.getMinutes().toString().padStart(2, '0') : '';
+            event.end ? event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
 
         document.getElementById('edit-schedule-form').action = `/schedules/edit/${scheduleId}/`;
     },

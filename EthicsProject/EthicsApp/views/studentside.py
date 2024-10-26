@@ -5,10 +5,13 @@ from django.shortcuts import render
 from .models import Accounts 
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from .models import Schedule, Accounts, Student
+from .models import Schedule, Accounts, Student, Apointments
 from django.views.decorators.http import require_POST
 from datetime import datetime
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+import json
 
 def studentdashboard(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -92,29 +95,87 @@ def student_appointment(request):
 
 @require_POST
 def save_schedule(request):
-    schedule_type = request.POST.get('schedule-type')
-    schedule_date = request.POST.get('schedule-date')
+    appointment_name = request.POST.get('schedule-type')
+    appointment_date = request.POST.get('schedule-date')
     start_time = request.POST.get('schedule-start-time')
     end_time = request.POST.get('schedule-end-time')
     
     # Convert to datetime objects for saving
-    schedule_date = datetime.strptime(schedule_date, '%Y-%m-%d').date()
-    start_time = datetime.strptime(start_time, '%H:%M').time()
-    end_time = datetime.strptime(end_time, '%H:%M').time()
-    
-    # First, retrieve the Student instance associated with the logged-in user
+    appointment_date = datetime.strptime(appointment_date, '%Y-%m-%d').date()
+
+    student = get_object_or_404(Student, auth_user=request.user)
+    account = get_object_or_404(Accounts, student_id=student)
+
+    Apointments.objects.create(
+        appointment_date=appointment_date,
+        appointment_name=appointment_name,
+        status="Scheduled",
+        transaction_id=str(account.student_id)
+    )
+    messages.success(request, "Appointment scheduled successfully.")
+    return redirect('student_appointment')
+
+@login_required
+def student_appointment(request):
+    # Retrieve the Student instance associated with the logged-in user
     student = get_object_or_404(Student, auth_user=request.user)
     
-    # Next, retrieve the Accounts instance linked to this Student
+    # Retrieve the Account linked to this Student
     account = get_object_or_404(Accounts, student_id=student)
     
-    # Save the schedule with the user's account information
-    Schedule.objects.create(
-        account_id=account,
-        schedule_type=schedule_type,
-        schedule_date=schedule_date,
-        schedule_start_time=start_time,
-        schedule_end_time=end_time
-    )
+    # Get all appointments and schedules for this account
+    appointments = Apointments.objects.filter(transaction_id=account.student_id)
+    schedules = Schedule.objects.filter(account_id=account)
 
-    return redirect('student_appointment')  # Redirect back to the calendar page
+    # Format the events data to work with FullCalendar
+    events = [
+        {
+            'title': appointment.appointment_name,
+            'start': appointment.appointment_date.isoformat(),
+            'color': 'yellow' if appointment.status == "Scheduled" else 'gray',
+        }
+        for appointment in appointments
+    ] + [
+        {
+            'title': schedule.schedule_type,
+            'start': f"{schedule.schedule_date}T{schedule.schedule_start_time}",
+            'end': f"{schedule.schedule_date}T{schedule.schedule_end_time}",
+            'color': 'blue',
+        }
+        for schedule in schedules
+    ]
+
+    # Pass events_json to the context
+    context = {
+        'events_json': json.dumps(events),
+    }
+    return render(request, 'students/studentAppointment.html', context)
+
+
+@login_required
+def get_appointments(request):
+    student = get_object_or_404(Student, auth_user=request.user)
+    account = get_object_or_404(Accounts, student_id=student)
+    
+    # Appointments for this student
+    appointments = Apointments.objects.filter(transaction_id=account.student_id)
+    schedules = Schedule.objects.filter(account_id=account)
+    
+    events = [
+        {
+            "title": appointment.appointment_name,
+            "start": appointment.appointment_date.isoformat(),
+            "color": "yellow" if appointment.status == "Scheduled" else "gray",
+        }
+        for appointment in appointments
+    ] + [
+        {
+            "title": schedule.schedule_type,
+            "start": f"{schedule.schedule_date}T{schedule.schedule_start_time}",
+            "end": f"{schedule.schedule_date}T{schedule.schedule_end_time}",
+            "color": "blue",
+        }
+        for schedule in schedules
+    ]
+    
+    return JsonResponse(events, safe=False)
