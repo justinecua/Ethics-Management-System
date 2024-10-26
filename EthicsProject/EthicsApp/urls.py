@@ -6,7 +6,7 @@ urlpatterns = [
     #-----------------------------------------Justine------------------------------------------------
     re_path(r'^accounts/login/$', views.login2, name='login2'),
     re_path(r'^accounts/signup/$', views.signup, name='signup'),
-    re_path(r'^adminDashboard/$', views.adminDashboard, name='adminDashboard'), 
+    re_path(r'^adminDashboard/$', views.adminDashboard, name='adminDashboard'),
     re_path(r'^adminAccounts/$', views.adminAccounts, name='adminAccounts'),
     re_path(r'^adminAppointments/$', views.adminAppointments, name='adminAppointments'),
     re_path(r'^adminManuscripts/$', views.adminManuscripts, name='adminManuscripts'),
@@ -44,13 +44,13 @@ urlpatterns = [
   re_path(r'^studentAppointment/$', views.studentAppointment, name='studentAppointment'),
   re_path(r'^studentManuscript/$', views.studentManuscript, name='studentManuscript'),
    re_path(r'^studentSettings/$', views.studentSettings, name='studentSettings'),
-  
+
 
   re_path(r'^reviewerdashboard/$', views.reviewerdashboard, name='reviewerdashboard'),
   re_path(r'^reviewerManuscript/$', views.reviewerManuscript, name='reviewerManuscript'),
   re_path(r'^reviewerSchedule/$', views.reviewerSchedule, name='reviewerSchedule'),
   re_path(r'^reviewerSettings/$', views.reviewerSettings, name='reviewerSettings'),
-
+ 
 
 
 
@@ -81,13 +81,13 @@ urlpatterns = [
 
     #------------------------------------------Erwin------------------------------------------------
 
-    path('Reviewer/calendar/', views.schedule_view, name='schedule_view'),  
-    path('Reviewer/calendar/schedule/', views.AddSchedule, name='AddSchedule'), 
-    path('Reviewer/calendar/schedule2/', views.AddSchedule2, name='AddSchedule2'), 
-    path('Reviewer/calendar/schedule-list/', views.schedule_list, name='schedule_list'),  
-    path('schedules/update/<int:schedule_id>/', views.update_schedule, name='update_schedule'),  
+    path('Reviewer/calendar/', views.schedule_view, name='schedule_view'),
+    path('Reviewer/calendar/schedule/', views.AddSchedule, name='AddSchedule'),
+    path('Reviewer/calendar/schedule2/', views.AddSchedule2, name='AddSchedule2'),
+    path('Reviewer/calendar/schedule-list/', views.schedule_list, name='schedule_list'),
+    path('schedules/update/<int:schedule_id>/', views.update_schedule, name='update_schedule'),
     path('schedules/delete/<int:schedule_id>/', views.delete_schedule, name='delete_schedule'),
-   
+
 
 
     path('schedule_list/', views.schedule_list, name='schedule_list'),
