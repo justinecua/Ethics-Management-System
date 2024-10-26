@@ -246,7 +246,7 @@ body {
   display: flex;
   align-items: center;
   height: 5%;
-
+  border: 1px solid black;
 }
 
 .SMCT-Left p {
@@ -255,18 +255,26 @@ body {
   font-weight: 800;
 }
 
+.SMC-Mid {
+
+  padding: 1rem;
+  border: 1px solid black;
+}
+
 .SMC-Bottom {
   display: flex;
+  flex-direction: column;
   height: 95%;
-
 }
 
 .SMCB-Left {
   width: 45%;
   padding: 1rem;
+  border: 1px solid black;
 }
 
 .SMCB-Right {
   width: 45%;
   padding: 1rem;
+  border: 1px solid black;
 }
