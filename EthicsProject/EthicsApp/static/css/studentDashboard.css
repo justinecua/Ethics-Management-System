@@ -15,6 +15,8 @@
   --nav-p-hovered: #1e5cc3;
   --calendarView-btn-color: #f3f4f7;
   --modal-container: #ffffff;
+  --student-p-element: #373b44;
+  --student-h3-element: #080a16;
 }
 
 [data-theme="light"] {
@@ -34,6 +36,8 @@
   --nav-p-hovered: black;
   --calendarView-btn-color: #f3f4f7;
   --modal-container: #ffffff;
+  --student-p-element: #373b44;
+  --student-h3-element: #080a16;
 }
 
 
@@ -244,37 +248,84 @@ body {
 .SMC-Top {
   padding: 1rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 5%;
+  height: 6%;
+  width: 96%;
   border: 1px solid black;
 }
 
+
+
 .SMCT-Left p {
-  color: var(--nav-p);
-  font-size: 2rem;
-  font-weight: 800;
+  color: var(--button-color);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .SMC-Mid {
-
   padding: 1rem;
   border: 1px solid black;
+}
+
+.SMC-Mid h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--student-h3-element);
+}
+
+.SMC-Mid p {
+  font-size: 1rem;
+  color: var(--student-p-element);
 }
 
 .SMC-Bottom {
   display: flex;
   flex-direction: column;
-  height: 95%;
+  height: 94%;
 }
 
-.SMCB-Left {
-  width: 45%;
+.SMCB-Top {
   padding: 1rem;
-  border: 1px solid black;
 }
 
-.SMCB-Right {
-  width: 45%;
-  padding: 1rem;
-  border: 1px solid black;
+.ProfilePic1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  background-color: var(--nav-hover);
+}
+
+.ProfilePic1 img {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ProfilePic1 p {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  font-family: "Montserrat", sans-serif;
+  color: var(--button-color);
+  font-weight: 600;
+}
+
+.PPProf1 {
+  border-radius: 5px;
+  padding: 0.3rem 0.4rem;
+  background-color: var(--modal-container);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.PPProf1 img {
+  width: 1.2rem;
+  height: 1.2rem;
+  object-fit: cover;
+  filter: invert(34%) sepia(88%) saturate(7471%) hue-rotate(180deg) brightness(1.1) contrast(1);
 }

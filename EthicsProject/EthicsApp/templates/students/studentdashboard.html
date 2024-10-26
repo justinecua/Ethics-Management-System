@@ -14,22 +14,36 @@
 {% include 'students/studentNavbar.html' %}
   <div class="StudentMain-Content">
       <div class="SMC-Top">
-         <div class"SMCT-Left">
+         <div class="SMCT-Left">
             <p>Home</p>
+         </div>
+         <div class="SMCT-Right">
+            <div class="ProfilePic1">
+            {% if profile_picture %}
+                <img src="{{ profile_picture }}" alt="Profile Picture">
+            {% else %}
+              <div class="PPProf1">
+                <img src="../../static/images/Account-Circle-Fill--Streamline-Remix-Fill.png" alt="Default Profile">              
+              </div>
+            {% endif %}
+        
+              {% if account_type %}
+                  <p>{{ account_type }}</p>
+              {% endif %}
+            </div> 
          </div>
       </div>
 
       <div class="SMC-Mid">
-          <h3>Welcome to SMC Research Ethics Office</h3> 
+        <h3>Welcome to SMC's Ethics Office</h3>
+        <p>Dedicated to upholding the highest standards of ethical research at SMC.</p>
         </div>
       <div class="SMC-Bottom">
           <div class="SMCB-Top">
-            
+              <h3>Getting Started</h3> 
           </div>
-          <h3>Getting Started</h3>
-        <div class="SMCB-Right">
 
-        </div>
+
       </div>
   </div>
 
