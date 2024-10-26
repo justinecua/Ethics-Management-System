@@ -7,6 +7,8 @@ from .loginregister import *
 from .adminDashboard import *
 from .addScheduleAdmin import *
 from .addCollege import *
+from .addEthicalRiskQuestions import *  
+
 
 #----------------------------Justine-------------------------
 

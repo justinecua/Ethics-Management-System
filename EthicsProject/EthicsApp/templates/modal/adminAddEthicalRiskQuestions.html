@@ -1,0 +1,18 @@
+<form method="POST" action="{% url 'adminAddEthicalRiskQuestions' %}"> 
+  {% csrf_token %}
+  <div id="Modal-EthicalRiskQuestions-Overlay" style="display: none;">
+      <div id="CO-Container">
+          <div class="CO-Top">
+              <h3>Add Ethical Questions</h3>
+          </div>
+          <div class="CO-Bottom">
+              <label for="ethical-questions">Ethical Question</label>
+              <input type="text" id="ethical-questions" name="ethical-questions" required placeholder="Ethical Question">
+          </div>
+          <div class="CO-Bottom2">
+              <button type="button" id="cancel-ethicalquestion">Cancel</button>
+              <button type="submit" id="add-college">Submit</button>
+          </div>
+      </div>
+  </div>
+</form>

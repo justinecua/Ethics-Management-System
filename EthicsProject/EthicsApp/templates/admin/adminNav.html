@@ -28,6 +28,16 @@
         </li>
       </a>
 
+      <a href="{% url 'adminEthicalRiskQuestions' %}">
+        <li class="{% if request.path == '/admin/ethical-risk-questions/' %}active{% endif %}">
+            <div class="NavContainer">
+                <img src="../../static/images/Calendar-Note--Streamline-Plump (1).png" alt="">
+            </div>
+            <p>Ethical Answers</p>
+        </li>
+    </a>
+    
+
       <a href="{% url 'adminColleges' %}">
         <li class="{% if request.path == '/adminColleges/' %}active{% endif %}">
           <div class="NavContainer">

@@ -88,3 +88,61 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.date} {self. comment}"
+<<<<<<< Updated upstream
+=======
+
+class Category(models.Model):
+    category_name= models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.category_name}"
+
+class TypeOfStudy(models.Model):
+    type_of_study = models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.type_of_study}"
+
+
+class BasicRequirements(models.Model):
+    basicRequirements = models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.basicRequirements}"
+
+class SupplementaryRequirements(models.Model):
+    supplementaryRequirements = models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.supplementaryRequirements}"
+
+
+class EthicalRiskQuestions(models.Model):
+    ethicalQuestions = models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.ethicalQuestions}"
+
+
+class EthicalRiskAnswers(models.Model):
+    ethicalQuestions = models.ForeignKey(EthicalRiskQuestions, on_delete=models.CASCADE, null=True)
+    ethicalAnswers = models.CharField(max_length=350, null=True)
+    student_id= models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f"{self.student_id} {self.ethicalQuestions}"
+
+class Appointments(models.Model):
+    appointment_date = models.DateField(null=True)
+    appointment_name = models.CharField(max_length =255, null=True)
+    status = models.CharField(max_length=100, null=True)
+    transaction_id = models.CharField(max_length=100, null=True)
+    institution = models.CharField(max_length=100, null=True)
+    ethicalAnswers_id = models.ForeignKey(EthicalRiskAnswers, on_delete=models.CASCADE, null=True)
+    student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f"{self.appointment_date} {self.appointment_name}"
+
+
+>>>>>>> Stashed changes
