@@ -1,9 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Prefetch
-from .models import Student, Accounts, Reviewer, Account_Type, College, Appointments, EthicalRiskQuestions
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
+from .models import Student, Accounts, Reviewer, Account_Type, College, Category
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -56,14 +53,14 @@ def adminAccounts(request):
     )
 
     accountType = Account_Type.objects.exclude(Account_type='Student')
-    
+
 
     for student in students:
         student.google_picture = get_google_profile_picture(student.auth_user)
-    
+
     for reviewer in reviewers:
         reviewer.google_picture = get_google_profile_picture(reviewer.auth_user)
-    
+
     for admin in admins:
         admin.google_picture = get_google_profile_picture(admin.auth_user)
 
@@ -92,16 +89,30 @@ def adminAppointments(request):
 def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
-    return render(request, 'admin/adminManuscripts.html', {
-        'profile_picture': profile_picture,
-        'account_type': account_type
-    })
+
+    categories = Category.objects.all()
+    category_data = []
+
+    # Loop through each category, extract 'category_name', and print it
+    for category in categories:
+        print(f"Category Name: {category.category_name}")  # This will print in the console
+        category_data.append({
+            'category_name': category.category_name,
+        })
+
+    # Define the context with the necessary data
+    context = {
+        'categories': category_data,
+          'profile_picture': profile_picture,
+        'account_type': account_type,
+    }
+
+    return render(request, 'admin/adminManuscripts.html', context)
 
 def adminSchedule(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
+
     return render(request, 'admin/adminSchedule.html', {
         'profile_picture': profile_picture,
         'account_type': account_type
@@ -110,7 +121,7 @@ def adminSchedule(request):
 def adminSettings(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
+
     return render(request, 'admin/adminSettings.html', {
         'profile_picture': profile_picture,
         'account_type': account_type
@@ -119,7 +130,7 @@ def adminSettings(request):
 def adminHelpSupport(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
+
     return render(request, 'admin/adminHelp&Support.html', {
         'profile_picture': profile_picture,
         'account_type': account_type
@@ -146,50 +157,4 @@ def adminColleges(request):
     return render(request, 'admin/adminColleges.html', context)
 
 
-def adminEthicalRiskQuestions(request):
-    profile_picture = request.session.get('profile_picture', None)
-    account_type = request.session.get('account_type', None)
-    
-    # Retrieve all ethical risk questions and include the ID and question text in the context
-    ethicalRiskQuestions_data = [
-        {
-            'id': question.id,  # Include the ID here
-            'ethicalQuestions': question.ethicalQuestions,
-        }
-        for question in EthicalRiskQuestions.objects.all()
-    ]
-
-    context = {
-        'profile_picture': profile_picture,
-        'account_type': account_type,
-        'ethicalRiskQuestions': ethicalRiskQuestions_data,
-    }
-
-    return render(request, 'admin/adminEthicalQuestions.html', context)
-
-
-@csrf_exempt
-def adminEditEthicalRiskQuestions(request, question_id):
-    ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
-    
-    if request.method == 'POST':
-        updated_question = request.POST.get('ethical-questions')
-        if updated_question:
-            ethical_question.ethicalQuestions = updated_question
-            ethical_question.save()
-            messages.success(request, "Ethical Question updated successfully!")
-        else:
-            messages.error(request, "Ethical question cannot be empty.")
-        return redirect('adminEthicalRiskQuestions')
-    
-    return render(request, 'admin/admineditEthicalQuestion.html', {'ethical_question': ethical_question})
-
-@csrf_exempt
-def adminDeleteEthicalRiskQuestions(request, question_id):
-    ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
-    ethical_question.delete()
-    messages.success(request, "Ethical Question deleted successfully!")
-    return redirect('adminEthicalRiskQuestions')
-
-    
 

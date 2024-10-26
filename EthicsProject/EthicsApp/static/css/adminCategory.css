@@ -266,24 +266,39 @@ td {
 
 }
 
-#cancel-college {
+#cancel-category {
   border: 1px solid var(--container-border);
   background-color: var(--modal-container);
   margin-right: 0.5rem;
 }
 
-#cancel-college:hover {
+#cancel-category:hover {
   background-color: var(--nav-hover);
   cursor: pointer;
 }
 
-#add-college {
+#add-category {
   background-color: var(--button-color);
   border: none;
   color: white;
 }
 
-#add-college:hover {
+#add-category:hover {
   background-color: var(--button-hover);
   cursor: pointer;
+}
+
+.MCT-Middle button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 7px;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  background-color: var(--calendarView-btn-color);
+}
+
+.MCTM-Container {
+  background-color: var(--calendarView-btn-color);
+  border-radius: 5px;
+  margin-left: 1rem;
 }
