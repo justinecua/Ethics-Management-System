@@ -50,7 +50,8 @@ urlpatterns = [
   re_path(r'^reviewerManuscript/$', views.reviewerManuscript, name='reviewerManuscript'),
   re_path(r'^reviewerSchedule/$', views.reviewerSchedule, name='reviewerSchedule'),
   re_path(r'^reviewerSettings/$', views.reviewerSettings, name='reviewerSettings'),
- 
+  re_path(r'^ReviewerScheduleView/$', views.ReviewerScheduleView.as_view(), name='ReviewerScheduleView'),
+  re_path(r'^api/schedules/$', views.ReviewerScheduleDataView.as_view(), name='get_ReviewerSchedule_data'),
 
 
 
@@ -81,12 +82,7 @@ urlpatterns = [
 
     #------------------------------------------Erwin------------------------------------------------
 
-    path('Reviewer/calendar/', views.schedule_view, name='schedule_view'),
-    path('Reviewer/calendar/schedule/', views.AddSchedule, name='AddSchedule'),
-    path('Reviewer/calendar/schedule2/', views.AddSchedule2, name='AddSchedule2'),
-    path('Reviewer/calendar/schedule-list/', views.schedule_list, name='schedule_list'),
-    path('schedules/update/<int:schedule_id>/', views.update_schedule, name='update_schedule'),
-    path('schedules/delete/<int:schedule_id>/', views.delete_schedule, name='delete_schedule'),
+    
 
 
 

@@ -1,0 +1,33 @@
+<form method="POST" action="{% url 'ReviewerScheduleView' %}"> 
+    {% csrf_token %}
+    <div id="Modal-Schedule-Overlay">
+      <div id="MS-Container">
+        <div class="MSC-Top">
+          <h3>Add Schedule</h3>
+        </div>
+        <div class="MSC-Bottom">
+          <label for="schedule-type">Type</label>
+          <select id="schedule-type" name="schedule-type">
+            <option value="Available">Available</option>
+            <option value="Not-Available">Not Available</option>
+          </select>
+          
+          <label for="schedule-date">Date</label>
+          <input type="date" id="schedule-date" name="schedule-date" required placeholder="Select date">
+          
+          <label for="schedule-start-time">Start Time</label>
+          <input type="time" id="schedule-start-time" name="schedule-start-time" required placeholder="Select start time">
+          
+          <label for="schedule-end-time">End Time</label>
+          <input type="time" id="schedule-end-time" name="schedule-end-time" required placeholder="Select end time">
+        </div>
+        
+        <div class="MSC-Bottom2">
+          <button type="button" id="cancel-sched">Cancel</button>
+          <button type="submit" id="add-sched">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  
