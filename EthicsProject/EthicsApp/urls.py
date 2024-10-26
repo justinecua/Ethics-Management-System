@@ -95,6 +95,8 @@ urlpatterns = [
 
     path('api/schedules/', views.schedule_list, name='schedule_list'),
     path('schedule/save/', views.save_schedule, name='save_schedule'),
+    path('api/appointments/', views.get_appointments, name='get_appointments'),
+    path('api/student_appointments/', views.get_appointments, name='get_appointments'),
 
 
 

@@ -9,24 +9,24 @@ class Manuscripts(models.Model):
      type_of_study_id = models.CharField(max_length =20, null=True)
      study_site = models.CharField(max_length =400, null=True)
      no_studyparticipants= models.CharField(max_length =255, null=True)
-     file = models.URLField(verbose_name="File Url")    
+     file = models.URLField(verbose_name="File Url")
 
      def __str__(self):
         return f"{self.thesis_title} {self.thesis_description}"
 
 
 class Student(models.Model):
-    auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE) 
+    auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     smc_student_no = models.CharField(max_length =255)
     mobile_number = models.CharField(max_length =255)
     receipt_no = models.CharField(max_length =255)
-    manuscript_id = models.ForeignKey(Manuscripts, on_delete=models.CASCADE, null=True)    
+    manuscript_id = models.ForeignKey(Manuscripts, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.auth_user}"
 
 class Reviewer(models.Model):
-    auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE) 
+    auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     smc_id_no = models.CharField(max_length=255, null=True)
     manuscript_id = models.ForeignKey(Manuscripts, on_delete=models.CASCADE, null=True)
 
@@ -42,7 +42,7 @@ class College(models.Model):
 
 class Account_Type(models.Model):
     Account_type = models.CharField(max_length =255)
-    
+
     def __str__(self):
         return f"{self.Account_type}"
 
@@ -57,9 +57,9 @@ class Accounts(models.Model):
         return f"{self.account_typeid}"
 
 class Schedule(models.Model):
-    account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)    
+    account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
     schedule_type = models.CharField(max_length=255, null=True)
-    schedule_date = models.DateField(null=True)  
+    schedule_date = models.DateField(null=True)
     schedule_start_time = models.TimeField(null=True)
     schedule_end_time = models.TimeField(null=True)
 
@@ -70,10 +70,10 @@ class Notification(models.Model):
     date = models.DateField(null=True)
     status = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
- 
+
     def __str__(self):
         return f"{self.date} {self. status} {self.name}"
-    
+
 class Comments(models.Model):
     commend = models.CharField(max_length=100)
     date = models.DateField(null=True)
@@ -89,7 +89,7 @@ class Category(models.Model):
 
 class TypeOfStudy(models.Model):
     type_of_study = models.CharField(max_length=350, null=True)
-    
+
     def __str__(self):
         return f"{self.type_of_study}"
 
@@ -115,7 +115,7 @@ class EthicalRiskQuestions(models.Model):
 
 
 class EthicalRiskAnswers(models.Model):
-    ethicalQuestions = models.ForeignKey(EthicalRiskQuestions, on_delete=models.CASCADE, null=True) 
+    ethicalQuestions = models.ForeignKey(EthicalRiskQuestions, on_delete=models.CASCADE, null=True)
     ethicalAnswers = models.CharField(max_length=350, null=True)
     student_id= models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
 
