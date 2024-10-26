@@ -64,7 +64,7 @@ class Schedule(models.Model):
     schedule_end_time = models.TimeField(null=True)
 
     def __str__(self):
-        return f"{self.account_id} Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})" 
+        return f"{self.account_id} Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})"
 class Notification(models.Model):
     date = models.DateField(null=True)
     status = models.CharField(max_length=100)
@@ -79,6 +79,8 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.date} {self. comment}"
+<<<<<<< Updated upstream
+=======
 
 class Category(models.Model):
     category_name= models.CharField(max_length=350, null=True)
@@ -110,7 +112,7 @@ class EthicalRiskQuestions(models.Model):
     ethicalQuestions = models.CharField(max_length=350, null=True)
 
     def __str__(self):
-        return f"{self.basicRequirements}"
+        return f"{self.ethicalQuestions}"
 
 
 class EthicalRiskAnswers(models.Model):
@@ -119,7 +121,7 @@ class EthicalRiskAnswers(models.Model):
     student_id= models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"{self.basicRequirements}"
+        return f"{self.student_id} {self.ethicalQuestions}"
 
 class Appointments(models.Model):
     appointment_date = models.DateField(null=True)
@@ -134,3 +136,4 @@ class Appointments(models.Model):
         return f"{self.appointment_date} {self.appointment_name}"
 
 
+>>>>>>> Stashed changes

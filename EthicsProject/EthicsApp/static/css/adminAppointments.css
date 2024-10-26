@@ -1,0 +1,47 @@
+/* adminAppointments.css */
+body {
+    font-family: Arial, sans-serif; /* Use a clean sans-serif font */
+    margin: 0;
+    padding: 0;
+}
+
+.appointment-container {
+    margin: 20px auto; /* Center the container */
+    max-width: 1200px; /* Set a maximum width */
+}
+
+.appoint-title {
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+thead {
+    background-color: #007BFF; /* Header background color */
+    color: black; /* White text color */
+}
+
+th, td {
+    padding: 12px; /* Add padding to cells */
+    text-align: left; /* Left-align text */
+    border: 1px solid #ddd; /* Light border around cells */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light background for even rows */
+}
+
+tr:hover {
+    background-color: #e0e0e0; /* Change background on hover */
+}
+
+.appoint-list, .appoint-list2 {
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.appoint-list2 {
+    cursor: pointer; /* Change cursor to pointer for rows */
+}

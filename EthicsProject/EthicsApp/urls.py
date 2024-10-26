@@ -35,6 +35,15 @@ urlpatterns = [
 
 
 
+
+
+
+
+
+
+
+
+
     #----------------------------------------Ferryl------------------------------------------------
   re_path(r'^trys$', views.trys, name='trys'),
   re_path(r'^index$', views.index, name='index'),
@@ -82,18 +91,21 @@ urlpatterns = [
 
     #------------------------------------------Erwin------------------------------------------------
 
-    
 
 
-
-    path('schedule_list/', views.schedule_list, name='schedule_list'),
 
 
     path('api/schedules/', views.schedule_list, name='schedule_list'),
     path('schedule/save/', views.save_schedule, name='save_schedule'),
     path('api/appointments/', views.get_appointments, name='get_appointments'),
-    path('api/student_appointments/', views.get_appointments, name='get_appointments'),
+    path('api/get_appointments/', views.get_appointments, name='get_appointments'),
+    path('students_appointments/', views.student_appointment, name='students_appointments'),
 
+
+    re_path(r'^adminEthicalRiskQuestions/$', views.adminEthicalRiskQuestions, name='adminEthicalRiskQuestions'),
+    re_path(r'^adminAddEthicalRiskQuestions/$', views.adminAddEthicalRiskQuestions, name='adminAddEthicalRiskQuestions'),
+    re_path(r'^adminEditEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminEditEthicalRiskQuestions, name='adminEditEthicalRiskQuestions'),
+    re_path(r'^adminDeleteEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminDeleteEthicalRiskQuestions, name='adminDeleteEthicalRiskQuestions'),
 
 
 

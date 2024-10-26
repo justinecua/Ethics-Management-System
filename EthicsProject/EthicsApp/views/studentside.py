@@ -103,14 +103,14 @@ def save_schedule(request):
     student = get_object_or_404(Student, auth_user=request.user)
     account = get_object_or_404(Accounts, student_id=student)
 
-    Apointments.objects.create(
+    Appointments.objects.create(
         appointment_date=appointment_date,
         appointment_name=appointment_name,
         status="Scheduled",
         transaction_id=str(account.student_id)
     )
     messages.success(request, "Appointment scheduled successfully.")
-    return redirect('student_appointment')
+    return redirect('students_appointments')
 
 @login_required
 def student_appointment(request):
@@ -121,7 +121,7 @@ def student_appointment(request):
     account = get_object_or_404(Accounts, student_id=student)
     
     # Get all appointments and schedules for this account
-    appointments = Apointments.objects.filter(transaction_id=account.student_id)
+    appointments = Appointments.objects.filter(transaction_id=account.student_id)
     schedules = Schedule.objects.filter(account_id=account)
 
     # Format the events data to work with FullCalendar
@@ -155,7 +155,7 @@ def get_appointments(request):
     account = get_object_or_404(Accounts, student_id=student)
     
     # Appointments for this student
-    appointments = Apointments.objects.filter(transaction_id=account.student_id)
+    appointments = Appointments.objects.filter(transaction_id=account.student_id)
     schedules = Schedule.objects.filter(account_id=account)
     
     events = [

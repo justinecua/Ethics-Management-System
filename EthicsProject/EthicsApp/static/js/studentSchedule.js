@@ -9,14 +9,14 @@ var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     height: 'auto',
-    events: '/api/student_appointments/', // Ensure this is the correct endpoint for appointments and schedules
+    events: '/api/get_appointments/', 
     initialDate: new Date(),
     hiddenDays: [0],
     eventClick: function(info) {
         var event = info.event;
         var scheduleId = event.extendedProps.schedule_id;
 
-        // Populate modal for editing/viewing schedule
+    
         EModalScheduleOverlay.style.display = "flex";
         document.getElementById('eschedule-type').value = event.extendedProps.schedule_type || "Available";
         document.getElementById('eschedule-date').value = event.extendedProps.schedule_date;
@@ -38,32 +38,33 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
         var scheduleTypeClass = arg.event.extendedProps.schedule_type === "Available" ? "Available" : "Not-Available";
         var scheduleId = arg.event.extendedProps.schedule_id;
-
+    
         var deleteButton = document.createElement('img');
         deleteButton.className = 'delete-event';
         deleteButton.src = '../static/images/Delete-2--Streamline-Block---Free.png';
         deleteButton.dataset.scheduleId = scheduleId;
-
+    
         deleteButton.addEventListener('click', function(event) {
             event.stopPropagation();
             deleteEvent(scheduleId);
         });
-
+    
         var eventContainer = document.createElement('div');
         eventContainer.className = `event-container ${scheduleTypeClass}`;
-        
+    
         var availabilityIndicator = document.createElement('div');
         availabilityIndicator.className = `availability-indicator ${arg.event.extendedProps.schedule_type === 'Available' ? 'green' : 'red'}`;
-        
+    
         var eventTime = document.createElement('div');
         eventTime.className = 'event-time';
         eventTime.innerText = `${startTime} - ${endTime}`;
-
+    
         availabilityIndicator.append(eventTime);
         eventContainer.appendChild(availabilityIndicator);
-
+    
         return { domNodes: [eventContainer] };
     },
+    
 });
 
 calendar.render();
