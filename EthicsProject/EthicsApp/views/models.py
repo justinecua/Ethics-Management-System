@@ -71,8 +71,7 @@ class Schedule(models.Model):
     schedule_end_time = models.TimeField(null=True)
 
     def __str__(self):
-        return f"{self.account_id} Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})"
-
+        return f"{self.account_id} Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})" 
 class Notification(models.Model):
     date = models.DateField(null=True)
     status = models.CharField(max_length=100)
