@@ -4,7 +4,7 @@
 {% block css %}
 
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
-<link rel="stylesheet" href="{% static './css/adminAppointments.css' %}">
+<link rel="stylesheet" href="{% static './css/adminColleges.css' %}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -17,24 +17,30 @@
     {% include './adminTopNav.html' %}
     <div class="MC-Bottom">
         {% include './adminNav.html' %}   
-        <div class="appointment-container">
-            <h1 class="appoint-title">Appointment List</h1>
-            <table class="appoint-table">
-                <thead>
-                    <tr class="appoint-list">
-                        <th>Appointment Date</th>
-                        <th>Appointment Name</th>
-                        <th>Status</th>
-                        <th>Transaction ID</th>
-                        <th>Institution</th>
-                        <th>Ethical Answers</th>
-                        <th>Student ID</th>
-                        <th>Action Buttons</th>
+
+        <div id="College-Content">
+            <div class="CC-Top">
+                <div class="CCT-Left">  
+                      <button id="ListOfColleges">Appointments</button>
+                </div> 
+                  <div class="CCT-Right">
+                      <button id="AddCollege-btn">Add Appointments</button> 
+                  </div> 
+                </div>
+              <div id="StudentAcc-Area">
+                  <table>
+                    <tr>
+                    <th>Appointment Date</th>
+                    <th>Appointment Name</th>
+                    <th>Status</th>
+                    <th>Transaction ID</th>
+                    <th>Institution</th>
+                    <th>Ethical Answers</th>
+                    <th>Student ID</th>
+                    <th>Options</th>
                     </tr>
-                </thead>
-    
-                {% for x in appointments %}
-                    <tr class="appoint-list2">
+                      {% for x in appointments %}
+                    <tr>
                         <td>{{ x.appointment_date }}</td>
                         <td>{{ x.appointment_name }}</td>
                         <td>{{ x.status }}</td>
@@ -42,16 +48,19 @@
                         <td>{{ x.institution }}</td>
                         <td>{{ x.ethicalAnswers_id }}</td>
                         <td>{{ x.student_id }}</td>
-                        <td>
-                            <a href="#">confirm</a>
-                            <a href="#">decline</a>
-                        </td>
+                      <td>
+                        <button type="">Edit</button>
+                        <form action="{% url 'delete_appointment' x.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this Appointment?');">Delete</button>
+                        </form>
+                      </td>
                     </tr>
-    
-                {% endfor %}
-    
-            </table>
-        </div>   
+                    {% endfor %}
+                  </table>
+                </div>
+          </div>
+
     </div>
 
 </div>

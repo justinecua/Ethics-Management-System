@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Prefetch
-from .models import Student, Accounts, Reviewer, Account_Type, College, Category
+from .models import Student, Appointments, Accounts, Reviewer, Account_Type, College, Category, EthicalRiskQuestions
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -85,6 +87,13 @@ def adminAppointments(request):
         'account_type': account_type
     })
 
+def delete_appointment(request, appointment_id):
+    if request.method == 'POST':
+        appointment = get_object_or_404(Appointments, id=appointment_id)
+        appointment.delete()
+        messages.success(request, "Appointment deleted successfully.")
+    return redirect('adminAppointments')
+
 
 def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -155,6 +164,55 @@ def adminColleges(request):
     }
 
     return render(request, 'admin/adminColleges.html', context)
+
+
+
+def adminEthicalRiskQuestions(request):
+    profile_picture = request.session.get('profile_picture', None)
+    account_type = request.session.get('account_type', None)
+    
+    # Retrieve all ethical risk questions and include the ID and question text in the context
+    ethicalRiskQuestions_data = [
+        {
+            'id': question.id,  # Include the ID here
+            'ethicalQuestions': question.ethicalQuestions,
+        }
+        for question in EthicalRiskQuestions.objects.all()
+    ]
+
+    context = {
+        'profile_picture': profile_picture,
+        'account_type': account_type,
+        'ethicalRiskQuestions': ethicalRiskQuestions_data,
+    }
+
+    return render(request, 'admin/adminEthicalQuestions.html', context)
+
+
+@csrf_exempt
+def adminEditEthicalRiskQuestions(request, question_id):
+    ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
+    
+    if request.method == 'POST':
+        updated_question = request.POST.get('ethical-questions')
+        if updated_question:
+            ethical_question.ethicalQuestions = updated_question
+            ethical_question.save()
+            messages.success(request, "Ethical Question updated successfully!")
+        else:
+            messages.error(request, "Ethical question cannot be empty.")
+        return redirect('adminEthicalRiskQuestions')
+    
+    return render(request, 'admin/admineditEthicalQuestion.html', {'ethical_question': ethical_question})
+
+@csrf_exempt
+def adminDeleteEthicalRiskQuestions(request, question_id):
+    ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
+    ethical_question.delete()
+    messages.success(request, "Ethical Question deleted successfully!")
+    return redirect('adminEthicalRiskQuestions')
+
+
 
 
 

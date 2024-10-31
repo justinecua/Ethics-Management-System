@@ -79,8 +79,7 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.date} {self. comment}"
-<<<<<<< Updated upstream
-=======
+
 
 class Category(models.Model):
     category_name= models.CharField(max_length=350, null=True)
@@ -136,4 +135,3 @@ class Appointments(models.Model):
         return f"{self.appointment_date} {self.appointment_name}"
 
 
->>>>>>> Stashed changes
