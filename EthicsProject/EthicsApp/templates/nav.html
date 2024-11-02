@@ -1,112 +1,17 @@
-{% extends 'master.html' %}
-
-{% load static %}
-
-{% block css %}
-<!-- <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}"> -->
-<style>
-  /* Toggle button styling */
-  .toggle-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    outline: none;
-    transition: color 0.4s ease;
-  }
-
-  /* Day mode icon */
-  .day-mode .toggle-btn {
-    color: #f39c12; /* Sun color */
-  }
-
-  /* Night mode icon */
-  .night-mode .toggle-btn {
-    color: #82AAFF; /* Moon color, inspired by Night Owl */
-  }
-
-  /* Night Owl theme (night mode) styles */
-  .night-mode {
-    background-color: #011627;  /* Night Owl background */
-    color: #d6deeb; /* Night Owl text color */
-  }
-
-  .night-mode a {
-    color: #82AAFF; /* Night Owl link color */
-  }
-
-  .night-mode nav {
-    background-color: #011627;
-  }
-
-  /* Day mode styles */
-  .day-mode {
-    background-color: #f6f8fa;  /* Light background */
-    color: #24292e; /* Darker text */
-  }
-
-  .day-mode a {
-    color: #0366d6; /* Standard link color */
-  }
-
-  .day-mode nav {
-    background-color: #ffffff;
-  }
-
-  /* Navbar links styling */
-  .student-navbar-links a {
-    text-decoration: none;
-    font-weight: bold;
-  }
-</style>
-{% endblock %}
-
 {% block content  %}
 <nav class="student-navbar">
   <ul class="student-navbar-links">
     <li><a href="{% url 'index' %}">Home</a></li>
+    <li><a href="#">How it works</a></li>
     <li><a href="#">About</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="#">Schedule</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Contact Us</a></li>
     <li><a href="{% url 'login2' %}">Login</a></li>
-    <li><a href="{% url 'signup' %}">Signup</a></li>
+    
+  </ul>
+</nav>
     <li id="Appearance-Btn">
       <button class="toggle-btn" id="theme-toggle">☀️</button>
     </li>
-  </ul>
-</nav>
 {% endblock %}
 
-<script>
-// Get reference to the toggle button
-const themeToggle = document.getElementById('theme-toggle');
-
-// Function to switch between day and night mode
-themeToggle.addEventListener('click', function() {
-  if (document.body.classList.contains('day-mode')) {
-    // Switch to night mode (Night Owl theme)
-    document.body.classList.remove('day-mode');
-    document.body.classList.add('night-mode');
-    themeToggle.textContent = "🌙";  // Change icon to moon
-    localStorage.setItem('theme', 'dark');
-  } else {
-    // Switch to day mode
-    document.body.classList.remove('night-mode');
-    document.body.classList.add('day-mode');
-    themeToggle.textContent = "☀️";  // Change icon to sun
-    localStorage.setItem('theme', 'light');
-  }
-});
-
-// Set initial theme based on localStorage preference
-window.onload = function() {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add('night-mode');
-    themeToggle.textContent = "🌙";  // Start with moon icon
-  } else {
-    document.body.classList.add('day-mode');
-    themeToggle.textContent = "☀️";  // Start with sun icon
-  }
-};
-</script>
