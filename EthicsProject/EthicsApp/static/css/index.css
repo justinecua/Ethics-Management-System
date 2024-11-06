@@ -110,6 +110,39 @@ nav ul li a:hover {
   font-family: "Montserrat", sans-serif;
 }
 
+.AboutPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.AP-Top {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.AP-Top h2 {
+  font-size: 4rem;
+  font-family: 'SHARY-Bold';
+}
+
+.AP-Top p {
+  text-align: center;
+  width: 70%;
+}
+
+.AP-Mid {
+  width: 80%;
+  height: 70%;
+  border: 1px solid black;
+}
+
 .password-reset-container {
   max-width: 500px;
   background: #fff;
