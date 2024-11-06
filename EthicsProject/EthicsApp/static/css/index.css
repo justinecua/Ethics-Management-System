@@ -115,16 +115,16 @@ nav ul li a:hover {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
-  border: 1px solid black;
+  height: 90vh;
 }
 
 .AP-Top {
   width: 100%;
-  height: 100%;
+  height: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .AP-Top h2 {
@@ -134,13 +134,66 @@ nav ul li a:hover {
 
 .AP-Top p {
   text-align: center;
-  width: 70%;
+  width: 60%;
 }
 
 .AP-Mid {
-  width: 80%;
+  width: 50%;
+  height: 65%;
+  padding: 1rem;
+  border-radius: 40px;
+  display: flex;
+  background-color: #d1e295;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.APM-Left{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 10%;
+  height: 100%;
+
+}
+
+.APML-border{
   height: 70%;
-  border: 1px solid black;
+  border: 1px solid var(--input-bg);
+}
+
+.APML-Image{
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: var(--h3-Top);
+
+}
+
+.APML-Image img{
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+.APM-Right{
+  padding: 3rem;
+  width: 80%;
+
+}
+
+.APM-Right h2{
+  font-size: 2rem;
+  font-family: 'SHARY-Bold';
+}
+
+.APM-Right p{
+  padding: 1.4rem;
+  text-align: justify;
 }
 
 .password-reset-container {
@@ -268,10 +321,43 @@ select.form-control {
   font-size: 5rem;
   top: 7rem;
   position: absolute;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 3s steps(30, end) infinite, stopBlinking 3s step-end infinite;
+  border-right: 3px solid;
+
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%; 
+  }
+}
+
+@keyframes stopBlinking {
+  0% {
+    border-color: black;
+  }
+  50% {
+    border-color: transparent; 
+  }
+  100% {
+    border-color: black; 
+  }
+}
+
+.AP-Top span {
+  color: var(--button-color);
 }
 
 .PageCover-Content span {
   color: var(--button-color);
+  transform: translateY(100px);
+  animation: slideUp 1.5s ease-out forwards; 
 }
 
 .PageCover-Content p {
@@ -284,6 +370,8 @@ select.form-control {
   color: var(--nav-p);
   text-align: center;
   line-height: 1.5rem;
+  transform: translateY(100px);
+  animation: slideUp 1.5s ease-out forwards; 
 }
 
 .PageCover-Content button {
@@ -296,6 +384,8 @@ select.form-control {
   color: white;
   font-weight: 600;
   border-radius: 10px;
+  transform: translateY(100px);
+  animation: slideUp 1.5s ease-out forwards; 
 }
 
 .PageCover {
@@ -304,10 +394,24 @@ select.form-control {
   justify-content: center;
   align-items: center;
   width: 60%;
-  height: 64%;
+  height: 69%;
   border-radius: 70px;
   overflow: visible;
   position: relative;
+  opacity: 0;
+  transform: translateY(100px);
+  animation: slideUp 1.5s ease-out forwards; 
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
 }
 
 .Float1 {
@@ -324,7 +428,6 @@ select.form-control {
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
   padding: 0.9rem 2rem;
-  border-radius: 10px;
   color: black;
   font-family: SHARY-Bold;
 }
@@ -343,7 +446,6 @@ select.form-control {
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
   padding: 0.9rem 2rem;
-  border-radius: 10px;
   color: black;
   font-family: SHARY-Bold;
 }
@@ -362,7 +464,6 @@ select.form-control {
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
   padding: 0.9rem 2rem;
-  border-radius: 10px;
   color: black;
   font-family: SHARY-Bold;
 }
@@ -381,7 +482,6 @@ select.form-control {
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
   padding: 0.9rem 2rem;
-  border-radius: 10px;
   color: black;
   font-family: SHARY-Bold;
 }
@@ -391,6 +491,5 @@ select.form-control {
   border-radius: 50px;
   object-fit: cover;
   width: 100%;
-  height: 100%;
-
+  height: 105%;
 }
