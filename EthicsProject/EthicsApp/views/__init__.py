@@ -7,6 +7,10 @@ from .loginregister import *
 from .adminDashboard import *
 from .addScheduleAdmin import *
 from .addCollege import *
+from .adminStudtype import *
+from .adminBasicreq import *
+from .adminSD import *
+
 
 #----------------------------Justine-------------------------
 

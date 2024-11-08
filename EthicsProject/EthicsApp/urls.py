@@ -56,6 +56,9 @@ urlpatterns = [
 
 
   re_path(r'^adminAddCategory/$', views.adminAddCategory, name='adminAddCategory'),
+  re_path(r'^adminStudtype/$', views.adminStudtype, name='adminStudtype'),
+  re_path(r'^adminBasicreq/$', views.adminBasicreq, name='adminBasicreq'),
+  re_path(r'^adminSDreq/$', views.adminSDreq, name='adminSDreq'),
 
 
 

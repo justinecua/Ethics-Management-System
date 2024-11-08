@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Prefetch
-from .models import Student, Accounts, Reviewer, Account_Type, College, Category
+from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -87,24 +87,55 @@ def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
     
+    # Fetch categories and types of study
     categories = Category.objects.all()
     category_data = []
+    
+    studtypes = TypeOfStudy.objects.all()
+    studtype_data = []
 
-    # Loop through each category, extract 'category_name', and print it
+    basicreqs = BasicRequirements.objects.all()
+    basicreq_data = []
+
+    suppreqs = SupplementaryRequirements.objects.all()
+    suppreq_data = []
+
+    # Loop through each category and add to category_data list
     for category in categories:
-        print(f"Category Name: {category.category_name}")  # This will print in the console
         category_data.append({
             'category_name': category.category_name,
         })
 
+    # Loop through each study type and add to studtype_data list
+    for studtype in studtypes:
+        studtype_data.append({
+            'type_of_study': studtype.type_of_study,
+        })
+
+    for basicreq in basicreqs:
+        basicreq_data.append({
+            'basicRequirements': basicreq.basicRequirements,
+        })
+
+
+    for suppreq in suppreqs:
+        suppreq_data.append({
+            'supplementaryRequirements': suppreq.supplementaryRequirements,
+        })
+
+
     # Define the context with the necessary data
     context = {
         'categories': category_data,
-          'profile_picture': profile_picture,
+        'studtype': studtype_data,
+        'basicreqs': basicreq_data,
+        'suppreqs': suppreq_data,
+        'profile_picture': profile_picture,
         'account_type': account_type,
     }
 
     return render(request, 'admin/adminManuscripts.html', context)
+
 
 def adminSchedule(request):
     profile_picture = request.session.get('profile_picture', None)

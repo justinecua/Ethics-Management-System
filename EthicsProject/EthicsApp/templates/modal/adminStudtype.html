@@ -1,0 +1,23 @@
+<form method="POST" action="{% url 'adminStudtype' %}"> 
+    {% csrf_token %}
+    <div id="Modal-Study-Overlay">
+      <div id="CO-Container">
+        <div class="CO-Top">
+          <h3>Type of Study</h3>
+        </div>
+        <div class="CO-Bottom">
+      
+          <label for="type_of_study">Type OF Study</label>
+          <input type="text" id="type_of_study" name="type_of_study" required placeholder="type_of_study">
+          
+          </div>
+        
+        <div class="CO-Bottom2">
+          <button type="button" id="cancel-study">Cancel</button>
+          <button type="submit" id="add-study">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  

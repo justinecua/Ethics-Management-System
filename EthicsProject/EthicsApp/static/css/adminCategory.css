@@ -58,7 +58,7 @@
   background-color: #f8f8fa;
 }
 
-#Modal-College-Overlay {
+#Modal-College-Overlay,#Modal-Study-Overlay,#Modal-Basic-Overlay,#Modal-SD-Overlay{
   width: 100vw;
   height: 100vh;
   background-color: #565a6241;
@@ -68,7 +68,7 @@
   overflow: hidden;
 }
 
-#Modal-Category-Overlay {
+#Modal-Category-Overlay,#Modal-Study-Overlay,#Modal-Basic-Overlay,#Modal-SD-Overlay{
   width: 100vw;
   height: 100vh;
   background-color: #565a6241;
@@ -266,24 +266,24 @@ td {
 
 }
 
-#cancel-category {
+#cancel-category,#cancel-study, #cancel-sd, #cancel-basic{
   border: 1px solid var(--container-border);
   background-color: var(--modal-container);
   margin-right: 0.5rem;
 }
 
-#cancel-category:hover {
+#cancel-category,#cancel-study, #cancel-sd, #cancel-basic:hover {
   background-color: var(--nav-hover);
   cursor: pointer;
 }
 
-#add-category {
+#add-category,#add-study, #add-sd, #add-basic{
   background-color: var(--button-color);
   border: none;
   color: white;
 }
 
-#add-category:hover {
+#add-category,#add-study, #add-sd, #add-basic:hover {
   background-color: var(--button-hover);
   cursor: pointer;
 }
@@ -301,4 +301,12 @@ td {
   background-color: var(--calendarView-btn-color);
   border-radius: 5px;
   margin-left: 1rem;
+}
+
+
+
+.ACT-Left {
+  background-color: var(--calendarView-btn-color);
+  border-radius: 7px;
+
 }
