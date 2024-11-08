@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import json
+from django.db.models import Q
 
 def studentdashboard(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -54,15 +55,13 @@ def studentSettings(request):
     
     context = {
         'profile_picture': profile_picture,
-        'account_type': account_type,
     }
-    return render(request, 'students/studentSettings.html', context)
-
+        
 def check_user(request):
     if request.user.is_authenticated:
-        user_exists = User.objects.filter(id=request.user.id).exists()
-        account_exists = Accounts.objects.filter(student_id=request.user.id).exists()
-        is_new_user = not (user_exists and account_exists)
+        session_id = request.session.get('id', None)
+        studentId = Student.objects.get(auth_user=session_id)
+        is_new_user = Accounts.objects.filter(Q(student_id=studentId) & Q(invite_status="Not Complete"))
 
         return is_new_user
     else:

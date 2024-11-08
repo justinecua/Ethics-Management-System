@@ -149,7 +149,7 @@ nav ul li a:hover {
   align-items: center;
 }
 
-.APM-Left{
+.APM-Left {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -159,15 +159,15 @@ nav ul li a:hover {
 
 }
 
-.APML-border{
+.APML-border {
   height: 70%;
   border: 1px solid var(--input-bg);
 }
 
-.APML-Image{
+.APML-Image {
   display: flex;
   justify-content: center;
-  align-items: center ;
+  align-items: center;
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
@@ -175,23 +175,23 @@ nav ul li a:hover {
 
 }
 
-.APML-Image img{
+.APML-Image img {
   width: 2.3rem;
   height: 2.3rem;
 }
 
-.APM-Right{
+.APM-Right {
   padding: 3rem;
   width: 80%;
 
 }
 
-.APM-Right h2{
+.APM-Right h2 {
   font-size: 2rem;
   font-family: 'SHARY-Bold';
 }
 
-.APM-Right p{
+.APM-Right p {
   padding: 1.4rem;
   text-align: justify;
 }
@@ -333,8 +333,9 @@ select.form-control {
   0% {
     width: 0;
   }
+
   100% {
-    width: 100%; 
+    width: 100%;
   }
 }
 
@@ -342,11 +343,13 @@ select.form-control {
   0% {
     border-color: black;
   }
+
   50% {
-    border-color: transparent; 
+    border-color: transparent;
   }
+
   100% {
-    border-color: black; 
+    border-color: black;
   }
 }
 
@@ -357,7 +360,7 @@ select.form-control {
 .PageCover-Content span {
   color: var(--button-color);
   transform: translateY(100px);
-  animation: slideUp 1.5s ease-out forwards; 
+  animation: slideUp 1.5s ease-out forwards;
 }
 
 .PageCover-Content p {
@@ -371,7 +374,7 @@ select.form-control {
   text-align: center;
   line-height: 1.5rem;
   transform: translateY(100px);
-  animation: slideUp 1.5s ease-out forwards; 
+  animation: slideUp 1.5s ease-out forwards;
 }
 
 .PageCover-Content button {
@@ -385,7 +388,7 @@ select.form-control {
   font-weight: 600;
   border-radius: 10px;
   transform: translateY(100px);
-  animation: slideUp 1.5s ease-out forwards; 
+  animation: slideUp 1.5s ease-out forwards;
 }
 
 .PageCover {
@@ -393,24 +396,25 @@ select.form-control {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 64vw;
   height: 69%;
   border-radius: 70px;
   overflow: visible;
   position: relative;
   opacity: 0;
   transform: translateY(100px);
-  animation: slideUp 1.5s ease-out forwards; 
+  animation: slideUp 1.5s ease-out forwards;
 }
 
 @keyframes slideUp {
   0% {
     opacity: 0;
-    transform: translateY(100px); 
+    transform: translateY(100px);
   }
+
   100% {
     opacity: 1;
-    transform: translateY(0); 
+    transform: translateY(0);
   }
 }
 

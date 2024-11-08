@@ -84,6 +84,7 @@ def validatelogin(request):
                     request.session['profile_picture'] = profile_picture
                     request.session['account_type'] = account_type
                     request.session['username'] = user.username
+                    request.session['id'] = user.id
 
                     if account_type == 'Student':
                         return redirect('studentdashboard')
