@@ -1,0 +1,23 @@
+<form method="POST" action="{% url 'adminSDreq' %}"> 
+    {% csrf_token %}
+    <div id="Modal-SD-Overlay">
+      <div id="CO-Container">
+        <div class="CO-Top">
+          <h3>Type of Study</h3>
+        </div>
+        <div class="CO-Bottom">
+      
+          <label for="supplementaryRequirements">Supplementary Requirements</label>
+          <input type="text" id="supplementaryRequirements" name="supplementaryRequirements" required placeholder="Enter supplementary Requirement">
+          
+          </div>
+        
+        <div class="CO-Bottom2">
+          <button type="button" id="cancel-sd">Cancel</button>
+          <button type="submit" id="add-sd">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  

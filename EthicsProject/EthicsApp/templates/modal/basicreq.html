@@ -1,0 +1,23 @@
+<form method="POST" action="{% url 'adminBasicreq' %}"> 
+    {% csrf_token %}
+    <div id="Modal-Basic-Overlay">
+      <div id="CO-Container">
+        <div class="CO-Top">
+          <h3>Type of Study</h3>
+        </div>
+        <div class="CO-Bottom">
+      
+          <label for="basicRequirements">Basic Requirements</label>
+          <input type="text" id="basicRequirements" name="basicRequirements" required placeholder="Enter Basic Requirement">
+          
+          </div>
+        
+        <div class="CO-Bottom2">
+          <button type="button" id="cancel-basic">Cancel</button>
+          <button type="submit" id="add-basic">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  

@@ -2,58 +2,120 @@
 
 {% load static %}
 {% block css %}
-
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
 <link rel="stylesheet" href="{% static './css/adminCategory.css' %}">
 <script type="module" src="{% static 'js/adminCategory.js' %}"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
 {% block content %}
 {% include 'modal/adminCategory.html' %}
+{% include 'modal/adminStudtype.html' %}
+{% include 'modal/basicreq.html' %}
+{% include 'modal/adminSD.html' %}
 <div class="MainContainer">
-
     {% include './adminTopNav.html' %}
-     <div class="MC-Bottom">
-        {% include './adminNav.html' %}    
+    <div class="MC-Bottom">
+        {% include './adminNav.html' %}
         
         <div id="Category-content">
             <div class="CC-Top">
-                <div class="CCT-Left">  
-                    <button id="MySchedule-btn">Category</button>
-                    <button id="Reviewer-btn">Type of Study</button>
-                    <button id="History-btn">Basic Requirements</button>
-                    <button id="History-btn">Supplementary Documents</button>
-                </div> 
-                
-                  <div class="CCT-Right">
-                      <button id="AddCategory-btn">Add Category</button> 
-                  </div> 
+                <!-- Left buttons for toggling content areas -->
+                <div class="CCT-Left">
+                    <button id="Category-btn">Category</button>
+                    <button id="TypeStudy-btn">Type of Study</button>
+                    <button id="Br-btn">Basic Requirements</button>
+                    <button id="Sd-btn">Supplementary Documents</button>
+                </div>
+
+                <!-- Right buttons for adding new entries -->
+                <div class="CCT-Right">
+                    <button id="AddCategory-btn">Add Category</button>
+                    <button id="AddStudType-btn" style="display: none;">Add Type of Study</button>
+                    <button id="AddBR-btn" style="display: none;">Add Requirements</button>
+                    <button id="AddSD-btn" style="display: none;">Add Supplementary</button>
+                </div>
             </div>
 
-                <div id="StudentAcc-Area">
-                    <table>
-                        <tr>
-                            <th>Category Name</th>
-                        </tr>
-                        {% if categories %}
-                        {% for category in categories %}
+            <!-- Content Areas -->
+            <div id="Category-area" class="content-area" >
+                <table>
+                    <tr>
+                        <th>Category Name</th>
+                    </tr>
+                    {% if categories %}
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{ category.category_name }}</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+
+            <div id="StudType-area" style="display: none;">
+                <table>
+                    <tr>
+                        <th>Study Type</th>
+                    </tr>
+                    {% if studtype %}
+                        {% for study in studtype %}
                             <tr>
-                                <td>{{ category.category_name }}</td>
+                                <td>{{ study.type_of_study }}</td>
                                 <td>
                                     <button type="button">Edit</button>
                                     <button type="button">Delete</button>
                                 </td>
                             </tr>
                         {% endfor %}
-                        {% endif %}
-     
-                  </div>
-              </div>
-        </div>
+                    {% endif %}
+                </table>
+            </div>
 
+            <div id="BR-area" class="content-area" style="display: none;">
+                <table>
+                    <tr>
+                        <th>Basic Requirements</th>
+                    </tr>
+                    {% if basicreqs %}
+                        {% for basicreq in basicreqs %}
+                    <tr>
+                        <td>{{ basicreq.basicRequirements }}</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+
+            <div id="SD-area" class="content-area" style="display: none;">
+                <table>
+                    <tr>
+                        <th>Supplementary Documents</th>
+                    </tr>
+                    {% if suppreqs %}
+                        {% for suppreq in suppreqs %}
+                    <tr>
+                        <td>{{ suppreq.supplementaryRequirements}}</td>
+                        <td>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
 
 {% endblock %}
