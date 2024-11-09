@@ -17,5 +17,10 @@ document.addEventListener('click', function(event) {
     if (event.target === ModalThesisInfoOverlay) {
         ModalThesisInfoOverlay.style.display = "none";
     }
+
+   if (event.target === ModalCompleteProfileOverlay) {
+        ModalCompleteProfileOverlay.style.display = "none";
+    }
+ 
 });
 

@@ -50,7 +50,7 @@
   background-color: #565a6241;
   z-index: 7;
   position: absolute;
-  display: none;
+  display: flex;
   overflow: hidden;
 
 }
@@ -61,7 +61,7 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 25rem;
+  width: 35rem;
   background-color: var(--modal-container);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -111,17 +111,18 @@
   width: 100%;
 }
 
-.MTIC-Mid label,
-input {
-  width: 100%;
-}
 
 .MTIC-Mid input {
   margin-top: 1rem;
-  padding: 0.7rem 1rem;
+  padding: 0.9rem 1rem;
   margin-bottom: 1rem;
   border: 1px solid var(--container-border);
   border-radius: 5px;
+}
+
+.MTIC-Mid input:focus {
+  border: 1px solid var(--button-color);
+  outline: none;
 }
 
 .MTIC-Bottom {
@@ -132,7 +133,7 @@ input {
 }
 
 .MTIC-Bottom button {
-  padding: 0.6rem 1.9rem;
+  padding: 0.8rem 1.9rem;
 }
 
 #SubmitThesisInfo {
@@ -148,7 +149,22 @@ input {
 }
 
 #CancelThesisOverlay {
-  background-color: white;
+  background-color: var(--container-border);
   border-radius: 5px;
-  border: 1px solid var(button-color);
+  border: none;
+}
+
+.MTICM-Top {
+  display: flex;
+  gap: 2%;
+}
+
+.MTICM-Top label,
+input {
+  width: 100%;
+}
+
+.MTIC-Mid label,
+input {
+  width: 100%;
 }

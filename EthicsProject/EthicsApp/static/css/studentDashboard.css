@@ -427,7 +427,6 @@ body {
 .GSL-Container img {
   width: 1.2rem;
   height: 1.2rem;
-  filter: var(--icon-filter-get-started);
 
 }
 
