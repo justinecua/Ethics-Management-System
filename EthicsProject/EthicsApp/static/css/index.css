@@ -380,7 +380,7 @@ select.form-control {
 .PageCover-Content button {
   position: absolute;
   top: 18rem;
-  padding: 0.8rem 3rem;
+  padding: 0.8rem 1.8rem;
   font-family: "Montserrat", sans-serif;
   background-color: var(--button-color);
   border: none;

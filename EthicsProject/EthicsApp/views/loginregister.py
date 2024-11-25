@@ -15,6 +15,14 @@ def register(request):
         password1 = request.POST.get('password')
         password2 = request.POST.get('password2')
 
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken. Please choose another one.")
+            return redirect('register')  
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already registered.")
+            return redirect('register')  
+
         if password1 == password2:
             user = User.objects.create_user(
                 username=username,
@@ -30,8 +38,8 @@ def register(request):
             studentAccStatus = "Not Complete"
             newAcc = Accounts.objects.create(
                 account_typeid=student_account_type,
-                student_id = student,
-                invite_status = studentAccStatus
+                student_id=student,
+                invite_status=studentAccStatus
             )
 
             user = authenticate(request, username=username, password=password1)

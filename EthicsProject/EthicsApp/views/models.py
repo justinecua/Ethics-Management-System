@@ -17,9 +17,9 @@ class Manuscripts(models.Model):
 
 class Student(models.Model):
     auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
-    smc_student_no = models.CharField(max_length =255)
-    mobile_number = models.CharField(max_length =255)
-    receipt_no = models.CharField(max_length =255)
+    smc_student_no = models.CharField(null=True, max_length =255)
+    mobile_number = models.CharField(null=True, max_length =255)
+    receipt_no = models.CharField(null=True, max_length =255)
     manuscript_id = models.ForeignKey(Manuscripts, on_delete=models.CASCADE, null=True)
 
     def __str__(self):

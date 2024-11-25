@@ -20,9 +20,9 @@ urlpatterns = [
     path('set-password/<uidb64>/<token>/', views.set_password, name='set_password'),
     re_path(r'^adminColleges/$', views.adminColleges, name='adminColleges'),
     re_path(r'^adminAddColleges/$', views.adminAddColleges, name='adminAddColleges'),
-
-
-
+    path('update-thesis-info/', views.update_thesis_info, name='update_thesis_info'),
+    path('completeProfile/', views.completeProfile, name='completeProfile'),
+    path('addMemberStudent/', views.addMemberStudent, name='addMemberStudent'),
 
 
 

@@ -1,4 +1,5 @@
-<form method="POST" action=""> 
+<form method="POST" action="{% url 'completeProfile' %}">
+  {% csrf_token %}
   <div id="Modal-CompleteProfile-Overlay">
     <div id="MCP-Container">
 
@@ -10,23 +11,24 @@
           <div class="MTICM-Top">
             <div class="MTICM1">
                <label for="">First Name</label>
-              <input type="" name="thesisTitle" placeholder="Input thesis title">
+              <input type="" name="firstname" placeholder="Input first name">
             </div>
             <div class="MTICM2">
               <label for="">Last Name</label>
-              <input type="" name="thesisDescription" placeholder="Input brief description about your thesis">  
+              <input type="" name="lastname" placeholder="Input last name">  
   
             </div>
           </div>
           <label for="">SMC Student No.</label>
-          <input type="" name="thesisTitle" placeholder="Input thesis title">
+          <input type="" name="SMCStudentNo" placeholder="Input SMC student No">
           <label for="">Mobile Number</label>
-          <input type="" name="thesisDescription" placeholder="Input brief description about your thesis"> 
+          <input type="" name="MobileNumber" placeholder="Input mobile number"> 
           <label for="">Receipt No.</label>
-          <input type="" name="thesisDescription" placeholder="Input brief description about your thesis"> 
+          <input type="" name="ReceiptNo" placeholder="Input receipt no"> 
           <label for="">Manuscript</label>
-          <input type="" name="thesisDescription" placeholder="Input brief description about your thesis"> 
- 
+          {% if thesis_title %}
+          <input type="" name="ReceiptNo" value="{{ thesis_title }}"> 
+          {% endif %}
         </div>
         <div class="MTIC-Bottom">
             <button id="CancelThesisOverlay" type="">Cancel</button> 

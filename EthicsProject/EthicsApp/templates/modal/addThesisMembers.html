@@ -1,0 +1,46 @@
+<form method="POST" action="{% url 'addMemberStudent' %}">
+  {% csrf_token %}
+  <div id="Modal-ThesisMembers-Overlay">
+    <div id="MTM-Container">
+        <div class="MTM-Top">
+          <div class="MTM-TopDiv">
+            <h3>Add Member</h3>
+            <p>Kindly Input information of members</p>  
+          </div>
+          <div class="MTM-TopDiv">
+            <button type="button" id="MemberAdd-btn">Add Member</button> 
+          </div>
+        </div>
+        <div class="MTIC-Mid">
+          <div class="MemberInputContainer">
+            
+            <div class="ContainerMember">
+              <div class="MTICMM1">
+                <label for="">First Name</label>
+                <input type="" name="firstnames" placeholder="Input first name">
+              </div>
+              <div class="MTICMM2">
+                <label for="">Last Name</label>
+                <input type="" name="lastnames" placeholder="Input last name">   
+              </div>
+              <div class="MTICMM3">
+                <label for="">Receipt No.</label>
+                <input type="" name="receipt_nos" placeholder="Input receipt no"> 
+              </div>
+              <div class="MTICMM4">
+                <label for="">Email</label>
+                <input type="" name="emails" placeholder="Input email address"> 
+              </div>
+              <input id="manuscriptID" type="" name="manuscriptID" value="{{ thesis_id }}"> 
+            </div>
+
+          </div>
+        </div>
+        <div class="MTIC-Bottom">
+            <button type="button" id="CancelThesisMembersOverlay">Cancel</button>
+            <button type="submit" id="SubmitThesisInfo">Submit</button>
+        </div>
+    </div>
+  </div>
+</form>
+
