@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['smcethicsoffice.live', '127.0.0.1:8000', '127.0.0.1', '68.183.181.232']
+ALLOWED_HOSTS = ['172.22.127.198:8000', '172.22.127.198','smcethicsoffice.live', '127.0.0.1:8000', '127.0.0.1', '68.183.181.232']
 
 # Application definition
 

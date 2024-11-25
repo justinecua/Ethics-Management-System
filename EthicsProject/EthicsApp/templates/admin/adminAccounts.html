@@ -92,9 +92,9 @@
                                 <td>{{ reviewerAcc.invite_status }}</td>
                                 <td>
                                     {% if reviewerAcc.invite_status == "Expired" %}
-                                        <button type="button">Resend</button>
+                                        <button class="TableDelete-Btn" type="button">Resend</button>
                                     {% else %}
-                                        <button type="button">Remove</button>
+                                        <button class="TableDelete-Btn" type="button">Remove</button>
                                     {% endif %}
                                 </td>
                             {% endfor %}
@@ -128,9 +128,9 @@
                       <td>
                             {{ adminAcc.invite_status }}
                               {% if adminAcc.invite_status == "Expired" %}
-                                  <td><button type="button">Resend</button></td>
+                                  <td><button class="TableDelete-Btn" type="button">Resend</button></td>
                               {% else %}
-                              <td><button type="">Remove</button></td>  
+                              <td><button class="TableDelete-Btn" type="">Remove</button></td>  
                             {% endif %} 
                   
                          {% endfor %}

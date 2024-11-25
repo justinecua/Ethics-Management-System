@@ -17,7 +17,28 @@
         {% include 'modal/studentSchedule.html' %}
 
   <div class="StudentMain-Content">
-              <div id="Schedule-Content">
+      <div class="SMC-Top">
+          <div class="SMCT-Left">
+              <p>Appointments</p>
+          </div>
+          <div class="SMCT-Right">
+              <div class="ProfilePic1">
+              {% if profile_picture %}
+                  <img src="{{ profile_picture }}" alt="Profile Picture">
+              {% else %}
+                <div class="PPProf1">
+                  <img src="../../static/images/Account-Circle-Fill--Streamline-Remix-Fill.png" alt="Default Profile">              
+                </div>
+              {% endif %}
+          
+                {% if account_type %}
+                    <p>{{ account_type }}</p>
+                {% endif %}
+              </div> 
+          </div>
+      </div>
+
+        <div id="Schedule-Content">
             <div class="SC-Top">
               <div class="SCT-Left">
                <select id="monthSelect">

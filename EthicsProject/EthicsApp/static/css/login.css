@@ -12,8 +12,22 @@ body {
   --text-color: #BABABA;
   --login-container: #1d1d1d;
   --border: #DCDCDE;
-  --button-color: #1834E7;
-  --button-hover: #0b1e9a;
+  --button-color: #0084ff;
+  --button-hover: #0179e8;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.8);
+  --nav-bg-icon: #f8f8fa;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: #1e5cc3;
+  --calendarView-btn-color: #f3f4f7;
+  --modal-container: #ffffff;
+  --student-p-element: #373b44;
+  --student-h3-element: #080a16;
+  --icon-filter-get-started: brightness(100%) invert(1);
+  --modalh3: #121422;
 }
 
 [data-theme="light"] {
@@ -21,8 +35,22 @@ body {
   --text-color: #373131;
   --login-container: #ffffff;
   --border: #DCDCDE;
-  --button-color: #1834E7;
-  --button-hover: #0b1e9a;
+  --button-color: #0084ff;
+  --button-hover: #0179e8;
+  --container-border: #d7dde0;
+  --h3-Top: #07192a;
+  --input-bg: #f3f4f7;
+  --icon-filter: brightness(0.5) invert(0.4);
+  --nav-bg-icon: #f3f4f7;
+  --nav-p: #465d7f;
+  --nav-hover: #ebebff;
+  --nav-p-hovered: black;
+  --calendarView-btn-color: #f3f4f7;
+  --modal-container: #ffffff;
+  --student-p-element: #373b44;
+  --student-h3-element: #080a16;
+  --icon-filter-get-started: brightness(100%) invert(1);
+  --modalh3: #121422;
 }
 
 .wrapper {
@@ -57,15 +85,14 @@ body {
 .google-btn {
   width: 100%;
   padding: 0.7rem 1rem;
-  background-color: #ffffff;
-  border: 1px solid var(--border);
+  background-color: var(--nav-hover);
+  border: none;
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
 }
 
 .google-btn img {
@@ -145,9 +172,8 @@ input[type="email"],
 input[type="password2"] {
   width: 100%;
   padding: 0.9rem 1rem;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  border-radius: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   font-weight: 600;
   outline: none;
   font-family: "Montserrat", sans-serif;
@@ -308,13 +334,13 @@ h2 {
 
 .LoginHeader h3 {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: var(--text-color);
 }
 
 .LoginHeader img {
-  width: 4.6rem;
-  height: 4.6rem;
+  width: 3.8rem;
+  height: 3.8rem;
   object-fit: cover;
   margin-right: 0.8rem;
 }

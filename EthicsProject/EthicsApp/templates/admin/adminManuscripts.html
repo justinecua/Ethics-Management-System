@@ -42,14 +42,15 @@
                 <table>
                     <tr>
                         <th>Category Name</th>
+                        <th>Options</th>
                     </tr>
                     {% if categories %}
                     {% for category in categories %}
                     <tr>
                         <td>{{ category.category_name }}</td>
                         <td>
-                            <button type="button">Edit</button>
-                            <button type="button">Delete</button>
+                            <button class="TableEdit-Btn" type="button">Edit</button>
+                            <button class="TableDelete-Btn" type="button">Delete</button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -61,14 +62,15 @@
                 <table>
                     <tr>
                         <th>Study Type</th>
+                        <th>Options</th>
                     </tr>
                     {% if studtype %}
                         {% for study in studtype %}
                             <tr>
                                 <td>{{ study.type_of_study }}</td>
                                 <td>
-                                    <button type="button">Edit</button>
-                                    <button type="button">Delete</button>
+                                    <button class="TableEdit-Btn" type="button">Edit</button>
+                                    <button class="TableDelete-Btn" type="button">Delete</button>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -80,15 +82,15 @@
                 <table>
                     <tr>
                         <th>Basic Requirements</th>
+                        <th>Options</th>
                     </tr>
                     {% if basicreqs %}
                         {% for basicreq in basicreqs %}
                     <tr>
                         <td>{{ basicreq.basicRequirements }}</td>
                         <td>
-                            <button type="button">Edit</button>
-                            <button type="button">Delete</button>
-                        </td>
+                            <button class="TableEdit-Btn" type="button">Edit</button>
+                            <button class="TableDelete-Btn" type="button">Delete</button>                                </td>
                     </tr>
                     {% endfor %}
                     {% endif %}
@@ -99,15 +101,15 @@
                 <table>
                     <tr>
                         <th>Supplementary Documents</th>
+                        <th>Options</th>
                     </tr>
                     {% if suppreqs %}
                         {% for suppreq in suppreqs %}
                     <tr>
                         <td>{{ suppreq.supplementaryRequirements}}</td>
                         <td>
-                            <button type="button">Edit</button>
-                            <button type="button">Delete</button>
-                        </td>
+                            <button class="TableEdit-Btn" type="button">Edit</button>
+                            <button class="TableDelete-Btn" type="button">Delete</button>                        </td>
                     </tr>
                     {% endfor %}
                     {% endif %}

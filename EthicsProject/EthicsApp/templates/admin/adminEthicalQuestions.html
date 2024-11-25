@@ -21,7 +21,7 @@
             <form method="POST" action="{% url 'adminAddEthicalRiskQuestions' %}">
                 {% csrf_token %}
                 <label for="ethical-questions">Ethical Question</label>
-                <input type="text" id="ethical-questions" name="ethical-questions" required placeholder="Enter ethical question">
+                <textarea rows="12" cols="51" id="ethical-questions" name="ethical-questions" required placeholder="Enter ethical question"></textarea>
         </div>
         <div class="CO-Bottom2">
             <button type="button" id="cancel-ethicalquestion">Cancel</button>
@@ -57,11 +57,9 @@
                   <tr>
                       <td>{{ x.ethicalQuestions }}</td>
                       <td>
-                          <a href="{% url 'adminEditEthicalRiskQuestions' x.id %}">
-                              <button type="button">Edit</button>
-                          </a>
+                          <button class="TableEdit-Btn" type="button">Edit</button>
                           <a href="{% url 'adminDeleteEthicalRiskQuestions' x.id %}" onclick="return confirm('Are you sure you want to delete this question?');">
-                              <button type="button">Delete</button>
+                              <button class="TableDelete-Btn" type="button">Delete</button>
                           </a>
                       </td>
                   </tr>

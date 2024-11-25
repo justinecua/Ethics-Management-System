@@ -76,7 +76,6 @@ body {
   align-items: center;
 }
 
-
 .MCT-Middle {
   width: 80%;
   display: flex;
@@ -96,9 +95,9 @@ body {
 }
 
 .MCT-Left h3 {
-
   font-size: 0.9rem;
   font-family: Arial;
+  color: var(--nav-p);
 }
 
 .MCT-Right input {
@@ -253,4 +252,23 @@ table th {
   height: 1.2rem;
   object-fit: cover;
   filter: invert(34%) sepia(88%) saturate(7471%) hue-rotate(180deg) brightness(1.1) contrast(1);
+}
+
+.TableEdit-Btn {
+  background-color: #ebecfe;
+  border: none;
+  color: black;
+  padding: 0.6rem 1.3rem;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+}
+
+.TableDelete-Btn {
+  font-size: 0.8rem;
+  background-color: #e4e4ee;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
 }
