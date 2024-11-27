@@ -8,23 +8,61 @@
           <!-- Step 1: Schedule Details -->
           <div id="schedule-step-1">
               <div class="MSC-Top">
-                  <h3>Add Schedule - Step 1</h3>
+                  <h3>Application for Ethics Review</h3>
+                  <p>Instructions to the Researchers: Please complete this form and ensure that you have included in your submission the documents you checked in Section 2. (This form is adapted from DOST, PHREB and MU-REB)</p>
               </div>
               <div class="MSC-Bottom">
-                  <label for="schedule-type">Type</label>
-                  <select id="schedule-type" name="schedule-type">
-                      <option value="Available">Ethics Review</option>
-                      <option value="Not-Available">Other</option>
-                  </select>
+                <div class="ThesisTypeSched">
+                      <label for="schedule-type">Thesis Type</label>
+                      <select>
+                        <option value="">Thesis I</option>
+                      </select>
+                </div>
+                <h4>I. General Information</h4>
 
-                  <label for="schedule-date">Date</label>
-                  <input type="date" id="schedule-date" name="schedule-date" required placeholder="Select date">
+                <div class="GenCont1">
+                  <div class="GenCont1Left">
+                      <label for="schedule-type">Title of the Study</label>
+                      <input type="" name="" value="" placeholder="Input title of your study">
+                  </div>
+                  <div class="GenCont1Right">
+                      <label for="schedule-date">Study Site</label>
+                      <input type="" name="" value="" placeholder="Input study site">
+                  </div>
+                </div>
+                <div class="GenCont1Bottom">
+                    <label for="">Brief Description of the Study</label>
+                    <textarea rows="4" cols="30" placeholder="Create a brief description about your study"></textarea>
+                    <label for="">Name of Researchers</label>
+                    <textarea rows="3" cols="30" placeholder="Input names of research members"></textarea>
+                </div>
 
-                  <label for="schedule-start-time">Start Time</label>
-                  <input type="time" id="schedule-start-time" name="schedule-start-time" required placeholder="Select start time">
-
-                  <label for="schedule-end-time">End Time</label>
-                  <input type="time" id="schedule-end-time" name="schedule-end-time" required placeholder="Select end time">
+                <div class="GenCont1">
+                  <div class="GenCont1Left">
+                      <label for="schedule-end-time">Email address</label>
+                      <input type="text" name="" value="" placeholder="Input your email address">
+                  </div>
+                  <div class="GenCont1Right">
+                      <label for="schedule-end-time">Mobile No.</label>
+                      <input type="text" name="" value="" placeholder="Input your mobile number">
+                  </div>
+                </div>
+  
+                <div class="GenCont1">
+                    <div class="GenCont1Left">
+                      <label for="">Category</label>
+                      <select>
+                        <option value="">Categories</option> 
+                      </select>
+                    </div>
+                    <div class="GenCont1Right">
+                      <label for="">Type of Study</label>
+                      <select>
+                          <option value="">Type of Studies</option> 
+                      </select>
+                    </div> 
+                  </div>       
+                </div>
               </div>
 
               <div class="MSC-Bottom2">

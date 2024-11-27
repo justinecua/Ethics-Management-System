@@ -20,6 +20,7 @@ class Student(models.Model):
     smc_student_no = models.CharField(null=True, max_length =255)
     mobile_number = models.CharField(null=True, max_length =255)
     receipt_no = models.CharField(null=True, max_length =255)
+    receipt_no2 = models.CharField(null=True, max_length=255)
     manuscript_id = models.ForeignKey(Manuscripts, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -60,6 +61,7 @@ class Schedule(models.Model):
     account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
     schedule_type = models.CharField(max_length=255, null=True)
     schedule_date = models.DateField(null=True)
+    schedule_slot = models
     schedule_start_time = models.TimeField(null=True)
     schedule_end_time = models.TimeField(null=True)
 
@@ -113,14 +115,8 @@ class EthicalRiskQuestions(models.Model):
     def __str__(self):
         return f"{self.ethicalQuestions}"
 
-
-class EthicalRiskAnswers(models.Model):
-    ethicalQuestions = models.ForeignKey(EthicalRiskQuestions, on_delete=models.CASCADE, null=True)
-    ethicalAnswers = models.CharField(max_length=350, null=True)
-    student_id= models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return f"{self.student_id} {self.ethicalQuestions}"
+class ThesisType(models.Model):
+    ThesisType = models.CharField(max_length=255, null=True)
 
 class Appointments(models.Model):
     appointment_date = models.DateField(null=True)
@@ -128,10 +124,19 @@ class Appointments(models.Model):
     status = models.CharField(max_length=100, null=True)
     transaction_id = models.CharField(max_length=100, null=True)
     institution = models.CharField(max_length=100, null=True)
-    ethicalAnswers_id = models.ForeignKey(EthicalRiskAnswers, on_delete=models.CASCADE, null=True)
-    student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
+    thesis_type_id = models.ForeignKey(ThesisType, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.appointment_date} {self.appointment_name}"
+
+
+class EthicalRiskAnswers(models.Model):
+    ethicalQuestions = models.ForeignKey(EthicalRiskQuestions, on_delete=models.CASCADE, null=True)
+    ethicalAnswers = models.CharField(max_length=350, null=True)
+    appointment_id = models.ForeignKey(Appointments, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f"{self.student_id} {self.ethicalQuestions}"
 
 

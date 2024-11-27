@@ -60,7 +60,6 @@ class ScheduleView(View):
 
 class ScheduleDataView(View):
     def get(self, request):
-        # Filter schedules that are in the future or today (removes past schedules)
         today = datetime.now().date()
         schedules = Schedule.objects.filter(schedule_date__gte=today)
         events = []

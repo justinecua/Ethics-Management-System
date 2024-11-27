@@ -88,13 +88,6 @@ def adminAppointments(request):
         'account_type': account_type
     })
 
-def delete_appointment(request, appointment_id):
-    if request.method == 'POST':
-        appointment = get_object_or_404(Appointments, id=appointment_id)
-        appointment.delete()
-        messages.success(request, "Appointment deleted successfully.")
-    return redirect('adminAppointments')
-
 
 def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)

@@ -103,8 +103,6 @@ urlpatterns = [
     path('api/get_appointments/', views.get_appointments, name='get_appointments'),
     path('students_appointments/', views.student_appointment, name='students_appointments'),
 
-    path('admin/appointments/delete/<int:appointment_id>/', views.delete_appointment, name='delete_appointment'),
-
     re_path(r'^adminEthicalRiskQuestions/$', views.adminEthicalRiskQuestions, name='adminEthicalRiskQuestions'),
     re_path(r'^adminAddEthicalRiskQuestions/$', views.adminAddEthicalRiskQuestions, name='adminAddEthicalRiskQuestions'),
     re_path(r'^adminEditEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminEditEthicalRiskQuestions, name='adminEditEthicalRiskQuestions'),
