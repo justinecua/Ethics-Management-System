@@ -15,13 +15,22 @@
         <label for="schedule-date">Date</label>
         <input type="date" id="eschedule-date" name="eschedule-date" required placeholder="Select date">
         
-        <label for="schedule-start-time">Start Time</label>
-        <input type="time" id="eschedule-start-time" name="eschedule-start-time" required placeholder="Select start time">
-        
-        <label for="schedule-end-time">End Time</label>
-        <input type="time" id="eschedule-end-time" name="eschedule-end-time" required placeholder="Select end time">
+        <div class="SchedTimeContainer">
+            <div class="STC-Cont">
+              <label for="schedule-start-time">Start Time</label>
+              <input type="time" id="eschedule-start-time" name="eschedule-start-time" required placeholder="Select start time">
+            </div>
+            <div class="STC-Cont">
+              <label for="schedule-end-time">End Time</label>
+              <input type="time" id="eschedule-end-time" name="eschedule-end-time" required placeholder="Select end time">                                
+            </div>
+        </div>
+
+        <label for="schedule-slots">Slots</label>
+        <input type="number" id="eslots" name="eslots" required placeholder="Slots automatically calculated in 20-minute intervals, adjustable">
+
       </div>
-      
+       
       <div class="MSC-Bottom2">
         <button type="button" id="ecancel-sched">Cancel</button>
         <button type="submit" id="eadd-sched">Submit</button>

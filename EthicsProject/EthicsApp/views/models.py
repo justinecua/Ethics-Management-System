@@ -61,9 +61,9 @@ class Schedule(models.Model):
     account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
     schedule_type = models.CharField(max_length=255, null=True)
     schedule_date = models.DateField(null=True)
-    schedule_slot = models
     schedule_start_time = models.TimeField(null=True)
     schedule_end_time = models.TimeField(null=True)
+    slot = models.CharField(max_length=25, null=True)
 
     def __str__(self):
         return f"{self.account_id} Schedule on {self.schedule_date} from {self.schedule_start_time} to {self.schedule_end_time} ({self.schedule_type})"

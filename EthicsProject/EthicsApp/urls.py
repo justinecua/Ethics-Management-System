@@ -99,8 +99,8 @@ urlpatterns = [
 
     path('api/schedules/', views.schedule_list, name='schedule_list'),
     path('schedule/save/', views.save_schedule, name='save_schedule'),
-    path('api/appointments/', views.get_appointments, name='get_appointments'),
-    path('api/get_appointments/', views.get_appointments, name='get_appointments'),
+    #path('api/appointments/', views.get_appointments, name='get_appointments'),
+    #path('api/get_appointments/', views.get_appointments, name='get_appointments'),
     path('students_appointments/', views.student_appointment, name='students_appointments'),
 
     re_path(r'^adminEthicalRiskQuestions/$', views.adminEthicalRiskQuestions, name='adminEthicalRiskQuestions'),

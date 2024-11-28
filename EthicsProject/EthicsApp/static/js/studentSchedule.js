@@ -30,9 +30,15 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         document.getElementById('edit-schedule-form').action = `/schedules/edit/${scheduleId}/`;
     },
     dateClick: function(info) {
-        ModalScheduleOverlay.style.display = "flex";
-        scheduledate.value = info.dateStr;
+      if (getting_started_conditions) {
+          let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
+          gettingStartedConditionErrorOverlay.style.display = "flex";
+      } else {
+          ModalScheduleOverlay.style.display = "flex";
+          scheduledate.value = info.dateStr;
+      }
     },
+
     eventContent: function(arg) {
         var startTime = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
@@ -156,7 +162,8 @@ document.getElementById('nextSchedule').addEventListener('click', function() {
 /*-------------------------------------------------------------------*/
 let MSContainer = document.getElementById('MS-Container');
 let EMSContainer = document.getElementById('EMS-Container');
-
+let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
+let NotCompleteProfilebtn = document.getElementById('NotCompleteProfile-btn');
 
 document.addEventListener('click', function(event) {
     if (event.target === ModalScheduleOverlay) {
@@ -165,4 +172,12 @@ document.addEventListener('click', function(event) {
     if (event.target === EModalScheduleOverlay) {
         EModalScheduleOverlay.style.display = "none";
     }
+    if (event.target === gettingStartedConditionErrorOverlay) {
+        gettingStartedConditionErrorOverlay.style.display = "none";
+    }
 });
+
+NotCompleteProfilebtn.addEventListener('click', function(){
+  gettingStartedConditionErrorOverlay.style.display = "none";
+})
+

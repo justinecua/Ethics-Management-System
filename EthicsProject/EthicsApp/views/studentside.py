@@ -23,25 +23,52 @@ def check_thesis_empty(request):
 
 def check_completeProfile(request):
     if request.user.is_authenticated:
-        studID = Student.objects.get(auth_user=request.user)
-        first_name_last_name = User.objects.filter(Q(first_name__isnull=True) & Q(last_name__isnull=True))
-        other_info = Student.objects.filter(Q(smc_student_no__isnull=True) & Q(mobile_number__isnull=True) & Q(receipt_no__isnull=True))
-        completeProfile_empty = (first_name_last_name and other_info)        
+        try:
+            # Retrieve the authenticated student's record
+            studID = Student.objects.get(auth_user=request.user)
+            
+            # Check if the User model fields (first_name, last_name) are incomplete
+            first_name_last_name_incomplete = User.objects.filter(
+                Q(id=request.user.id) & (Q(first_name__isnull=True) | Q(first_name="")) & 
+                (Q(last_name__isnull=True) | Q(last_name=""))
+            ).exists()
+
+            # Check if the Student model fields are incomplete
+            other_info_incomplete = Student.objects.filter(
+                Q(auth_user=request.user) & 
+                (Q(smc_student_no__isnull=True) | Q(mobile_number__isnull=True) | Q(receipt_no__isnull=True))
+            ).exists()
+
+            # Combine both checks
+            completeProfile_empty = first_name_last_name_incomplete or other_info_incomplete
+
+        except Student.DoesNotExist:
+            # Handle case where Student record does not exist
+            completeProfile_empty = True
+
+    else:
+        completeProfile_empty = False
 
     return completeProfile_empty
 
-def check_thesis_members(request):
-    # Get the current user's associated Student object
-    try:
-        student = Student.objects.get(auth_user=request.user)
-    except Student.DoesNotExist:
-        # If the student does not exist, return False (no members)
-        return False
 
-    # Get the manuscript (thesis) associated with this student
-    manuscript = student.manuscript_id
-    other_students = Student.objects.filter(manuscript_id=manuscript).exclude(auth_user=request.user)
-    return other_students.count() == 0
+def check_thesis_members(request):
+    if not request.user.is_authenticated:
+        return False  # Return early if the user is not authenticated
+
+    try:
+        # Retrieve the current student object
+        student = Student.objects.get(auth_user=request.user)
+
+        # Check if there are other students with the same manuscript_id
+        manuscript = student.manuscript_id
+        if manuscript:
+            other_students = Student.objects.filter(manuscript_id=manuscript).exclude(auth_user=request.user)
+            return not other_students.exists()
+        return True  # No manuscript linked, so assume no members
+    except Student.DoesNotExist:
+        return True  # Treat as no members if Student does not exist
+
 
 
 @login_required
@@ -107,9 +134,9 @@ def completeProfile(request):
         try:
             firstname = request.POST.get('firstname')
             lastname = request.POST.get('lastname')
-            smc_student_no = request.POST.get('smc_student_no')
-            mobile_number = request.POST.get('mobile_number')
-            receipt_no = request.POST.get('receipt_no')
+            smc_student_no = request.POST.get('SMCStudentNo')
+            mobile_number = request.POST.get('MobileNumber')
+            receipt_no = request.POST.get('ReceiptNo')
 
             userUpdate = User.objects.get(id=request.user.id)
             userUpdate.first_name = firstname
@@ -132,10 +159,23 @@ def completeProfile(request):
 def studentAppointment(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
+   
+    is_new_user = check_user(request)
+    thesis_empty_value = check_thesis_empty(request)  
+    completeProfile = check_completeProfile(request)
+    thesis_no_members = check_thesis_members(request)
     
+    getting_started_conditions = (
+        is_new_user and 
+        thesis_empty_value and 
+        completeProfile and 
+        thesis_no_members
+    )
+
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
+        'getting_started_conditions': getting_started_conditions,
     }
     return render(request, 'students/studentappointment.html', context)
 
@@ -247,7 +287,7 @@ def student_appointment(request):
     }
     return render(request, 'students/studentAppointment.html', context)
 
-
+'''
 @login_required
 def get_appointments(request):
     student = get_object_or_404(Student, auth_user=request.user)
@@ -275,6 +315,8 @@ def get_appointments(request):
     ]
     
     return JsonResponse(events, safe=False)
+
+'''
 
 def addMemberStudent(request):
     if request.method == 'POST':

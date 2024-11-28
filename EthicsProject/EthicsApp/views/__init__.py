@@ -1,3 +1,4 @@
+from .studentside import *
 from .views import *
 from .gotoLoginPage import *
 from .gotoRegisterPage import *
@@ -40,7 +41,7 @@ from .adminSD import *
 
 
 #---------------------------Ferryl---------------------------
-from .studentside import *
+
 from .reviewerside import *
 from .addCategory import *
 

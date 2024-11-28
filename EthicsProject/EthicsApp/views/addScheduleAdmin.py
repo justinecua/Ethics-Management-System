@@ -2,16 +2,20 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
-from .models import Schedule
+from .models import Schedule, Accounts, Student
 from django.http import JsonResponse
 
 class ScheduleView(View): 
     def post(self, request):
+        userId = request.session.get('id', None)
+        accId = Accounts.objects.get(student_id__auth_user=userId)
         schedule_type = request.POST.get('schedule-type')
         schedule_date = request.POST.get('schedule-date')
         schedule_start_time = request.POST.get('schedule-start-time')
         schedule_end_time = request.POST.get('schedule-end-time')
+        slot = request.POST.get('slots')
 
+        print(accId)
         if not schedule_type or not schedule_date or not schedule_start_time or not schedule_end_time:
             messages.error(request, 'All fields are required.')
             return redirect('adminSchedule')
@@ -46,10 +50,12 @@ class ScheduleView(View):
 
         try:
             schedule = Schedule(
+                account_id=accId,
                 schedule_type=schedule_type,
                 schedule_date=schedule_date,
                 schedule_start_time=schedule_start_time,
                 schedule_end_time=schedule_end_time,
+                slot = slot,
             )
             schedule.save()
             messages.success(request, 'Schedule added successfully!')
@@ -61,9 +67,13 @@ class ScheduleView(View):
 class ScheduleDataView(View):
     def get(self, request):
         today = datetime.now().date()
-        schedules = Schedule.objects.filter(schedule_date__gte=today)
+
+        userId = request.session.get('id', None)
+        accId = Accounts.objects.get(student_id__auth_user=userId)
+        schedules = Schedule.objects.filter(schedule_date__gte=today, account_id=accId)
+
         events = []
-        
+
         for schedule in schedules:
             if schedule.schedule_date and schedule.schedule_start_time and schedule.schedule_end_time:
                 start = f"{schedule.schedule_date}T{schedule.schedule_start_time}"
@@ -73,6 +83,7 @@ class ScheduleDataView(View):
                     'title': schedule.schedule_type,
                     'start': start,
                     'end': end,
+                    'slot': schedule.slot,
                     'extendedProps': {
                         'schedule_type': schedule.schedule_type,
                         'schedule_id': schedule.id,

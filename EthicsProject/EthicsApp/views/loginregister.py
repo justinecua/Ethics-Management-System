@@ -52,7 +52,8 @@ def register(request):
                 request.session['profile_picture'] = profile_picture
                 request.session['account_type'] = student_account_type.Account_type
                 request.session['username'] = user.username
-
+                request.session['id'] = user.id
+                
                 return redirect('studentdashboard')
         else:
             messages.error(request, "Passwords do not match.")

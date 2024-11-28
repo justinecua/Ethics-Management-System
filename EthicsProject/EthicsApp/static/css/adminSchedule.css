@@ -336,7 +336,7 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 25rem;
+  width: 28rem;
   background-color: var(--modal-container);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -456,8 +456,29 @@
 
 .MSC-Bottom input {
   margin-bottom: 1rem;
-  padding: 0.9rem 1rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
   border-radius: 10px;
+  text-indent: 0.5rem;
   border: 1px solid var(--container-border);
   outline: none;
+}
+
+.SchedTimeContainer {
+  width: 100%;
+  display: flex;
+  column-gap: 1rem;
+}
+
+.SchedTimeContainer label,
+input {
+  width: 100%;
+}
+
+.SchedTimeContainer input {
+  margin-top: 4%;
+}
+
+.STC-Cont {
+  width: 50%;
 }

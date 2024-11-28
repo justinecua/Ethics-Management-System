@@ -324,7 +324,7 @@
   background-color: #565a6241;
   z-index: 5;
   position: fixed;
-  display: flex;
+  display: none;
   overflow: hidden;
 }
 

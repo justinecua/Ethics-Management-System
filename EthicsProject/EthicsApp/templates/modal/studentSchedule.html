@@ -1,11 +1,8 @@
 <form method="POST" action="{% url 'save_schedule' %}">
   {% csrf_token %}
-
-
-    
+ 
   <div id="Modal-Schedule-Overlay">
       <div id="MS-Container">
-          <!-- Step 1: Schedule Details -->
           <div id="schedule-step-1">
               <div class="MSC-Top">
                   <h3>Application for Ethics Review</h3>
@@ -71,20 +68,16 @@
               </div>
           </div>
 
-          <!-- Step 2: Additional Information Form -->
           <div id="schedule-step-2" style="display: none;">
               <div class="MSC-Top">
                   <h3>Add Schedule - Step 2</h3>
               </div>
               <div class="MSC-Bottom">
-                  <!-- Additional fields for student appointment details -->
                   <label for="student-name">Student Name</label>
                   <input type="text" id="student-name" name="student-name" required placeholder="Enter your name">
 
                   <label for="student-id">Student ID</label>
                   <input type="text" id="student-id" name="student-id" required placeholder="Enter your ID">
-
-                  <!-- Add more fields as necessary -->
               </div>
 
               <div class="MSC-Bottom2">
@@ -96,9 +89,11 @@
   </div>
 </form>
 
+<script>
+    const getting_started_conditions = {{ getting_started_conditions|yesno:"true,false" }};
+</script>
 
 <script>
-  // Get references to modal sections and buttons
 const modalOverlay = document.getElementById('Modal-Schedule-Overlay');
 const step1 = document.getElementById('schedule-step-1');
 const step2 = document.getElementById('schedule-step-2');
@@ -106,22 +101,18 @@ const nextStepBtn = document.getElementById('next-step');
 const backStepBtn = document.getElementById('back-step');
 const cancelBtn = document.getElementById('cancel-sched');
 
-// Show step 2 when "Next" is clicked
 nextStepBtn.addEventListener('click', function() {
     step1.style.display = 'none';
     step2.style.display = 'block';
 });
 
-// Go back to step 1 when "Back" is clicked
 backStepBtn.addEventListener('click', function() {
     step2.style.display = 'none';
     step1.style.display = 'block';
 });
 
-// Close the modal when "Cancel" is clicked
 cancelBtn.addEventListener('click', function() {
     modalOverlay.style.display = 'none';
-    // Reset to step 1 if modal is reopened
     step1.style.display = 'block';
     step2.style.display = 'none';
 });
