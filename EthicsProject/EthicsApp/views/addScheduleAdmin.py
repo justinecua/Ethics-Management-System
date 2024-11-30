@@ -2,11 +2,13 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
-from .models import Schedule
+from .models import Schedule, Accounts
 from django.http import JsonResponse
 
 class ScheduleView(View): 
     def post(self, request):
+        userId = request.session.get('id', None)
+        accId = Accounts.objects.get(student_id__auth_user=userId)
         schedule_type = request.POST.get('schedule-type')
         schedule_date = request.POST.get('schedule-date')
         schedule_start_time = request.POST.get('schedule-start-time')

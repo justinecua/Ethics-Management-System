@@ -13,6 +13,7 @@ from .adminBasicreq import *
 from .adminSD import *
 
 
+
 #----------------------------Justine-------------------------
 
 
@@ -43,7 +44,7 @@ from .adminSD import *
 from .studentside import *
 from .reviewerside import *
 from .addCategory import *
-
+from .update import *
 
 
 

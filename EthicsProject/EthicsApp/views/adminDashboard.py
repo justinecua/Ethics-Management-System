@@ -112,13 +112,14 @@ def adminManuscripts(request):
     suppreqs = SupplementaryRequirements.objects.all()
     suppreq_data = []
 
-    # Loop through each category and add to category_data list
+   
     for category in categories:
         category_data.append({
+            'id': category.id,  
             'category_name': category.category_name,
         })
 
-    # Loop through each study type and add to studtype_data list
+  
     for studtype in studtypes:
         studtype_data.append({
             'type_of_study': studtype.type_of_study,
@@ -129,16 +130,13 @@ def adminManuscripts(request):
             'basicRequirements': basicreq.basicRequirements,
         })
 
-
     for suppreq in suppreqs:
         suppreq_data.append({
             'supplementaryRequirements': suppreq.supplementaryRequirements,
         })
 
-
-    # Define the context with the necessary data
     context = {
-        'categories': category_data,
+        'categories': category_data, 
         'studtype': studtype_data,
         'basicreqs': basicreq_data,
         'suppreqs': suppreq_data,

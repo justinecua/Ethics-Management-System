@@ -69,6 +69,9 @@ urlpatterns = [
   re_path(r'^adminBasicreq/$', views.adminBasicreq, name='adminBasicreq'),
   re_path(r'^adminSDreq/$', views.adminSDreq, name='adminSDreq'),
 
+   re_path(r'^update_category/(?P<category_id>\d+)/$', views.update_category, name='update_category'),
+
+
 
 
 
