@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 from .views.models import *
 
@@ -18,4 +19,5 @@ admin.site.register(BasicRequirements)
 admin.site.register(SupplementaryRequirements)
 admin.site.register(EthicalRiskQuestions)
 admin.site.register(EthicalRiskAnswers)
+admin.site.register(ThesisType)
 

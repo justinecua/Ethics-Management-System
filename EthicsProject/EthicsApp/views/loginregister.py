@@ -86,15 +86,14 @@ def validatelogin(request):
 
                 if profile:
                     account_type = profile.account_typeid.Account_type
-
                     social_account = SocialAccount.objects.filter(user=user, provider='google').first()
                     profile_picture = social_account.extra_data.get('picture') if social_account else None
-
+                    
                     request.session['profile_picture'] = profile_picture
                     request.session['account_type'] = account_type
                     request.session['username'] = user.username
                     request.session['id'] = user.id
-
+                        
                     if account_type == 'Student':
                         return redirect('studentdashboard')
                     elif account_type == 'Admin':

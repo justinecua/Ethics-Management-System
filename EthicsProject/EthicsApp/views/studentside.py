@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Accounts 
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from .models import Schedule, Accounts, Student, Appointments, Manuscripts
+from .models import Schedule, Accounts, Student, Appointments, Manuscripts, ThesisType
 from django.views.decorators.http import require_POST
 from datetime import datetime
 from django.shortcuts import get_object_or_404
@@ -24,26 +24,21 @@ def check_thesis_empty(request):
 def check_completeProfile(request):
     if request.user.is_authenticated:
         try:
-            # Retrieve the authenticated student's record
             studID = Student.objects.get(auth_user=request.user)
             
-            # Check if the User model fields (first_name, last_name) are incomplete
             first_name_last_name_incomplete = User.objects.filter(
                 Q(id=request.user.id) & (Q(first_name__isnull=True) | Q(first_name="")) & 
                 (Q(last_name__isnull=True) | Q(last_name=""))
             ).exists()
 
-            # Check if the Student model fields are incomplete
             other_info_incomplete = Student.objects.filter(
                 Q(auth_user=request.user) & 
                 (Q(smc_student_no__isnull=True) | Q(mobile_number__isnull=True) | Q(receipt_no__isnull=True))
             ).exists()
 
-            # Combine both checks
             completeProfile_empty = first_name_last_name_incomplete or other_info_incomplete
 
         except Student.DoesNotExist:
-            # Handle case where Student record does not exist
             completeProfile_empty = True
 
     else:
@@ -54,22 +49,18 @@ def check_completeProfile(request):
 
 def check_thesis_members(request):
     if not request.user.is_authenticated:
-        return False  # Return early if the user is not authenticated
+        return False
 
     try:
-        # Retrieve the current student object
         student = Student.objects.get(auth_user=request.user)
 
-        # Check if there are other students with the same manuscript_id
         manuscript = student.manuscript_id
         if manuscript:
             other_students = Student.objects.filter(manuscript_id=manuscript).exclude(auth_user=request.user)
             return not other_students.exists()
-        return True  # No manuscript linked, so assume no members
+        return True 
     except Student.DoesNotExist:
-        return True  # Treat as no members if Student does not exist
-
-
+        return True 
 
 @login_required
 def studentdashboard(request):
@@ -159,12 +150,23 @@ def completeProfile(request):
 def studentAppointment(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-   
+    user = request.session.get('id', None)
+    userID = User.objects.get(id=user)
+    student_id = Student.objects.get(auth_user=userID)
+
+    manuscript_id = student_id.manuscript_id
+    thesisMembers = Student.objects.filter(manuscript_id=manuscript_id).distinct()
+    thesis_members_names = ", ".join(
+        f"{member.auth_user.first_name} {member.auth_user.last_name}"
+        for member in thesisMembers
+    )
+
     is_new_user = check_user(request)
     thesis_empty_value = check_thesis_empty(request)  
     completeProfile = check_completeProfile(request)
     thesis_no_members = check_thesis_members(request)
-    
+    thesisTypes = ThesisType.objects.all()
+
     getting_started_conditions = (
         is_new_user and 
         thesis_empty_value and 
@@ -176,7 +178,12 @@ def studentAppointment(request):
         'profile_picture': profile_picture,
         'account_type': account_type,
         'getting_started_conditions': getting_started_conditions,
+        'thesisTypes': thesisTypes,
+        'email': userID.email,
+        'mobile_number': student_id.mobile_number,
+        'thesisMembers': thesis_members_names,
     }
+
     return render(request, 'students/studentappointment.html', context)
 
 
@@ -253,17 +260,11 @@ def save_schedule(request):
 
 @login_required
 def student_appointment(request):
-    # Retrieve the Student instance associated with the logged-in user
     student = get_object_or_404(Student, auth_user=request.user)
-    
-    # Retrieve the Account linked to this Student
     account = get_object_or_404(Accounts, student_id=student)
-    
-    # Get all appointments and schedules for this account
+
     appointments = Appointments.objects.filter(transaction_id=account.student_id)
     schedules = Schedule.objects.filter(account_id=account)
-
-    # Format the events data to work with FullCalendar
     events = [
         {
             'title': appointment.appointment_name,
@@ -281,7 +282,6 @@ def student_appointment(request):
         for schedule in schedules
     ]
 
-    # Pass events_json to the context
     context = {
         'events_json': json.dumps(events),
     }

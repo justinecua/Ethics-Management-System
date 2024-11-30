@@ -2,21 +2,23 @@
   {% csrf_token %}
  
   <div id="Modal-Schedule-Overlay">
-      <div id="MS-Container">
-          <div id="schedule-step-1">
+      <div id="MS-Container" class="MS-Container active-container">
+          <div class="schedule-step-1">
               <div class="MSC-Top">
                   <h3>Application for Ethics Review</h3>
                   <p>Instructions to the Researchers: Please complete this form and ensure that you have included in your submission the documents you checked in Section 2. (This form is adapted from DOST, PHREB and MU-REB)</p>
               </div>
               <div class="MSC-Bottom">
                 <div class="ThesisTypeSched">
+
                       <label for="schedule-type">Thesis Type</label>
                       <select>
-                        <option value="">Thesis I</option>
+                      {% for thesis in thesisTypes %}
+                        <option value="{{ thesis.ThesisType}}">{{thesis.ThesisType}}</option>
+                      {% endfor %}
                       </select>
                 </div>
                 <h4>I. General Information</h4>
-
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="schedule-type">Title of the Study</label>
@@ -31,20 +33,37 @@
                     <label for="">Brief Description of the Study</label>
                     <textarea rows="4" cols="30" placeholder="Create a brief description about your study"></textarea>
                     <label for="">Name of Researchers</label>
-                    <textarea rows="3" cols="30" placeholder="Input names of research members"></textarea>
+                    <textarea rows="3" cols="30">{{ thesisMembers }}</textarea>
                 </div>
-
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="schedule-end-time">Email address</label>
-                      <input type="text" name="" value="" placeholder="Input your email address">
+                      {% if email %}
+                      <input type="text" name="" value="{{ email }}" placeholder="Input your email address">
+                      {% endif %}
                   </div>
                   <div class="GenCont1Right">
                       <label for="schedule-end-time">Mobile No.</label>
-                      <input type="text" name="" value="" placeholder="Input your mobile number">
+                      {% if mobile_number %}
+                      <input type="text" name="" value="{{ mobile_number }}" placeholder="Input your mobile number">
+                      {% endif %}
                   </div>
                 </div>
-  
+              </div>
+              <div class="MSC-Bottom2">
+                  <button type="button" class="firstButton" id="cancel-sched">Cancel</button>
+                  <button type="button" class="secButton" id="next-step">Next</button>
+              </div>
+          </div>
+      </div>
+
+      <div id="MS-Container2" class="MS-Container">
+          <div class="schedule-step-2">
+              <div class="MSC-Top">
+                  <h3>Step 2: Checklist of Documents</h3>
+                  <p>Please provide further details to complete the review process.</p>
+              </div>
+              <div class="MSC-Bottom">
                 <div class="GenCont1">
                     <div class="GenCont1Left">
                       <label for="">Category</label>
@@ -52,69 +71,134 @@
                         <option value="">Categories</option> 
                       </select>
                     </div>
-                    <div class="GenCont1Right">
-                      <label for="">Type of Study</label>
-                      <select>
-                          <option value="">Type of Studies</option> 
-                      </select>
-                    </div> 
-                  </div>       
+                      <div class="GenCont1Right">
+                        <label for="">Type of Study</label>
+                        <select>
+                            <option value="">Type of Studies</option> 
+                        </select>
+                      </div> 
+                </div>       
+
+                <div class="GenCont1">
+                  <div class="GenCont1Left">
+                      <label for="schedule-end-time">Institution</label>
+                      <input type="text" name="" value="" placeholder="Input your Institution">
+                  </div>
+                  <div class="GenCont1Right">
+                      <label for="schedule-end-time">Address of Institution</label>
+                      <input type="text" name="" value="" placeholder="Input address of Institution">
+                  </div>
                 </div>
-              </div>
+                <div class="GenCont1Divider">
+                <p>Duration of the study</p>
+                </div>
+                <div class="GenCont1">
+                  <div class="GenCont1Left">
+                      <label for="schedule-end-time">Start Date</label>
+                      <input type="date" name="" value="" placeholder="Input your Institution">
+                  </div>
+                  <div class="GenCont1Right">
+                      <label for="schedule-end-time">End Date</label>
+                      <input type="date" name="date" value="" placeholder="Input address of Institution">
+                  </div>
+                </div>
 
+                <div class="GenCont1">
+                  <div class="GenCont1Left">
+                      <label for="">Basic Requirements</label>
+                      <select>
+                        <option value="">Categories</option> 
+                      </select>
+                    </div>
+                      <div class="GenCont1Right">
+                        <label for="">Supplementary Documents</label>
+                        <select>
+                            <option value="">Type of Studies</option> 
+                        </select>
+                      </div> 
+                </div>
+
+              </div>
               <div class="MSC-Bottom2">
-                  <button type="button" id="cancel-sched">Cancel</button>
-                  <button type="button" id="next-step">Next</button>
-              </div>
-          </div>
-
-          <div id="schedule-step-2" style="display: none;">
-              <div class="MSC-Top">
-                  <h3>Add Schedule - Step 2</h3>
-              </div>
-              <div class="MSC-Bottom">
-                  <label for="student-name">Student Name</label>
-                  <input type="text" id="student-name" name="student-name" required placeholder="Enter your name">
-
-                  <label for="student-id">Student ID</label>
-                  <input type="text" id="student-id" name="student-id" required placeholder="Enter your ID">
-              </div>
-
-              <div class="MSC-Bottom2">
-                  <button type="button" id="back-step">Back</button>
-                  <button type="submit" id="submit-sched">Submit</button>
+                  <button type="button" class="firstButton" id="back-step">Back</button>
+                  <button type="submit" class="secButton" id="next-step2">Next</button>
               </div>
           </div>
       </div>
+      
+      <div id="MS-Container3" class="MS-Container">
+          <div class="schedule-step-2">
+              <div class="MSC-Top">
+                  <h3>Step 3: Ethical Questions</h3>
+                  <p>Will your study / research involve:</p>
+              </div>
+              <div class="MSC-BottomEQ">
+                <div class="GenCont1Bottom">
+                  <div class="EA-Questions">
+                    <span>Sample Question asdwadadwdwad dadwadadawd adwa</span>
+                    <div class="EA-Options">
+                      
+                      <div>
+                        <input type="radio" class="EA-OptionsLabel" name="group1" value="Yes">
+                        <label for="option1">Yes</label><br>                          
+                      </div>
+                      <div>
+                        <input type="radio" class="EA-OptionsLabel" name="group1" value="No">
+                        <label for="option1">No</label><br>                                             
+                      </div>
+                     
+                      </div>     
+                  </div>
+                </div>       
+
+              </div>
+              <div class="MSC-Bottom2">
+                  <button type="button" class="firstButton" id="back-step2">Back</button>
+                  <button type="button" class="secButton" id="next-step3">Next</button>
+              </div>
+          </div>
+      </div>
+
   </div>
 </form>
 
 <script>
     const getting_started_conditions = {{ getting_started_conditions|yesno:"true,false" }};
+    const modalOverlay = document.getElementById('Modal-Schedule-Overlay');
+    const containers = document.querySelectorAll('.MS-Container');
+    const nextStepBtn = document.getElementById('next-step');
+    const nextStepBtn2 = document.getElementById('next-step2');
+    const backStepBtn = document.getElementById('back-step');
+    const backStepBtn2 = document.getElementById('back-step2');
+    const cancelBtn = document.getElementById('cancel-sched');
+
+    function showContainer(index) {
+        containers.forEach((container, i) => {
+            container.style.display = i === index ? 'block' : 'none';
+        });
+    }
+
+    showContainer(0);
+
+    nextStepBtn.addEventListener('click', () => {
+        showContainer(1);
+    });
+    
+    nextStepBtn2.addEventListener('click', () => {
+        showContainer(2);
+    });
+
+    backStepBtn.addEventListener('click', () => {
+        showContainer(0);
+    });
+    
+    backStepBtn2.addEventListener('click', () => {
+        showContainer(1);
+    });
+  
+    cancelBtn.addEventListener('click', () => {
+        modalOverlay.style.display = 'none';
+        showContainer(0);
+    });
 </script>
 
-<script>
-const modalOverlay = document.getElementById('Modal-Schedule-Overlay');
-const step1 = document.getElementById('schedule-step-1');
-const step2 = document.getElementById('schedule-step-2');
-const nextStepBtn = document.getElementById('next-step');
-const backStepBtn = document.getElementById('back-step');
-const cancelBtn = document.getElementById('cancel-sched');
-
-nextStepBtn.addEventListener('click', function() {
-    step1.style.display = 'none';
-    step2.style.display = 'block';
-});
-
-backStepBtn.addEventListener('click', function() {
-    step2.style.display = 'none';
-    step1.style.display = 'block';
-});
-
-cancelBtn.addEventListener('click', function() {
-    modalOverlay.style.display = 'none';
-    step1.style.display = 'block';
-    step2.style.display = 'none';
-});
-
-</script>

@@ -118,6 +118,9 @@ class EthicalRiskQuestions(models.Model):
 class ThesisType(models.Model):
     ThesisType = models.CharField(max_length=255, null=True)
 
+    def __str__(self):
+        return f"{self.ThesisType}"
+
 class Appointments(models.Model):
     appointment_date = models.DateField(null=True)
     appointment_name = models.CharField(max_length =255, null=True)
