@@ -264,6 +264,11 @@ table th {
   font-size: 0.8rem;
 }
 
+.TableEdit-Btn:hover {
+  background-color: #bdbdc5;
+  cursor: pointer;
+}
+
 .TableDelete-Btn {
   font-size: 0.8rem;
   background-color: #e4e4ee;

@@ -10,6 +10,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
+
+
 {% block content %}
 <!-- Modal for Adding Ethical Questions -->
 <div id="Modal-EthicalRiskQuestions-Overlay" style="display: none;">
@@ -31,13 +33,18 @@
     </div>
 </div>
 
+
+
 <div class="MainContainer">
-  {% include './adminTopNav.html' %}
+    {% include 'modal/adminEditEthicalQuestion.html' %}
+  {% include './adminTopNav.html' %} 
   
   <div class="MC-Bottom">
       {% include './adminNav.html' %}
+
       
       <div id="College-Content">
+
           <div class="CC-Top">
               <div class="CCT-Left">
                   <button id="ListOfEthicalAnswers">Ethical Questions</button>
@@ -57,7 +64,8 @@
                   <tr>
                       <td>{{ x.ethicalQuestions }}</td>
                       <td>
-                          <button class="TableEdit-Btn" type="button">Edit</button>
+                        <button class="TableEdit-Btn" type="button" data-id="{{ x.id }}" data-question="{{ x.ethicalQuestions }}">Edit</button>
+
                           <a href="{% url 'adminDeleteEthicalRiskQuestions' x.id %}" onclick="return confirm('Are you sure you want to delete this question?');">
                               <button class="TableDelete-Btn" type="button">Delete</button>
                           </a>

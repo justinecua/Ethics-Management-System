@@ -212,23 +212,6 @@ def adminEthicalRiskQuestions(request):
 
     return render(request, 'admin/adminEthicalQuestions.html', context)
 
-
-@csrf_exempt
-def adminEditEthicalRiskQuestions(request, question_id):
-    ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
-
-    if request.method == 'POST':
-        updated_question = request.POST.get('ethical-questions')
-        if updated_question:
-            ethical_question.ethicalQuestions = updated_question
-            ethical_question.save()
-            messages.success(request, "Ethical Question updated successfully!")
-        else:
-            messages.error(request, "Ethical question cannot be empty.")
-        return redirect('adminEthicalRiskQuestions')
-
-    return render(request, 'admin/admineditEthicalQuestion.html', {'ethical_question': ethical_question})
-
 @csrf_exempt
 def adminDeleteEthicalRiskQuestions(request, question_id):
     ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
@@ -236,6 +219,18 @@ def adminDeleteEthicalRiskQuestions(request, question_id):
     messages.success(request, "Ethical Question deleted successfully!")
     return redirect('adminEthicalRiskQuestions')
 
+@csrf_exempt
+def adminEditEthicalRiskQuestions(request):
+    if request.method == 'POST':
+        question_id = request.POST.get('question_id')
+        ethical_question_text = request.POST.get('ethical-questions')
+
+        ethical_question = get_object_or_404(EthicalRiskQuestions, id=question_id)
+        ethical_question.ethicalQuestions = ethical_question_text
+        ethical_question.save()
+
+        messages.success(request, "Ethical Question updated successfully!")
+        return redirect('adminEthicalRiskQuestions')
 
 
 

@@ -1,0 +1,19 @@
+<div id="Modal-EditEthicalRiskQuestions-Overlay" class="modal-backdrop" style="display: none;">
+    <div id="Edit-CO-Container">
+        <div class="CO-Top">
+            <h3>Edit Ethical Question</h3>
+        </div>
+        <div class="CO-Bottom">
+            <form method="POST" action="{% url 'adminEditEthicalRiskQuestions' %}">
+                {% csrf_token %}
+                <input type="hidden" id="edit-question-id" name="question_id">
+                <label for="edit-ethical-questions">Ethical Question</label>
+                <textarea rows="12" cols="51" id="edit-ethical-questions" name="ethical-questions" required></textarea>
+        </div>
+        <div class="CO-Bottom2">
+            <button type="button" id="cancel-edit-ethicalquestion">Cancel</button>
+            <button type="submit" id="edit-ethicalquestion">Save</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -105,8 +105,11 @@ urlpatterns = [
 
     re_path(r'^adminEthicalRiskQuestions/$', views.adminEthicalRiskQuestions, name='adminEthicalRiskQuestions'),
     re_path(r'^adminAddEthicalRiskQuestions/$', views.adminAddEthicalRiskQuestions, name='adminAddEthicalRiskQuestions'),
-    re_path(r'^adminEditEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminEditEthicalRiskQuestions, name='adminEditEthicalRiskQuestions'),
+    re_path(r'^adminEditEthicalRiskQuestions/$', views.adminEditEthicalRiskQuestions, name='adminEditEthicalRiskQuestions'),
+
     re_path(r'^adminDeleteEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminDeleteEthicalRiskQuestions, name='adminDeleteEthicalRiskQuestions'),
+
+
 
 
 
