@@ -14,7 +14,7 @@
 {% include '../modal/addthesisInfo.html' %}
 {% include '../modal/completeProfileModal.html' %}
 {% include '../modal/addThesisMembers.html' %}
-<script type="module" src="{% static './js/gettingStarted.js' %}"></script> 
+<script type="module" src="{% static './js/gettingStarted.js' %}"></script>
 
 {% include 'students/studentNavbar.html' %}
   <div class="StudentMain-Content">
@@ -28,39 +28,39 @@
                 <img src="{{ profile_picture }}" alt="Profile Picture">
             {% else %}
               <div class="PPProf1">
-                <img src="../../static/images/Account-Circle-Fill--Streamline-Remix-Fill.png" alt="Default Profile">              
+                <img src="../../static/images/Account-Circle-Fill--Streamline-Remix-Fill.png" alt="Default Profile">
               </div>
             {% endif %}
-        
+
               {% if account_type %}
                   <p>{{ account_type }}</p>
               {% endif %}
-            </div> 
+            </div>
          </div>
       </div>
 
       <div class="SMC-Mid">
         <div class="SMCM-Left">
             <h3>Welcome to SMC's Research Ethics Office</h3>
-            <p>Dedicated to upholding the highest standards of ethical research at SMC.</p>          
+            <p>Dedicated to upholding the highest standards of ethical research at SMC.</p>
         </div>
 
       </div>
       <div class="SMC-Bottom">
 
-        
+
         <div class="SMCB-Top">
-                      
+
 
         <h3>Getting Started</h3>
-        </div> 
-        
+        </div>
+
       <div class="SMCB-Bottom">
         {% if thesis_empty %}
         <div class="GS-Container">
           <div class="GS-Left">
               <div class="GSL-Container">
-                <img src="../../static/images/Book-Fill--Streamline-Remix-Fill (1).png" alt="">  
+                <img src="../../static/images/Book-Fill--Streamline-Remix-Fill (1).png" alt="">
               </div>
             </div>
             <div class="GS-Mid">
@@ -78,11 +78,11 @@
         <div class="GS-Container">
         <div class="GS-Left">
             <div class="GSL-Container">
-              <img src="../../static/images/Person--Streamline-Ionic-Filled.png" alt="">  
+              <img src="../../static/images/Person--Streamline-Ionic-Filled.png" alt="">
             </div>
           </div>
           <div class="GS-Mid">
-            <h3>Complete your profile</h3>  
+            <h3>Complete your profile</h3>
             <p>Add your personal information below for appointments</p>
           </div>
           <div class="GS-Right">
@@ -96,12 +96,12 @@
       <div class="GS-Container">
         <div class="GS-Left">
             <div class="GSL-Container">
-              <img src="../../static/images/Msn-Messenger-Logo--Streamline-Logos.png" alt="">  
+              <img src="../../static/images/Msn-Messenger-Logo--Streamline-Logos.png" alt="">
             </div>
           </div>
           <div class="GS-Mid">
           <h3>Add Thesis Members</h3>
-          <p>If you do not have any members to invite, skip this step.</p>               
+          <p>If you do not have any members to invite, skip this step.</p>
           </div>
           <div class="GS-Right">
             <button id="AddMembers-btn" type="">Add
@@ -110,22 +110,7 @@
           </div>
       </div>
       {% endif %}
-      <div class="GS-Container">
-        <div class="GS-Left">
-            <div class="GSL-Container">
-              <img src="../../static/images/Gmail--Streamline-Simple-Icons.png" alt="">  
-            </div>
-          </div>
-          <div class="GS-Mid">
-            <h3>Link Your Google Account</h3>  
-            <p>Connect your Google account for easy access and sync.</p>
-          </div>
-          <div class="GS-Right">
-            <button type="">Link
-              <img src="../../static/images/arrowRight.png" alt="">
-            </button>
-          </div>
-      </div>
+
 
       </div>
 

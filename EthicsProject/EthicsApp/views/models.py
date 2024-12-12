@@ -1,18 +1,17 @@
 from django.db import models
 from django.conf import settings
-
-
+from django.core.files.storage import FileSystemStorage
 class Manuscripts(models.Model):
-     thesis_title = models.CharField(max_length =255, null=True)
-     thesis_description = models.TextField(max_length=800, null=True)
-     category_name_id = models.CharField(max_length =20, null=True)
-     type_of_study_id = models.CharField(max_length =20, null=True)
-     study_site = models.CharField(max_length =400, null=True)
-     no_studyparticipants= models.CharField(max_length =255, null=True)
-     file = models.URLField(verbose_name="File Url")
+    thesis_title = models.CharField(max_length=255, null=True)
+    thesis_description = models.TextField(max_length=800, null=True)
+    category_name_id = models.CharField(max_length=20, null=True)
+    type_of_study_id = models.CharField(max_length=20, null=True)
+    study_site = models.CharField(max_length=400, null=True)
+    file = models.FileField(upload_to='manuscripts/', storage=FileSystemStorage())
 
-     def __str__(self):
-        return f"{self.thesis_title} {self.thesis_description}"
+    def __str__(self):
+        return f"{self.thesis_title} - {self.thesis_description}"
+
 
 
 class Student(models.Model):

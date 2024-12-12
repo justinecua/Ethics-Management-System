@@ -15,40 +15,7 @@
 {% block content %}
 {% include 'students/studentNavbar.html' %}
   <div class="StudentMain-Content">
-             <div class="container">
-            <h1>Create Manuscript</h1>
-            <form method="post" action="">
-                {% csrf_token %}
-                
-                <label for="thesis_title">Thesis Title:</label>
-                <input type="text" id="thesis_title" name="thesis_title" required>
-                
-                <label for="thesis_description">Thesis Description:</label>
-                <textarea id="thesis_description" name="thesis_description" rows="4"></textarea>
-    
-                <label for="category_name">Category Name:</label>
-                <input type="text" id="category_name" name="category_name" required>
-                
-                <label for="type_of_study">Type of Study:</label>
-                <input type="text" id="type_of_study" name="type_of_study" required>
-                
-                <label for="study_site">Study Site:</label>
-                <input type="text" id="study_site" name="study_site" required>
-    
-                <label for="no_studyparticipants">Number of Study Participants:</label>
-                <input type="text" id="no_studyparticipants" name="no_studyparticipants" required>
-    
-                <label for="file">Upload File:</label>
-                <input type="file" id="file" name="file" required>
 
-    
-                <label for="account_id">Account ID:</label>
-                <input type="number" id="account_id" name="account_id" required>
-    
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-   
   </div>
 
 

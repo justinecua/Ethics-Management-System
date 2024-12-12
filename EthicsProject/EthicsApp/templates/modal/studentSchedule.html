@@ -1,6 +1,6 @@
 <form method="POST" action="{% url 'save_schedule' %}">
   {% csrf_token %}
- 
+
   <div id="Modal-Schedule-Overlay">
       <div id="MS-Container" class="MS-Container active-container">
           <div class="schedule-step-1">
@@ -10,14 +10,14 @@
               </div>
               <div class="MSC-Bottom">
                 <div class="ThesisTypeSched">
-
-                      <label for="schedule-type">Thesis Type</label>
-                      <select>
+                  <label for="schedule-type">Thesis Type</label>
+                  <select name="thesis_type">
                       {% for thesis in thesisTypes %}
-                        <option value="{{ thesis.ThesisType}}">{{thesis.ThesisType}}</option>
+                      <option value="{{ thesis.id }}">{{ thesis.ThesisType }}</option>
                       {% endfor %}
-                      </select>
+                  </select>
                 </div>
+
                 <h4>I. General Information</h4>
                 <div class="GenCont1">
                   <div class="GenCont1Left">
@@ -67,17 +67,21 @@
                 <div class="GenCont1">
                     <div class="GenCont1Left">
                       <label for="">Category</label>
-                      <select>
-                        <option value="">Categories</option> 
+                      <select name="category">
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
                       </select>
                     </div>
                       <div class="GenCont1Right">
                         <label for="">Type of Study</label>
-                        <select>
-                            <option value="">Type of Studies</option> 
+                        <select name="study_type">
+                          {% for study_type in study_types %}
+                          <option value="{{ study_type.id }}">{{ study_type.type_of_study }}</option>
+                          {% endfor %}
                         </select>
-                      </div> 
-                </div>       
+                      </div>
+                </div>
 
                 <div class="GenCont1">
                   <div class="GenCont1Left">
@@ -106,26 +110,30 @@
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="">Basic Requirements</label>
-                      <select>
-                        <option value="">Categories</option> 
+                      <select name="basic_requirements">
+                        {% for requirement in basic_requirements %}
+                        <option value="{{ requirement.id }}">{{ requirement.basicRequirements }}</option>
+                        {% endfor %}
                       </select>
                     </div>
                       <div class="GenCont1Right">
                         <label for="">Supplementary Documents</label>
-                        <select>
-                            <option value="">Type of Studies</option> 
+                        <select name="supplementary_documents">
+                          {% for document in supplementary_documents %}
+                          <option value="{{ document.id }}">{{ document.supplementaryRequirements }}</option>
+                          {% endfor %}
                         </select>
-                      </div> 
+                      </div>
                 </div>
 
               </div>
               <div class="MSC-Bottom2">
                   <button type="button" class="firstButton" id="back-step">Back</button>
-                  <button type="submit" class="secButton" id="next-step2">Next</button>
+                  <button  type="button"  class="secButton" id="next-step2">Next</button>
               </div>
           </div>
       </div>
-      
+
       <div id="MS-Container3" class="MS-Container">
           <div class="schedule-step-2">
               <div class="MSC-Top">
@@ -133,31 +141,47 @@
                   <p>Will your study / research involve:</p>
               </div>
               <div class="MSC-BottomEQ">
-                <div class="GenCont1Bottom">
-                  <div class="EA-Questions">
-                    <span>Sample Question asdwadadwdwad dadwadadawd adwa</span>
+                {% for question in ethical_questions %}
+                <div class="EA-Questions">
+                    <span>{{ question.ethicalQuestions }}</span>
                     <div class="EA-Options">
-                      
-                      <div>
-                        <input type="radio" class="EA-OptionsLabel" name="group1" value="Yes">
-                        <label for="option1">Yes</label><br>                          
-                      </div>
-                      <div>
-                        <input type="radio" class="EA-OptionsLabel" name="group1" value="No">
-                        <label for="option1">No</label><br>                                             
-                      </div>
-                     
-                      </div>     
-                  </div>
-                </div>       
-
+                        <div>
+                            <input type="radio" name="question_{{ question.id }}" value="Yes" id="yes_{{ question.id }}">
+                            <label for="yes_{{ question.id }}">Yes</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="question_{{ question.id }}" value="No" id="no_{{ question.id }}">
+                            <label for="no_{{ question.id }}">No</label>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
               </div>
+
               <div class="MSC-Bottom2">
                   <button type="button" class="firstButton" id="back-step2">Back</button>
                   <button type="button" class="secButton" id="next-step3">Next</button>
               </div>
           </div>
       </div>
+
+      <div id="MS-Container4" class="MS-Container">
+        <div class="schedule-step-2">
+            <div class="MSC-Top">
+                <h3>Step 4: Add Manuscript Document</h3>
+                <p>Will your study / research involve:</p>
+            </div>
+            <div class="MSC-BottomEQ">
+              <div class="GenCont1Bottom">
+                <input type="file" id="manuscript_file" name="manuscript_file">
+              </div>
+            </div>
+            <div class="MSC-Bottom2">
+                <button type="button" class="firstButton" id="back-step3">Back</button>
+                <button type="submit" class="secButton" id="submitAppointment">Submit</button>
+            </div>
+        </div>
+    </div>
 
   </div>
 </form>
@@ -168,9 +192,12 @@
     const containers = document.querySelectorAll('.MS-Container');
     const nextStepBtn = document.getElementById('next-step');
     const nextStepBtn2 = document.getElementById('next-step2');
+    const nextStepBtn3 = document.getElementById('next-step3');
     const backStepBtn = document.getElementById('back-step');
     const backStepBtn2 = document.getElementById('back-step2');
+    const backStepBtn3 = document.getElementById('back-step3');
     const cancelBtn = document.getElementById('cancel-sched');
+    const submitAppointment = document.getElementById('submitAppointment');
 
     function showContainer(index) {
         containers.forEach((container, i) => {
@@ -183,22 +210,34 @@
     nextStepBtn.addEventListener('click', () => {
         showContainer(1);
     });
-    
+
     nextStepBtn2.addEventListener('click', () => {
         showContainer(2);
     });
 
+    nextStepBtn3.addEventListener('click', () => {
+      showContainer(3);
+  });
+
     backStepBtn.addEventListener('click', () => {
         showContainer(0);
     });
-    
-    backStepBtn2.addEventListener('click', () => {
-        showContainer(1);
+
+  backStepBtn2.addEventListener('click', () => {
+      showContainer(1);
+  });
+
+    backStepBtn3.addEventListener('click', () => {
+        showContainer(2);
     });
-  
+
     cancelBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';
         showContainer(0);
     });
+
+    submitAppointment.addEventListener('click', () => {
+      showContainer(3);
+    })
 </script>
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Accounts 
+from .models import Accounts
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import Schedule, Accounts, Student, Appointments, Manuscripts, ThesisType
@@ -25,14 +25,14 @@ def check_completeProfile(request):
     if request.user.is_authenticated:
         try:
             studID = Student.objects.get(auth_user=request.user)
-            
+
             first_name_last_name_incomplete = User.objects.filter(
-                Q(id=request.user.id) & (Q(first_name__isnull=True) | Q(first_name="")) & 
+                Q(id=request.user.id) & (Q(first_name__isnull=True) | Q(first_name="")) &
                 (Q(last_name__isnull=True) | Q(last_name=""))
             ).exists()
 
             other_info_incomplete = Student.objects.filter(
-                Q(auth_user=request.user) & 
+                Q(auth_user=request.user) &
                 (Q(smc_student_no__isnull=True) | Q(mobile_number__isnull=True) | Q(receipt_no__isnull=True))
             ).exists()
 
@@ -58,9 +58,9 @@ def check_thesis_members(request):
         if manuscript:
             other_students = Student.objects.filter(manuscript_id=manuscript).exclude(auth_user=request.user)
             return not other_students.exists()
-        return True 
+        return True
     except Student.DoesNotExist:
-        return True 
+        return True
 
 @login_required
 def studentdashboard(request):
@@ -69,7 +69,7 @@ def studentdashboard(request):
         account_type = request.session.get('account_type', None)
         username = request.session.get('username', None)
         is_new_user = check_user(request)
-        thesis_empty_value = check_thesis_empty(request)  
+        thesis_empty_value = check_thesis_empty(request)
         completeProfile = check_completeProfile(request)
         thesis_no_members = check_thesis_members(request)
 
@@ -116,7 +116,7 @@ def update_thesis_info(request):
             messages.success(request, "Thesis information has been successfully updated.")
         except Exception as e:
             messages.error(request, f"An error occurred while updating thesis information: {str(e)}")
-    
+
     return redirect('studentdashboard')
 
 
@@ -143,9 +143,15 @@ def completeProfile(request):
             messages.success(request, "Profile information has been successfully updated.")
         except Exception as e:
             messages.error(request, f"An error occurred while updating your profile: {str(e)}")
-    
+
     return redirect('studentdashboard')
- 
+
+
+from django.shortcuts import render
+from .models import (
+    ThesisType, Category, TypeOfStudy, BasicRequirements,
+    SupplementaryRequirements, EthicalRiskQuestions, Student
+)
 
 def studentAppointment(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -154,31 +160,33 @@ def studentAppointment(request):
     userID = User.objects.get(id=user)
     student_id = Student.objects.get(auth_user=userID)
 
+    # Fetching data for Step 1
     manuscript_id = student_id.manuscript_id
-    thesisMembers = Student.objects.filter(manuscript_id=manuscript_id).distinct()
+    thesis_members = Student.objects.filter(manuscript_id=manuscript_id).distinct()
     thesis_members_names = ", ".join(
         f"{member.auth_user.first_name} {member.auth_user.last_name}"
-        for member in thesisMembers
+        for member in thesis_members
     )
+    thesis_types = ThesisType.objects.all()
 
-    is_new_user = check_user(request)
-    thesis_empty_value = check_thesis_empty(request)  
-    completeProfile = check_completeProfile(request)
-    thesis_no_members = check_thesis_members(request)
-    thesisTypes = ThesisType.objects.all()
+    # Fetching data for Step 2
+    categories = Category.objects.all()
+    study_types = TypeOfStudy.objects.all()
+    basic_requirements = BasicRequirements.objects.all()
+    supplementary_documents = SupplementaryRequirements.objects.all()
 
-    getting_started_conditions = (
-        is_new_user and 
-        thesis_empty_value and 
-        completeProfile and 
-        thesis_no_members
-    )
+    # Fetching data for Step 3
+    ethical_questions = EthicalRiskQuestions.objects.all()
 
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
-        'getting_started_conditions': getting_started_conditions,
-        'thesisTypes': thesisTypes,
+        'thesisTypes': thesis_types,
+        'categories': categories,
+        'study_types': study_types,
+        'basic_requirements': basic_requirements,
+        'supplementary_documents': supplementary_documents,
+        'ethical_questions': ethical_questions,
         'email': userID.email,
         'mobile_number': student_id.mobile_number,
         'thesisMembers': thesis_members_names,
@@ -190,7 +198,7 @@ def studentAppointment(request):
 def studentManuscript(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
+
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
@@ -200,11 +208,11 @@ def studentManuscript(request):
 def studentSettings(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
+
     context = {
         'profile_picture': profile_picture,
     }
-        
+
 def check_user(request):
     if request.user.is_authenticated:
         session_id = request.session.get('id', None)
@@ -242,8 +250,7 @@ def save_schedule(request):
     appointment_date = request.POST.get('schedule-date')
     start_time = request.POST.get('schedule-start-time')
     end_time = request.POST.get('schedule-end-time')
-    
-    # Convert to datetime objects for saving
+
     appointment_date = datetime.strptime(appointment_date, '%Y-%m-%d').date()
 
     student = get_object_or_404(Student, auth_user=request.user)
@@ -292,11 +299,11 @@ def student_appointment(request):
 def get_appointments(request):
     student = get_object_or_404(Student, auth_user=request.user)
     account = get_object_or_404(Accounts, student_id=student)
-    
+
     # Appointments for this student
     appointments = Appointments.objects.filter(transaction_id=account.student_id)
     schedules = Schedule.objects.filter(account_id=account)
-    
+
     events = [
         {
             "title": appointment.appointment_name,
@@ -313,7 +320,7 @@ def get_appointments(request):
         }
         for schedule in schedules
     ]
-    
+
     return JsonResponse(events, safe=False)
 
 '''
