@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.homeLogin, name='index'),
     #-----------------------------------------Justine------------------------------------------------
     re_path(r'^accounts/login/$', views.login2, name='login2'),
     re_path(r'^accounts/signup/$', views.signup, name='signup'),

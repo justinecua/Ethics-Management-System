@@ -170,13 +170,3 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 SESSION_COOKIE_AGE = 8600
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-from google.oauth2 import service_account
-
-# Google Cloud Storage settings
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'ethics_bucket'
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    '<path-to-your-service-account-json-file>'
-)
-
-MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'

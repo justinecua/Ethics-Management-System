@@ -1,4 +1,4 @@
-#!/home/ylle014/WSL/Ethics_System/Ethics-env/bin/python3
+#!/media/justine/NewVolume/Projects/Ethics_System/Ethics-env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

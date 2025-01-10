@@ -6,3 +6,6 @@ def login2(request):
   template = loader.get_template('accounts/login.html')
   return HttpResponse(template.render())
 
+def homeLogin(request):
+  template = loader.get_template('accounts/login.html')
+  return HttpResponse(template.render())
