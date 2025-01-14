@@ -109,6 +109,11 @@ urlpatterns = [
 
     re_path(r'^adminDeleteEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminDeleteEthicalRiskQuestions, name='adminDeleteEthicalRiskQuestions'),
 
+    re_path(r'^adminEditCollege/(?P<college_id>\d+)/$', views.adminEditCollege, name='adminEditCollege'),
+
+
+    path('adminDeleteCollege/<int:college_id>/', views.adminDeleteCollege, name='adminDeleteCollege'),
+
 
 
 

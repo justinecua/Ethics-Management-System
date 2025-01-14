@@ -4,6 +4,7 @@ from .models import Student, Appointments, Accounts, Reviewer, Account_Type, Col
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements
+from django.http import JsonResponse
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -232,6 +233,32 @@ def adminEditEthicalRiskQuestions(request):
         messages.success(request, "Ethical Question updated successfully!")
         return redirect('adminEthicalRiskQuestions')
 
+#----------------------------> admin Edit and Delete College ----------------------------->
 
+
+@csrf_exempt
+def adminEditCollege(request, college_id):
+    college = get_object_or_404(College, id=college_id)
+    if request.method == 'POST':
+        college_name = request.POST.get('college_name')
+        college_initials = request.POST.get('college_initials')
+        college.college_name = college_name
+        college.college_initials = college_initials
+        college.save()
+
+        messages.success(request, "College updated successfully!")
+    return redirect('adminColleges')
+
+
+@csrf_exempt
+def adminDeleteCollege(request, college_id):
+    if request.method == 'POST':
+        try:
+            college = College.objects.get(id=college_id)
+            college.delete()
+            return JsonResponse({"success": True, "message": "College deleted successfully!"}, status=200)
+        except College.DoesNotExist:
+            return JsonResponse({"success": False, "message": "College not found."}, status=404)
+    return JsonResponse({"success": False, "message": "Invalid request method."}, status=400)
 
 

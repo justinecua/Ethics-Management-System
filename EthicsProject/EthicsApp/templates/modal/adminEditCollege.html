@@ -1,0 +1,15 @@
+<form method="POST" action="">
+    {% csrf_token %}
+    <input type="hidden" id="edit-college-id" name="college_id">
+    <div class="modal-body">
+        <label for="edit-college-initial">College Initials</label>
+        <input type="text" id="edit-college-initial" name="college_initials" required>
+
+        <label for="edit-college-name">College Name</label>
+        <input type="text" id="edit-college-name" name="college_name" required>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="cancel-edit-college">Cancel</button>
+        <button type="submit">Save</button>
+    </div>
+</form>

@@ -13,6 +13,7 @@
 
 {% block content %}
 {% include 'modal/adminAddCollege.html' %}
+{% include 'modal/adminEditCollege.html' %}
 <div class="MainContainer">
       {% include './adminTopNav.html' %}    
 
@@ -36,7 +37,7 @@
                     <th>Options</th>
                     </tr>
                       {% for college in colleges %}
-                    <tr>
+                      <tr data-college-id="1">
                       <td> {{ college.college_initials }}</td>
                       <td> {{ college.college_name }}</td>
                       <td>

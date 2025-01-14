@@ -14,23 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
             let questionId = this.getAttribute('data-id');
             let questionText = this.getAttribute('data-question');
 
-            // Check that the elements exist before assigning properties
-            if (editQuestionIdInput && editQuestionTextArea) {
-                editQuestionIdInput.value = questionId || '';
-                editQuestionTextArea.value = questionText || '';
-                editModal.style.display = "flex";
-            } else {
-                console.error("Edit modal inputs not found");
-            }
+            editQuestionIdInput.value = questionId;
+            editQuestionTextArea.value = questionText;
+
+            editModal.style.display = "flex";
         });
     });
 
     // Close Edit Modal
     if (cancelEditBtn) {
         cancelEditBtn.addEventListener('click', function () {
-            if (editModal) {
-                editModal.style.display = "none";
-            }
+            editModal.style.display = "none";
         });
     }
 
@@ -47,18 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (AddEthicalRiskQuestionsBtn) {
         AddEthicalRiskQuestionsBtn.addEventListener('click', function (event) {
             event.stopPropagation();
-            if (ModalEthicalRiskQuestions) {
-                ModalEthicalRiskQuestions.style.display = "flex";
-            }
+            ModalEthicalRiskQuestions.style.display = "flex";
         });
     }
 
     if (cancelEthicalQuestions) {
         cancelEthicalQuestions.addEventListener('click', function (event) {
             event.stopPropagation();
-            if (ModalEthicalRiskQuestions) {
-                ModalEthicalRiskQuestions.style.display = "none";
-            }
+            ModalEthicalRiskQuestions.style.display = "none";
         });
     }
 
