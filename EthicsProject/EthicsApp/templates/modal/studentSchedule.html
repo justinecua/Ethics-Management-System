@@ -1,4 +1,4 @@
-<form method="POST" action="{% url 'save_schedule' %}">
+<form method="POST" action="{% url 'save_schedule' %}" enctype="multipart/form-data" id="manuscript_form">
   {% csrf_token %}
 
   <div id="Modal-Schedule-Overlay">
@@ -10,42 +10,63 @@
               </div>
               <div class="MSC-Bottom">
                 <div class="ThesisTypeSched">
-                  <label for="schedule-type">Thesis Type</label>
+		<div class="GenCont1Left">
+		  <label for="schedule-type">Thesis Type</label>
                   <select name="thesis_type">
                       {% for thesis in thesisTypes %}
-                      <option value="{{ thesis.id }}">{{ thesis.ThesisType }}</option>
+                      <option name="thesis_type" value="{{ thesis.id }}">{{ thesis.ThesisType }}</option>
                       {% endfor %}
                   </select>
+		</div>
+		<div class="GenCont1Right">
+	          <label for="college-type">College</label>
+                  <select name="college_id">
+                      {% for college in colleges %}
+                      <option name="college_id" value="{{ college.id }}">{{ college.college_name }}</option>
+                      {% endfor %}
+                  </select>
+		</div>
                 </div>
 
                 <h4>I. General Information</h4>
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="schedule-type">Title of the Study</label>
-                      <input type="" name="" value="" placeholder="Input title of your study">
-                  </div>
+		      {% if thesis_title %}
+		      <input type="text" name="thesis_title" value="{{ thesis_title }}" placeholder="Input title of your study" disabled>
+                      {% endif %}
+		      {% if manuscript_id %}
+		      <input type="hidden" name="manuscript_id" value="{{ manuscript_id }}">
+		      {% endif %}
+		      {% if account_id %}
+		      <input type="hidden" name="account_id" value="{{ account_id }}">
+		      {% endif %}
+		      <input type="hidden" name="appointment_date" id="appointment_date">
+		  </div>
                   <div class="GenCont1Right">
-                      <label for="schedule-date">Study Site</label>
-                      <input type="" name="" value="" placeholder="Input study site">
-                  </div>
+                      <label for="schedule-date">Study Site</label>	
+		      <input type="text" name="thesis_study_site" placeholder="Input study site">
+		  </div>
                 </div>
                 <div class="GenCont1Bottom">
                     <label for="">Brief Description of the Study</label>
-                    <textarea rows="4" cols="30" placeholder="Create a brief description about your study"></textarea>
-                    <label for="">Name of Researchers</label>
-                    <textarea rows="3" cols="30">{{ thesisMembers }}</textarea>
+		    {% if thesis_description %}
+                    <textarea rows="4" cols="30" placeholder="Create a brief description about your study" disabled>{{ thesis_description }}</textarea>
+                    {% endif %}
+		    <label for="">Name of Researchers</label>
+                    <textarea rows="3" cols="30" disabled>{{ thesisMembers }}</textarea>
                 </div>
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="schedule-end-time">Email address</label>
                       {% if email %}
-                      <input type="text" name="" value="{{ email }}" placeholder="Input your email address">
+                      <input type="text" name="thesis_email" value="{{ email }}" placeholder="Input your email address" disabled>
                       {% endif %}
                   </div>
                   <div class="GenCont1Right">
                       <label for="schedule-end-time">Mobile No.</label>
                       {% if mobile_number %}
-                      <input type="text" name="" value="{{ mobile_number }}" placeholder="Input your mobile number">
+                      <input type="text" name="thesis_mobileNumber" value="{{ mobile_number }}" placeholder="Input your mobile number" disabled>
                       {% endif %}
                   </div>
                 </div>
@@ -67,17 +88,17 @@
                 <div class="GenCont1">
                     <div class="GenCont1Left">
                       <label for="">Category</label>
-                      <select name="category">
+                      <select name="thesis_category">
                         {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        <option name="thesis_category" value="{{ category.id }}">{{ category.category_name }}</option>
                         {% endfor %}
                       </select>
                     </div>
                       <div class="GenCont1Right">
                         <label for="">Type of Study</label>
-                        <select name="study_type">
+                        <select name="type_of_study">
                           {% for study_type in study_types %}
-                          <option value="{{ study_type.id }}">{{ study_type.type_of_study }}</option>
+                          <option name="type_of_study" value="{{ study_type.id }}">{{ study_type.type_of_study }}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -86,11 +107,11 @@
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="schedule-end-time">Institution</label>
-                      <input type="text" name="" value="" placeholder="Input your Institution">
+                      <input type="text" name="institution" value="St. Michael`s College" placeholder="Input your Institution">
                   </div>
                   <div class="GenCont1Right">
                       <label for="schedule-end-time">Address of Institution</label>
-                      <input type="text" name="" value="" placeholder="Input address of Institution">
+                      <input type="text" name="address_institution" value="74 Manuel L. Quezon Ave, Iligan City, 9200 Lanao del Norte" placeholder="Input address of Institution">
                   </div>
                 </div>
                 <div class="GenCont1Divider">
@@ -98,29 +119,29 @@
                 </div>
                 <div class="GenCont1">
                   <div class="GenCont1Left">
-                      <label for="schedule-end-time">Start Date</label>
-                      <input type="date" name="" value="" placeholder="Input your Institution">
+                      <label for="schedule-start-time">Start Date</label>
+                      <input type="date" name="schedule_start_time">
                   </div>
                   <div class="GenCont1Right">
                       <label for="schedule-end-time">End Date</label>
-                      <input type="date" name="date" value="" placeholder="Input address of Institution">
+                      <input type="date" name="schedule_end_time">
                   </div>
                 </div>
 
                 <div class="GenCont1">
                   <div class="GenCont1Left">
                       <label for="">Basic Requirements</label>
-                      <select name="basic_requirements">
+                      <select name="basic_docu">
                         {% for requirement in basic_requirements %}
-                        <option value="{{ requirement.id }}">{{ requirement.basicRequirements }}</option>
+                        <option name="basic_docu" value="{{ requirement.id }}">{{ requirement.basicRequirements }}</option>
                         {% endfor %}
                       </select>
                     </div>
                       <div class="GenCont1Right">
                         <label for="">Supplementary Documents</label>
-                        <select name="supplementary_documents">
+                        <select name="supp_docu">
                           {% for document in supplementary_documents %}
-                          <option value="{{ document.id }}">{{ document.supplementaryRequirements }}</option>
+                          <option name="supp_docu" value="{{ document.id }}">{{ document.supplementaryRequirements }}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -171,11 +192,14 @@
                 <h3>Step 4: Add Manuscript Document</h3>
                 <p>Will your study / research involve:</p>
             </div>
-            <div class="MSC-BottomEQ">
-              <div class="GenCont1Bottom">
-                <input type="file" id="manuscript_file" name="manuscript_file">
-              </div>
-            </div>
+	<div class="MSC-BottomEQ">
+	  <div class="GenCont1Bottom">
+	    <button type="button" id="manuscript_upload_button" class="secButton">Upload Manuscript</button>
+	    <input type="file" id="manuscript_file" name="manuscript_file" accept=".pdf" style="display: none;">
+	    <p id="file_name_display" style="margin-top: 10px; color: #555;"></p>
+	  </div>
+	</div>
+
             <div class="MSC-Bottom2">
                 <button type="button" class="firstButton" id="back-step3">Back</button>
                 <button type="submit" class="secButton" id="submitAppointment">Submit</button>
@@ -198,6 +222,8 @@
     const backStepBtn3 = document.getElementById('back-step3');
     const cancelBtn = document.getElementById('cancel-sched');
     const submitAppointment = document.getElementById('submitAppointment');
+    const manuscriptFileInput = document.getElementById('manuscript_file');
+    const fileNameDisplay = document.getElementById('file_name_display');
 
     function showContainer(index) {
         containers.forEach((container, i) => {
@@ -239,5 +265,19 @@
     submitAppointment.addEventListener('click', () => {
       showContainer(3);
     })
+
+    document.getElementById('manuscript_upload_button').addEventListener('click', () => {
+     document.getElementById('manuscript_file').click();
+    });
+
+    manuscriptFileInput.addEventListener('change', () => {
+  const file = manuscriptFileInput.files[0];
+  if (file) {
+    fileNameDisplay.textContent = `Selected File: ${file.name}`;
+  } else {
+    fileNameDisplay.textContent = '';
+  }
+});
+
 </script>
 

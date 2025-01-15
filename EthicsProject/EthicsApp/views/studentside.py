@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Accounts
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from .models import Schedule, Accounts, Student, Appointments, Manuscripts, ThesisType
+from .models import Schedule, Accounts, Student, Appointments, Manuscripts, ThesisType, College, EthicalRiskQuestions, EthicalRiskAnswers, Category, TypeOfStudy 
 from django.views.decorators.http import require_POST
 from datetime import datetime
 from django.shortcuts import get_object_or_404
@@ -159,23 +159,26 @@ def studentAppointment(request):
     user = request.session.get('id', None)
     userID = User.objects.get(id=user)
     student_id = Student.objects.get(auth_user=userID)
+    account = Accounts.objects.get(student_id=student_id)
+    account_id = account.id
 
-    # Fetching data for Step 1
     manuscript_id = student_id.manuscript_id
     thesis_members = Student.objects.filter(manuscript_id=manuscript_id).distinct()
     thesis_members_names = ", ".join(
         f"{member.auth_user.first_name} {member.auth_user.last_name}"
         for member in thesis_members
     )
+    thesis_title = manuscript_id.thesis_title
+    thesis_description = manuscript_id.thesis_description
+    thesis_id = manuscript_id.id
     thesis_types = ThesisType.objects.all()
 
-    # Fetching data for Step 2
+
     categories = Category.objects.all()
     study_types = TypeOfStudy.objects.all()
     basic_requirements = BasicRequirements.objects.all()
     supplementary_documents = SupplementaryRequirements.objects.all()
-
-    # Fetching data for Step 3
+    colleges = College.objects.all()
     ethical_questions = EthicalRiskQuestions.objects.all()
 
     context = {
@@ -190,10 +193,30 @@ def studentAppointment(request):
         'email': userID.email,
         'mobile_number': student_id.mobile_number,
         'thesisMembers': thesis_members_names,
+        'thesis_title': thesis_title,
+        'thesis_description': thesis_description,
+        'manuscript_id': thesis_id,
+        'colleges': colleges,
+        'account_id': account_id,
     }
-
     return render(request, 'students/studentappointment.html', context)
 
+def get_admin_schedule(request):
+    admin_account_id = 2  
+    schedules = Schedule.objects.filter(account_id=admin_account_id)
+
+    events = []
+    for schedule in schedules:
+        events.append({
+            'title': f"{schedule.schedule_type} - Slot: {schedule.slot}",
+            'start': f"{schedule.schedule_date}T{schedule.schedule_start_time}",
+            'end': f"{schedule.schedule_date}T{schedule.schedule_end_time}",
+            'schedule_type': schedule.schedule_type,
+            'schedule_id': schedule.id,
+            'slot': schedule.slot,
+        })
+
+    return JsonResponse(events, safe=False)
 
 def studentManuscript(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -246,25 +269,77 @@ def schedule_list(request):
 
 @require_POST
 def save_schedule(request):
-    appointment_name = request.POST.get('schedule-type')
-    appointment_date = request.POST.get('schedule-date')
-    start_time = request.POST.get('schedule-start-time')
-    end_time = request.POST.get('schedule-end-time')
+    college_id = request.POST.get('college_id')
+    thesis_study_site = request.POST.get('thesis_study_site')
+    thesis_category = request.POST.get('thesis_category')
+    thesis_type = request.POST.get('thesis_type')
+    type_of_study = request.POST.get('type_of_study')
+    institution = request.POST.get('institution')
+    address_institution = request.POST.get('address_institution')
+    schedule_start_time = request.POST.get('schedule_start_time')
+    schedule_end_time = request.POST.get('schedule_end_time')
+    basic_docu = request.POST.get('basic_docu')
+    supp_docu = request.POST.get('supp_docu')
+    appointment_date = request.POST.get('appointment_date')
+    appointment_name = 'Ethics Review' 
+    manuscript_id = request.POST.get('manuscript_id')
+    manuscript_file = request.FILES.get('manuscript_file')
+    account_id = request.POST.get('account_id')
 
-    appointment_date = datetime.strptime(appointment_date, '%Y-%m-%d').date()
 
-    student = get_object_or_404(Student, auth_user=request.user)
-    account = get_object_or_404(Accounts, student_id=student)
+    if not appointment_date or appointment_date == "undefined":
+        appointment_date = datetime.now().strftime('%Y-%m-%d')
 
-    Appointments.objects.create(
+    ethical_questions = EthicalRiskQuestions.objects.all()
+    ethical_responses = {}
+    for question in ethical_questions:
+        response = request.POST.get(f'question_{question.id}')
+        ethical_responses[question.id] = response
+
+    college_instance = College.objects.get(id=college_id)
+    category_instance = Category.objects.get(id=thesis_category)
+    type_of_study_instance = TypeOfStudy.objects.get(id=type_of_study)
+
+    db_Accounts = Accounts.objects.get(id=account_id)
+    db_Accounts.college_id = college_instance
+    db_Accounts.save()
+
+    db_manuscript = Manuscripts.objects.get(id=manuscript_id)
+    db_manuscript.study_site = thesis_study_site
+    db_manuscript.category_name = category_instance
+    db_manuscript.type_of_study = type_of_study_instance
+    db_manuscript.file = manuscript_file
+    db_manuscript.save()
+  
+    basic_requirement_instance = BasicRequirements.objects.get(id=basic_docu)
+    supplementary_requirement_instance = SupplementaryRequirements.objects.get(id=supp_docu)
+    thesis_type_instance = ThesisType.objects.get(id=thesis_type)
+
+    appointment_instance = Appointments.objects.create(
         appointment_date=appointment_date,
-        appointment_name=appointment_name,
+        appointment_name="Ethics Review",
         status="Scheduled",
-        transaction_id=str(account.student_id)
+        thesis_type_id = thesis_type_instance,
+        institution = institution,
+        address_of_institution = address_institution,
+        duration_start_time = schedule_start_time,
+        duration_end_time = schedule_end_time,
+        basicRequirements_id=basic_requirement_instance,  
+        supplementaryRequirements_id=supplementary_requirement_instance,
+        account_id = db_Accounts, 
     )
-    messages.success(request, "Appointment scheduled successfully.")
-    return redirect('students_appointments')
+    
+    for question_id, answer in ethical_responses.items():
+        EthicalRiskAnswers.objects.create(
+            ethicalQuestions_id=question_id,
+            ethicalAnswers=answer,
+            appointment_id=appointment_instance
+        )
 
+    messages.success(request, "Appointment scheduled successfully.")
+    return redirect('studentAppointment')
+
+'''
 @login_required
 def student_appointment(request):
     student = get_object_or_404(Student, auth_user=request.user)
@@ -294,7 +369,7 @@ def student_appointment(request):
     }
     return render(request, 'students/studentAppointment.html', context)
 
-'''
+
 @login_required
 def get_appointments(request):
     student = get_object_or_404(Student, auth_user=request.user)

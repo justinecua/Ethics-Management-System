@@ -379,12 +379,24 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  width: 45rem;
+  width: 35rem;
   background-color: var(--modal-container);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.3s ease-out forwards;
   padding: 2.4rem;
+}
+
+#manuscript_upload_button{
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.7rem 2rem;
+}
+
+#file_name_display{
+ margin-bottom: 0.8rem; 
+ text-align: center;
+ font-size: 0.9rem;
 }
 
 #EModal-Schedule-Overlay {
@@ -524,6 +536,7 @@
   border-radius: 10px;
   border: 1px solid var(--container-border);
   outline: none;
+  background-color: white;
 }
 
 .MSC-Bottom input,
@@ -533,6 +546,12 @@ textarea {
   border-radius: 10px;
   border: 1px solid var(--container-border);
   outline: none;
+}
+
+.MSC-Bottom input:disabled,
+textarea:disabled {
+  background-color: #EFEFEF: 
+  cursor: not-allowed;
 }
 
 #schedule-step-1 {
@@ -646,8 +665,10 @@ textarea {
 }
 
 .ThesisTypeSched {
-  width: 50%;
+  width: 100%;
   margin-top: 2%;
+  display: flex;
+  gap: 2%;
 }
 
 

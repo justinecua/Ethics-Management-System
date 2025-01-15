@@ -1,19 +1,21 @@
 
 let ModalScheduleOverlay = document.getElementById('Modal-Schedule-Overlay');
-let EModalScheduleOverlay = document.getElementById('EModal-Schedule-Overlay');
+
 let scheduledate = document.getElementById('schedule-date');
 let cancelsched = document.getElementById('cancel-sched');
-let ecancelsched = document.getElementById('ecancel-sched');
+
 
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     height: 'auto',
-    events: '/api/get_appointments/', 
+    events: '/get_admin_schedule/', 
     initialDate: new Date(),
     hiddenDays: [0],
     eventClick: function(info) {
-        var event = info.event;
+	var event = info.event;
+	/*
+        
         var scheduleId = event.extendedProps.schedule_id;
 
     
@@ -27,8 +29,21 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         document.getElementById('eschedule-end-time').value = 
             event.end ? event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
 
-        document.getElementById('edit-schedule-form').action = `/schedules/edit/${scheduleId}/`;
+        */
+
+	if (getting_started_conditions) {
+          let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
+          gettingStartedConditionErrorOverlay.style.display = "flex";
+      } else {
+          ModalScheduleOverlay.style.display = "flex";
+          document.getElementById('appointment_date').value = info.dateStr;
+	      	console.log("Selected Date:", info.dateStr);
+      }
+
+	
     },
+
+    /*
     dateClick: function(info) {
       if (getting_started_conditions) {
           let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
@@ -38,23 +53,15 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
           scheduledate.value = info.dateStr;
       }
     },
+    */
 
     eventContent: function(arg) {
         var startTime = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
         var scheduleTypeClass = arg.event.extendedProps.schedule_type === "Available" ? "Available" : "Not-Available";
         var scheduleId = arg.event.extendedProps.schedule_id;
-    
-        var deleteButton = document.createElement('img');
-        deleteButton.className = 'delete-event';
-        deleteButton.src = '../static/images/Delete-2--Streamline-Block---Free.png';
-        deleteButton.dataset.scheduleId = scheduleId;
-    
-        deleteButton.addEventListener('click', function(event) {
-            event.stopPropagation();
-            deleteEvent(scheduleId);
-        });
-    
+  	var slot = arg.event.extendedProps.slot; 
+	    
         var eventContainer = document.createElement('div');
         eventContainer.className = `event-container ${scheduleTypeClass}`;
     
@@ -63,7 +70,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     
         var eventTime = document.createElement('div');
         eventTime.className = 'event-time';
-        eventTime.innerText = `${startTime} - ${endTime}`;
+        eventTime.innerText = `${startTime} - ${endTime} (Slot: ${slot})`;
     
         availabilityIndicator.append(eventTime);
         eventContainer.appendChild(availabilityIndicator);
@@ -169,9 +176,7 @@ document.addEventListener('click', function(event) {
     if (event.target === ModalScheduleOverlay) {
         ModalScheduleOverlay.style.display = "none";
     }
-    if (event.target === EModalScheduleOverlay) {
-        EModalScheduleOverlay.style.display = "none";
-    }
+
     if (event.target === gettingStartedConditionErrorOverlay) {
         gettingStartedConditionErrorOverlay.style.display = "none";
     }

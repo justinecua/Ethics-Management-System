@@ -1,18 +1,30 @@
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+
+
+class Category(models.Model):
+    category_name= models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.category_name}"
+
+class TypeOfStudy(models.Model):
+    type_of_study = models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.type_of_study}"
+
 class Manuscripts(models.Model):
     thesis_title = models.CharField(max_length=255, null=True)
     thesis_description = models.TextField(max_length=800, null=True)
-    category_name_id = models.CharField(max_length=20, null=True)
-    type_of_study_id = models.CharField(max_length=20, null=True)
+    category_name = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    type_of_study = models.ForeignKey(TypeOfStudy, on_delete=models.CASCADE, null=True)
     study_site = models.CharField(max_length=400, null=True)
     file = models.FileField(upload_to='manuscripts/', storage=FileSystemStorage())
 
     def __str__(self):
         return f"{self.thesis_title} - {self.thesis_description}"
-
-
 
 class Student(models.Model):
     auth_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
@@ -57,7 +69,7 @@ class Accounts(models.Model):
         return f"{self.account_typeid}"
 
 class Schedule(models.Model):
-    account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
+    account_id = models.ForeignKey(Account_Type, on_delete=models.CASCADE, null=True)
     schedule_type = models.CharField(max_length=255, null=True)
     schedule_date = models.DateField(null=True)
     schedule_start_time = models.TimeField(null=True)
@@ -80,19 +92,6 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.date} {self. comment}"
-
-
-class Category(models.Model):
-    category_name= models.CharField(max_length=350, null=True)
-
-    def __str__(self):
-        return f"{self.category_name}"
-
-class TypeOfStudy(models.Model):
-    type_of_study = models.CharField(max_length=350, null=True)
-
-    def __str__(self):
-        return f"{self.type_of_study}"
 
 
 class BasicRequirements(models.Model):
@@ -123,9 +122,14 @@ class ThesisType(models.Model):
 class Appointments(models.Model):
     appointment_date = models.DateField(null=True)
     appointment_name = models.CharField(max_length =255, null=True)
+    duration_start_time = models.DateField(null=True)
+    duration_end_time = models.DateField(null=True)
     status = models.CharField(max_length=100, null=True)
     transaction_id = models.CharField(max_length=100, null=True)
     institution = models.CharField(max_length=100, null=True)
+    address_of_institution = models.CharField(max_length=100, null=True)
+    basicRequirements_id = models.ForeignKey(BasicRequirements, on_delete=models.CASCADE, null=True)
+    supplementaryRequirements_id = models.ForeignKey(SupplementaryRequirements, on_delete=models.CASCADE, null=True)
     account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
     thesis_type_id = models.ForeignKey(ThesisType, on_delete=models.CASCADE, null=True)
 
@@ -139,6 +143,6 @@ class EthicalRiskAnswers(models.Model):
     appointment_id = models.ForeignKey(Appointments, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"{self.student_id} {self.ethicalQuestions}"
+        return f"{self.ethicalAnswers} {self.ethicalQuestions} {self.appointment_id}"
 
 

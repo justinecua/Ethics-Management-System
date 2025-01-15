@@ -99,13 +99,11 @@ def edit_schedule(request, scheduleId):
     schedule_start_time = request.POST.get('eschedule-start-time')
     schedule_end_time = request.POST.get('eschedule-end-time')
     slot = request.POST.get('eslots')
-    
-    # Validate
+
     if not all([schedule_type, schedule_date, schedule_start_time, schedule_end_time]):
         messages.error(request, 'All fields are required.')
         return redirect(reverse('adminSchedule', args=[schedule_id]))
 
-    # Convert
     try:
         start_time = datetime.strptime(f"{schedule_date} {schedule_start_time}", "%Y-%m-%d %H:%M")
         end_time = datetime.strptime(f"{schedule_date} {schedule_end_time}", "%Y-%m-%d %H:%M")
@@ -113,17 +111,14 @@ def edit_schedule(request, scheduleId):
         messages.error(request, 'Invalid date or time format.')
         return redirect(reverse('adminSchedule', args=[schedule_id]))
 
-    # Compare
     if start_time >= end_time:
         messages.error(request, 'End time must be after start time.')
         return redirect(reverse('adminSchedule', args=[schedule_id]))
 
-    # Future
     if start_time.date() < datetime.now().date():
         messages.error(request, 'The scheduled date cannot be in the past.')
         return redirect(reverse('adminSchedule', args=[schedule_id]))
 
-    # Overlap
     overlapping_schedules = Schedule.objects.filter(
         schedule_date=schedule_date,
         schedule_start_time__lt=schedule_end_time,
@@ -134,7 +129,6 @@ def edit_schedule(request, scheduleId):
         messages.error(request, 'This schedule overlaps with an existing schedule.')
         return redirect(reverse('adminSchedule', args=[schedule_id]))
 
-    # Save changes
     try:
         schedule.schedule_type = schedule_type
         schedule.schedule_date = schedule_date

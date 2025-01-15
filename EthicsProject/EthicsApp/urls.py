@@ -23,6 +23,7 @@ urlpatterns = [
     path('update-thesis-info/', views.update_thesis_info, name='update_thesis_info'),
     path('completeProfile/', views.completeProfile, name='completeProfile'),
     path('addMemberStudent/', views.addMemberStudent, name='addMemberStudent'),
+    re_path(r'^get_admin_schedule/$', views.get_admin_schedule, name='get_admin_schedule'),
 
 
 
@@ -101,7 +102,7 @@ urlpatterns = [
     path('schedule/save/', views.save_schedule, name='save_schedule'),
     #path('api/appointments/', views.get_appointments, name='get_appointments'),
     #path('api/get_appointments/', views.get_appointments, name='get_appointments'),
-    path('students_appointments/', views.student_appointment, name='students_appointments'),
+    #path('students_appointments/', views.student_appointment, name='students_appointments'),
 
     re_path(r'^adminEthicalRiskQuestions/$', views.adminEthicalRiskQuestions, name='adminEthicalRiskQuestions'),
     re_path(r'^adminAddEthicalRiskQuestions/$', views.adminAddEthicalRiskQuestions, name='adminAddEthicalRiskQuestions'),
