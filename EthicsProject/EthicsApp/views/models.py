@@ -2,11 +2,24 @@ from django.db import models
 from django.conf import settings
 
 
+class Category(models.Model):
+    category_name= models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.category_name}"
+
+class TypeOfStudy(models.Model):
+    type_of_study = models.CharField(max_length=350, null=True)
+
+    def __str__(self):
+        return f"{self.type_of_study}"
+
+
 class Manuscripts(models.Model):
      thesis_title = models.CharField(max_length =255, null=True)
      thesis_description = models.TextField(max_length=800, null=True)
-     category_name_id = models.CharField(max_length =20, null=True)
-     type_of_study_id = models.CharField(max_length =20, null=True)
+     category_name_id = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+     type_of_study_id = models.ForeignKey(TypeOfStudy, on_delete=models.CASCADE, null=True)
      study_site = models.CharField(max_length =400, null=True)
      no_studyparticipants= models.CharField(max_length =255, null=True)
      file = models.URLField(verbose_name="File Url")
@@ -81,19 +94,6 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.date} {self. comment}"
-
-
-class Category(models.Model):
-    category_name= models.CharField(max_length=350, null=True)
-
-    def __str__(self):
-        return f"{self.category_name}"
-
-class TypeOfStudy(models.Model):
-    type_of_study = models.CharField(max_length=350, null=True)
-
-    def __str__(self):
-        return f"{self.type_of_study}"
 
 
 class BasicRequirements(models.Model):

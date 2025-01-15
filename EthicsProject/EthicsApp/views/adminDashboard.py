@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Prefetch
-from .models import Student, Appointments, Accounts, Reviewer, Account_Type, College, Category, EthicalRiskQuestions
+from .models import Student, Appointments, Accounts, Reviewer, Account_Type, College, Category, EthicalRiskQuestions, Manuscripts, Schedule, Notification, Comments
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements
 from django.http import JsonResponse
+from django.db.models import Count, F
+import json
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -12,15 +14,53 @@ def get_google_profile_picture(user):
         return social_account.extra_data.get('picture')
     return None
 
+
 def adminDashboard(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
+    # Data aggregation
+    manuscript_count = Manuscripts.objects.count()
+    student_count = Student.objects.count()
+    reviewer_count = Reviewer.objects.count()
+    college_count = College.objects.count()
+    schedule_count = Schedule.objects.count()
+    appointment_count = Appointments.objects.count()
 
+    # Manuscripts by category and type of study
+    manuscripts_by_category = Manuscripts.objects.values('category_name_id__category_name').annotate(total=Count('id'))
+    manuscripts_by_study_type = Manuscripts.objects.values('type_of_study_id__type_of_study').annotate(total=Count('id'))
+
+    # Accounts by college
+    accounts_by_college = Accounts.objects.values('college_id__college_initials').annotate(total=Count('id'))
+
+    # Notifications and comments counts
+    notification_count = Notification.objects.count()
+    comment_count = Comments.objects.count()
+
+    # Prepare counts dictionary
+    counts = {
+        "Manuscripts": manuscript_count,
+        "Students": student_count,
+        "Reviewers": reviewer_count,
+        "Colleges": college_count,
+        "Schedules": schedule_count,
+        "Appointments": appointment_count,
+    }
+
+    # Prepare data for JSON-safe rendering
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
+        'counts': counts,
+        'manuscripts_by_category': json.dumps(list(manuscripts_by_category)),
+        'manuscripts_by_study_type': json.dumps(list(manuscripts_by_study_type)),
+        'accounts_by_college': json.dumps(list(accounts_by_college)),
+        'notification_count': notification_count,
+        'comment_count': comment_count,
     }
     return render(request, 'admin/adminDashboard.html', context)
+
+
 
 def adminAccounts(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -260,5 +300,9 @@ def adminDeleteCollege(request, college_id):
         except College.DoesNotExist:
             return JsonResponse({"success": False, "message": "College not found."}, status=404)
     return JsonResponse({"success": False, "message": "Invalid request method."}, status=400)
+
+# -------------------------- admin Dashboard ---------------------------------------
+
+
 
 
