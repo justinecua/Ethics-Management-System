@@ -19,13 +19,14 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         EModalScheduleOverlay.style.display = "flex";
         document.getElementById('eschedule-type').value = event.extendedProps.schedule_type || "Available";
         document.getElementById('eschedule-date').value = event.extendedProps.schedule_date;
+        document.getElementById('eslots').value = event.extendedProps.slot;
 
         document.getElementById('eschedule-start-time').value = 
             event.start ? event.start.getHours().toString().padStart(2, '0') + ':' + event.start.getMinutes().toString().padStart(2, '0') : '';
         
         document.getElementById('eschedule-end-time').value = 
             event.end ? event.end.getHours().toString().padStart(2, '0') + ':' + event.end.getMinutes().toString().padStart(2, '0') : '';
-
+        
         document.getElementById('edit-schedule-form').action = `/schedules/edit/${scheduleId}/`;
     },
     dateClick: function(info) {
@@ -285,3 +286,49 @@ document.addEventListener('click', function(event) {
         EModalScheduleOverlay.style.display = "none";
     }
 });
+
+
+/*-------------Schedule Slots-----------------*/
+let slots = document.getElementById('slots');
+let scheduleStartTime = document.getElementById('schedule-start-time');
+let scheduleEndTime = document.getElementById('schedule-end-time');
+let addSched = document.getElementById('add-sched');
+
+const slotGenerator = () => {
+  const start = scheduleStartTime.value;
+  const end = scheduleEndTime.value;
+
+  if (start && end) {
+    const [startHours, startMinutes] = start.split(':').map(Number);
+    const [endHours, endMinutes] = end.split(':').map(Number);
+
+    const startTotalMinutes = startHours * 60 + startMinutes;
+    const endTotalMinutes = endHours * 60 + endMinutes;
+
+    const timeDifference = endTotalMinutes - startTotalMinutes;
+
+    if (timeDifference > 0) {
+      const slotCount = Math.floor(timeDifference / 20);
+      slots.value = slotCount; 
+    } else {
+      alert("End time must be after start time.");
+      slots.value = 0;
+    }
+  } else {
+    alert("Please select both start and end times.");
+  }
+};
+
+scheduleStartTime.addEventListener('change', slotGenerator);
+scheduleEndTime.addEventListener('change', slotGenerator);
+
+
+
+
+
+
+
+
+
+
+

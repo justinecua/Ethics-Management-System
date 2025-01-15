@@ -19,6 +19,7 @@
 
     {% block content %}
     {% include 'modal/reviewerSchedule.html' %}
+    {% include 'modal/editAdminSchedule.html' %}
     <div class="MainContainer">
         {% include 'Reviewer/reviewerTopNav.html' %}
         <div class="MC-Bottom">
@@ -39,7 +40,7 @@
                         <option value="8">September</option>
                         <option value="9">October</option>
                         <option value="10">November</option>
-                        <option value="11">December</option>
+                        <option value="11">December</option>  
                     </select>
     
                     <select id="yearSelect"></select>
@@ -87,8 +88,7 @@
                     </div>
                 </div>
     
-                <div id='calendar2'></div>
-                <div id='calendar3'></div>
+
             </div>
         </div>
     </div>
