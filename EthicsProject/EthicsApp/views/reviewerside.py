@@ -68,13 +68,15 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
-from .models import Schedule
+from .models import Schedule, Account_Type
 from django.http import JsonResponse
+
 class ReviewerScheduleView(View): 
     def post(self, request):
         userId = request.session.get('id', None)
         accId = "3" 
         acc_instance = Account_Type.objects.get(id=accId)
+        accId = Accounts.objects.get(reviewer_id__auth_user=userId)
         schedule_type = request.POST.get('schedule-type')
         schedule_date = request.POST.get('schedule-date')
         schedule_start_time = request.POST.get('schedule-start-time')
@@ -110,9 +112,6 @@ class ReviewerScheduleView(View):
             schedule_end_time__gt=schedule_start_time
         )
 
-        if overlapping_schedules.exists():
-            messages.error(request, 'This schedule overlaps with an existing schedule.')
-            return redirect('reviewerSchedule')
 
         try:
             schedule = Schedule(
@@ -170,13 +169,3 @@ class ReviewerScheduleDataView(View):
 
         return JsonResponse(events, safe=False)
 
-
-
-def reviewerSchedule(request):
-    profile_picture = request.session.get('profile_picture', None)
-    account_type = request.session.get('account_type', None)
-
-    return render(request, 'admin/adminSchedule.html', {
-        'profile_picture': profile_picture,
-        'account_type': account_type
-    })
