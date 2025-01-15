@@ -1,45 +1,205 @@
-.container {
-    width: 30%;
-    margin: auto;
+
+#pdf-controls{
+  width: 90%;
+  display: flex;
+  padding: 1rem;
+}
+
+#pdf-controls button{
+ padding: 0.4rem 1.4rem;
+ margin-left: 1rem;
+ background-color: #ebeff3;
+ border: none;
+}
+
+#pdf-controls input{
+ padding: 0.5rem 1.4rem;
+ border: none;
+ border-bottom: 1px solid black;
+ outline: none;
+ margin-left: 1rem;
+}
+
+.Manuscript-Section-Main{
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+}
+
+.PDF-Preview-Left {
+    width: 40%;
     padding: 20px;
-    border: 1px solid #ccc;
+
+}
+
+.Sections-Right {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-left: -3.5rem;
+}
+
+.ManuscriptSection,
+ {
+    margin-bottom: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.pdf-preview iframe {
+    width: 100%;
+    border: none;
+    height: 100%;
+}
+
+
+#pdf-container {
+    background-color: #f7f7f7;  
+    padding: 1rem;
+    border: 2px solid #ddd; 
+    border-radius: 10px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    max-height: 100%;
+    width: 90%;
+  }
+
+canvas {
+    background-color: #ffffff;  
+    border: 1px solid #ddd; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+    max-width: 100%; 
+    height: auto; 
+}
+
+.pdf-preview {
+    width: 90%;
+    border: none;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pdf-previewTop{
+   display: flex;
+   width: 90%;
+   justify-content: space-between;
+   padding: 1rem;
+}
+
+.pdf-previewTop h3{
+  font-size: 1rem;
+  color: #0084ff;
+}
+
+.pdf-previewTop p{
+  font-size: 0.9rem;
+}
+
+.manuscript-details{
+      display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #e1e1e1;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: white;
+    transition: all 0.3s ease;
 }
-h1 {
-    text-align: center;
-    color: #333;
+
+.manuscript-details:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
-form {
+
+.manuscript-details span{
+   margin-bottom: 1rem;
+   color: #0084ff;
+   font-weight: 600;
+}
+
+.manuscript-details p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+
+.AppointmentsSection h2 {
+    font-size: 1.8em;
+    color: #2c3e50;
+    border-bottom: 3px solid #2980b9;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.appointment-cards {
     display: flex;
     flex-direction: column;
 }
-label {
-    margin-top: 15px;
-    font-weight: bold;
-    display: flex;
-    justify-content: start;
-}
-input, textarea {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 95%;
 
+.appointment-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.3s ease;
 }
-button {
+
+.appointment-card h3{
+    color: #0084ff;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.appointment-title{
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.appointment-details {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.appointment-details span {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.appointment-status {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.appointment-ethics {
+    font-size: 1em;
+    color: #e74c3c;
+    margin-top: 10px;
+}
+
+.no-appointments {
+    font-size: 1.2em;
+    color: #c0392b;
+    text-align: center;
     margin-top: 20px;
-    padding: 10px;
-    border: none;
-    background-color: #1834E7;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 50%;
-    margin: 0 auto;
-    margin-top: 1rem;
 }
-button:hover {
-    background-color: #0b1e9a;
-}
+

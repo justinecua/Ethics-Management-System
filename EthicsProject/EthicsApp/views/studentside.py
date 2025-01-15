@@ -218,15 +218,37 @@ def get_admin_schedule(request):
 
     return JsonResponse(events, safe=False)
 
+from django.shortcuts import render
+from .models import Appointments, Accounts, Student, Manuscripts
+import os
+
 def studentManuscript(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
+    user_id = request.session.get('id', None)  # User ID from session
+
+    appointments = []
+    manuscript = None  # Initialize manuscript as None
+    if user_id:
+        try:
+            student = Student.objects.get(auth_user__id=user_id)
+            account = Accounts.objects.get(student_id=student)
+            appointments = Appointments.objects.filter(account_id=account)
+            
+            # Fetch the manuscript associated with the student
+            manuscript = Manuscripts.objects.filter(student__auth_user__id=user_id).first()
+        except (Student.DoesNotExist, Accounts.DoesNotExist, Manuscripts.DoesNotExist):
+            pass  
 
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
+        'appointments': appointments,
+        'manuscript': manuscript,
     }
     return render(request, 'students/studentmanuscript.html', context)
+
+
 
 def studentSettings(request):
     profile_picture = request.session.get('profile_picture', None)

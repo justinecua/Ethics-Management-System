@@ -80,13 +80,35 @@ def adminAccounts(request):
 def adminAppointments(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    appointments = Appointments.objects.all()
+
+    appointments = Appointments.objects.all().select_related(
+        'account_id', 
+        'account_id__student_id',  
+        'account_id__student_id__manuscript_id', 
+        'account_id__college_id'  
+    ).prefetch_related(
+        'account_id__student_id__manuscript_id__student_set' 
+    )
+
+    researchers_data = []
+    for appointment in appointments:
+        researchers = appointment.account_id.student_id.manuscript_id.student_set.all()
+        researchers_data.append({
+            'appointment_id': appointment.id,
+            'researchers': researchers,
+            'college': appointment.account_id.college_id.college_name,
+            'email': appointment.account_id.student_id.auth_user.email,
+            'transaction_id': appointment.transaction_id,
+
+        })
 
     return render(request, 'admin/adminAppointments.html', {
         'appointments': appointments,
         'profile_picture': profile_picture,
-        'account_type': account_type
+        'account_type': account_type,
+        'researchers_data': researchers_data,
     })
+
 
 
 def adminManuscripts(request):
@@ -105,13 +127,12 @@ def adminManuscripts(request):
     suppreqs = SupplementaryRequirements.objects.all()
     suppreq_data = []
 
-    # Loop through each category and add to category_data list
+
     for category in categories:
         category_data.append({
             'category_name': category.category_name,
         })
 
-    # Loop through each study type and add to studtype_data list
     for studtype in studtypes:
         studtype_data.append({
             'type_of_study': studtype.type_of_study,
@@ -129,7 +150,6 @@ def adminManuscripts(request):
         })
 
 
-    # Define the context with the necessary data
     context = {
         'categories': category_data,
         'studtype': studtype_data,

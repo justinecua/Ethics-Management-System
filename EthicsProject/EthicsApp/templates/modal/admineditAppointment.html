@@ -1,0 +1,67 @@
+<form method="POST" action=""> 
+    {% csrf_token %}
+    <div id="Modal-Edit-Appointment-Overlay">
+      <div id="MEA-Container">
+        <div class="MEA-Top">
+          <h2>ST. MICHAEL`S COLLEGE </h2>
+          <h3>Research Ethics Review Office</h3>
+        </div>
+
+        <div class="MEA-Top2">
+          <p>Claim Stab</p>
+        </div>
+        <div class="MEA-Bottom">
+
+          {% for data in researchers_data %}
+            <div class="MEAB1">
+              <label for="category-name">Researcher/s:</label>
+              <p>
+                {% for researcher in data.researchers %}
+                  {{ researcher.auth_user.get_full_name }}<br>
+                {% empty %}
+                  No researchers
+                {% endfor %}
+              </p>
+            </div>
+
+            <div class="MEAB2">
+              <label for="category-name">Department:</label>
+              <p>{{ data.college }}</p>
+            </div>
+
+            <div class="MEAB2">
+              <label for="category-name">Transaction Code:</label>
+              <p>{{ data.transaction_id }}</p>
+            </div>
+
+            <div class="MEAB2">
+              <label for="category-name">Type of Review:</label>
+              <p> Ethics Review</p>
+            </div>
+
+            <div class="MEAB2">
+              <label for="category-name">Email:</label>
+              <p>{{ data.email }}</p>
+            </div>
+
+            <div class="MEAB2">
+              <label for="category-name">Release Date:</label>
+              <input type="date" name="release_date">
+            </div>
+
+            <div class="MEAB2">
+              <label for="category-name">Received By:</label>
+              <p><input type="text" name="received_by"></p>
+            </div>
+          {% endfor %}
+
+        </div>
+
+        <div class="MEA-Bottom2">
+          <button type="button" id="cancel-editapp-btn">Cancel</button>
+          <button type="submit" id="submit-editapp-btn">Submit</button>
+        </div>
+      </div>
+    </div>
+</form>
+
