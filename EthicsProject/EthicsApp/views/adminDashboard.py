@@ -130,6 +130,7 @@ def adminManuscripts(request):
 
     for category in categories:
         category_data.append({
+            'id': category.id,  
             'category_name': category.category_name,
         })
 
@@ -143,7 +144,6 @@ def adminManuscripts(request):
             'basicRequirements': basicreq.basicRequirements,
         })
 
-
     for suppreq in suppreqs:
         suppreq_data.append({
             'supplementaryRequirements': suppreq.supplementaryRequirements,
@@ -151,7 +151,7 @@ def adminManuscripts(request):
 
 
     context = {
-        'categories': category_data,
+        'categories': category_data, 
         'studtype': studtype_data,
         'basicreqs': basicreq_data,
         'suppreqs': suppreq_data,

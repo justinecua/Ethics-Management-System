@@ -1,0 +1,17 @@
+<!-- Update Category Modal -->
+<div id="updateCategoryModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Update Category</h2>
+        <form id="update-category-form" method="POST" action="{% url 'update_category' category.id %}">
+            <!-- CSRF token -->
+            {% csrf_token %}
+            
+            <label for="category_name">Category Name:</label>
+            <input type="text" id="category_name" name="category_name" value="{{ category.category_name }}" required>
+            
+            <button type="submit">Update Category</button>
+        </form>
+    
+    </div>
+</div>
