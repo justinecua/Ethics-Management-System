@@ -2,9 +2,9 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static './css/adminUpdateCategory.css' %}">
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
 <link rel="stylesheet" href="{% static './css/adminCategory.css' %}">
+<script type="module" src="{% static 'js/adminCategory.js' %}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}
 
@@ -13,10 +13,6 @@
 {% include 'modal/adminStudtype.html' %}
 {% include 'modal/basicreq.html' %}
 {% include 'modal/adminSD.html' %}
-
-<!-- Update Modals -->
-
-
 <div class="MainContainer">
     {% include './adminTopNav.html' %}
     <div class="MC-Bottom">
@@ -40,39 +36,27 @@
                     <button id="AddSD-btn" style="display: none;">Add Supplementary</button>
                 </div>
             </div>
-            <div id="Category-area" class="content-area">
+
+            <!-- Content Areas -->
+            <div id="Category-area" class="content-area" >
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Category Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if categories %}
-                            {% for category in categories %}
-                                <tr>
-                                    <td>{{ category.category_name }}</td>
-                                    <td>
-                                        <a href="{% url 'update_category' category.id %}" class="update-btn">Edit</a>
-                                        <button type="button" class="delete-btn" data-id="{{ category.id }}">Delete</button>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td colspan="2">No categories available</td>
-                            </tr>
-                        {% endif %}
-                    </tbody>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Options</th>
+                    </tr>
+                    {% if categories %}
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{ category.category_name }}</td>
+                        <td>
+                            <button class="TableEdit-Btn" type="button">Edit</button>
+                            <button class="TableDelete-Btn" type="button">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
                 </table>
             </div>
-            
-            
-      
-           
-            
-            
 
             <div id="StudType-area" style="display: none;">
                 <table>
