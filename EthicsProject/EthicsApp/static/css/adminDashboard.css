@@ -269,6 +269,21 @@ table th {
   cursor: pointer;
 }
 
+.EditAppointment-btn {
+  background-color: #ebecfe;
+  border: none;
+  color: black;
+  padding: 0.6rem 1.3rem;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+}
+
+.EditAppointment-btn:hover {
+  background-color: #bdbdc5;
+  cursor: pointer;
+}
+
 .TableDelete-Btn {
   font-size: 0.8rem;
   background-color: #e4e4ee;
@@ -284,7 +299,7 @@ table th {
  outline: none;
 }
 
-#Modal-Edit-Appointment-Overlay {
+#Modal-Edit-Appointment-Overlay, #Modal-View-Appointment-Overlay{
   width: 100vw;
   height: 100vh;
   background-color: #565a6241;

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Prefetch
-from .models import Student, Appointments, Accounts, Reviewer, Account_Type, College, Category, EthicalRiskQuestions
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements
+from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements, EthicalRiskQuestions, Appointments
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -90,24 +91,38 @@ def adminAppointments(request):
         'account_id__student_id__manuscript_id__student_set' 
     )
 
-    researchers_data = []
-    for appointment in appointments:
-        researchers = appointment.account_id.student_id.manuscript_id.student_set.all()
-        researchers_data.append({
-            'appointment_id': appointment.id,
-            'researchers': researchers,
-            'college': appointment.account_id.college_id.college_name,
-            'email': appointment.account_id.student_id.auth_user.email,
-            'transaction_id': appointment.transaction_id,
-
-        })
-
     return render(request, 'admin/adminAppointments.html', {
         'appointments': appointments,
         'profile_picture': profile_picture,
         'account_type': account_type,
-        'researchers_data': researchers_data,
+
     })
+
+
+def get_edit_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointments, id=appointment_id)
+    account = appointment.account_id
+    manuscript_id = account.student_id.manuscript_id
+    researchers_data = Student.objects.filter(manuscript_id=manuscript_id)
+    researchers = [
+        {
+            'id': student.id,
+            'name': student.auth_user.get_full_name(),
+            'receipt_no': student.receipt_no
+        }
+        for student in researchers_data
+    ]
+    college_data = account.college_id
+    data = {
+        'appointment_id': appointment.id,
+        'researchers': researchers,
+        'college': college_data.college_initials,
+        'transaction_id': appointment.transaction_id,
+        'email': account.student_id.auth_user.email,
+    }
+
+    # Return the data as a JSON response
+    return JsonResponse(data)
 
 
 
