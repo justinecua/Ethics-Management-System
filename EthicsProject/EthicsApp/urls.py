@@ -61,7 +61,7 @@ urlpatterns = [
   re_path(r'^reviewerSchedule/$', views.reviewerSchedule, name='reviewerSchedule'),
   re_path(r'^reviewerSettings/$', views.reviewerSettings, name='reviewerSettings'),
   re_path(r'^ReviewerScheduleView/$', views.ReviewerScheduleView.as_view(), name='ReviewerScheduleView'),
-  re_path(r'^api/schedules/$', views.ReviewerScheduleDataView.as_view(), name='get_ReviewerSchedule_data'),
+  re_path(r'^api/schedulesReviewer/$', views.ReviewerScheduleDataView.as_view(), name='get_ReviewerSchedule_data'),
 
 
 

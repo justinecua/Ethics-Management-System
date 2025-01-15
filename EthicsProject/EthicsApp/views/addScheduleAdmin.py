@@ -45,10 +45,6 @@ class ScheduleView(View):
             schedule_end_time__gt=schedule_start_time
         )
 
-        if overlapping_schedules.exists():
-            messages.error(request, 'This schedule overlaps with an existing schedule.')
-            return redirect('adminSchedule')
-
         try:
             schedule = Schedule(
                 account_id=acc_instance,
