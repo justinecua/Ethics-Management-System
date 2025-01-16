@@ -284,8 +284,18 @@ table th {
   cursor: pointer;
 }
 
-.AssignAppointment-btn {
+
 .ViewAppointment-btn {
+  background-color: #ebecfe;
+  border: none;
+  color: black;
+  padding: 0.6rem 1.3rem;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+}
+
+.AssignAppointment-btn {
   background-color: #ebecfe;
   border: none;
   color: black;
@@ -523,7 +533,7 @@ table th {
   border-radius: 5px;
 }
 
-#cancel-assign-app-btn {
+#cancel-assign-app-btn,
 #back-viewapp-btn{
   border: 1px solid var(--container-border);
   background-color: white;
@@ -561,4 +571,5 @@ table th {
 #manuscriptID {
  display: none;
  color: white;
+}
 }
