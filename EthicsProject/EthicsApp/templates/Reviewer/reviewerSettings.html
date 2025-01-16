@@ -3,7 +3,7 @@
 {% load static %}
 {% block css %}
 
-<link rel="stylesheet" href="{% static './css/reviewerdashboard.css' %}">
+<link rel="stylesheet" href="{% static './css/reviewerDashboard.css' %}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -18,9 +18,22 @@
         {% include 'Reviewer/reviewerTopNav.html' %}
         <div class="MC-Bottom">
             {% include 'Reviewer/reviewerNav.html' %}      
+        
+
+            <div id="Settings-Content">
+                <h2>Link Your Gmail Account</h2>
+                <p>Click the button below to link your Gmail account for seamless integration:</p>
+                <a href="{% url 'socialaccount_connections' %}">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-link"></i> Link Gmail Account
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
-    
+
+
+
     {% endblock %}
 
 
