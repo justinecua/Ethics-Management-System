@@ -284,6 +284,20 @@ table th {
   cursor: pointer;
 }
 
+.ViewAppointment-btn {
+  background-color: #ebecfe;
+  border: none;
+  color: black;
+  padding: 0.6rem 1.3rem;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+}
+
+.ViewAppointment-btn:hover {
+  background-color: #bdbdc5;
+  cursor: pointer;
+}
 .TableDelete-Btn {
   font-size: 0.8rem;
   background-color: #e4e4ee;
@@ -299,7 +313,7 @@ table th {
  outline: none;
 }
 
-#Modal-Edit-Appointment-Overlay, #Modal-View-Appointment-Overlay{
+#Modal-Edit-Appointment-Overlay{
   width: 100vw;
   height: 100vh;
   background-color: #565a6241;
@@ -346,6 +360,41 @@ table th {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.3s ease-out forwards;
   padding: 2rem;
+}
+#Modal-View-Appointment-Overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #565a6241;
+  z-index: 7;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+}
+
+#MVA-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  max-width: 40rem;
+  min-width: 30rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 2rem;
+  max-height: 90vh; /* Limit the height of the modal */
+  overflow-y: auto; /* Enable vertical scrolling if the content overflows */
+}
+
+/* Optionally, you can add a max height for individual sections if needed */
+.MEA-Bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 75vh; /* Adjust this value to suit your needs */
+  overflow-y: auto; /* Allow scrolling within the bottom section if necessary */
 }
 
 .MEA-Top {
@@ -420,4 +469,10 @@ table th {
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+#back-viewapp-btn{
+  border: 1px solid var(--container-border);
+  background-color: white;
+  margin-right: 0.5rem;
 }

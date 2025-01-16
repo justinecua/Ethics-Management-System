@@ -4,7 +4,7 @@ from django.contrib import messages
 from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements, EthicalRiskQuestions, Appointments
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-
+from .models import *
 
 def get_google_profile_picture(user):
     social_account = user.socialaccount_set.filter(provider='google').first()
@@ -124,7 +124,66 @@ def get_edit_appointment(request, appointment_id):
     # Return the data as a JSON response
     return JsonResponse(data)
 
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
+def get_view_appointment(request, appointment_id):
+    # Fetch the appointment object
+    appointment = get_object_or_404(Appointments, id=appointment_id)
+    account = appointment.account_id
+    manuscript_id = account.student_id.manuscript_id
+
+    # Handle null values for college and email
+    college_initials = account.college_id.college_initials if account.college_id else 'N/A'
+    email = account.student_id.auth_user.email if account.student_id else 'N/A'
+
+    # Handle null values for basic and supplementary requirements
+    basic_requirements = appointment.basicRequirements_id.basicRequirements if appointment.basicRequirements_id else 'N/A'
+    supplementary_requirements = appointment.supplementaryRequirements_id.supplementaryRequirements if appointment.supplementaryRequirements_id else 'N/A'
+
+    # Prepare researchers data
+    researchers_data = Student.objects.filter(manuscript_id=manuscript_id)
+    researchers = [
+        {
+            'id': student.id,
+            'name': student.auth_user.get_full_name(),
+            'receipt_no': student.receipt_no
+        }
+        for student in researchers_data
+    ]
+
+    # Fetch ethical risk answers related to the appointment
+    ethical_answers_data = EthicalRiskAnswers.objects.filter(appointment_id=appointment)
+    ethical_answers = [
+        {
+            'ethical_question': answer.ethicalQuestions.ethicalQuestions if answer.ethicalQuestions else 'N/A',
+            'ethical_answer': answer.ethicalAnswers if answer.ethicalAnswers else 'N/A',
+        }
+        for answer in ethical_answers_data
+    ]
+
+    # Prepare response data
+    data = {
+        'appointment_id': appointment.id,
+        'college': college_initials,
+        'transaction_id': appointment.transaction_id,
+        'email': email,
+        'researchers': researchers,
+        'manuscript_id': manuscript_id.id,
+        'thesis_title': manuscript_id.thesis_title,
+        'thesis_description': manuscript_id.thesis_description,
+        'category_name': manuscript_id.category_name.category_name if manuscript_id.category_name else 'N/A',
+        'type_of_study': manuscript_id.type_of_study.type_of_study if manuscript_id.type_of_study else 'N/A',
+        'study_site': manuscript_id.study_site,
+        'basic_requirements': basic_requirements,
+        'supplementary_requirements': supplementary_requirements,
+        'institution': appointment.institution if appointment.institution else 'N/A',
+        'address_of_institution': appointment.address_of_institution if appointment.address_of_institution else 'N/A',
+        'status': appointment.status if appointment.status else 'N/A',
+        'ethical_answers': ethical_answers,
+    }
+
+    return JsonResponse(data)
 
 def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)

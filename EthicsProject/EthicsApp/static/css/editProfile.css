@@ -1,0 +1,123 @@
+/* Styling for the profile update form */
+.ProfileUpdateForm {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 10px auto; /* Reduced top margin for more compact spacing */
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+    height: 850px;
+}
+
+/* Header Styling */
+.ProfileUpdateForm h2 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #333;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Styling for the form fields */
+.ProfileUpdateForm form {
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfileUpdateForm form input,
+.ProfileUpdateForm form select,
+.ProfileUpdateForm form textarea {
+    padding: 14px;
+    margin: 16px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #f7f7f7;
+    transition: all 0.3s ease;
+    color: #555;
+}
+
+/* Focus and hover effects for input fields */
+.ProfileUpdateForm form input:focus,
+.ProfileUpdateForm form select:focus,
+.ProfileUpdateForm form textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Textarea specific adjustments */
+.ProfileUpdateForm form textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the submit button */
+.ProfileUpdateForm button {
+    padding: 16px 24px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 20px; /* Reduced button top margin */
+    width: 100%;
+}
+
+/* Hover and active button states */
+.ProfileUpdateForm button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.ProfileUpdateForm button:focus {
+    outline: none;
+}
+
+/* Mobile responsive styling */
+@media (max-width: 768px) {
+    .ProfileUpdateForm {
+        padding: 30px;
+        width: 90%;
+        margin: 10px auto; /* Reduced top margin for mobile */
+    }
+
+    .ProfileUpdateForm h2 {
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+
+    .ProfileUpdateForm form input,
+    .ProfileUpdateForm form select,
+    .ProfileUpdateForm form textarea {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .ProfileUpdateForm button {
+        font-size: 17px;
+    }
+}
+
+/* Adding subtle transitions for form fields */
+.ProfileUpdateForm form input,
+.ProfileUpdateForm form select,
+.ProfileUpdateForm form textarea {
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Focused state for form fields */
+.ProfileUpdateForm form input:focus,
+.ProfileUpdateForm form select:focus,
+.ProfileUpdateForm form textarea:focus {
+    border-color: #3498db;
+    background-color: #fff;
+}

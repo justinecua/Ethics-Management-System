@@ -249,14 +249,33 @@ def studentManuscript(request):
     return render(request, 'students/studentmanuscript.html', context)
 
 
+from django.shortcuts import render, redirect
+from .forms import StudentProfileForm
+from .models import Student
 
 def studentSettings(request):
-    profile_picture = request.session.get('profile_picture', None)
-    account_type = request.session.get('account_type', None)
+    user = request.user  # Get the authenticated user
+    student = Student.objects.filter(auth_user=user).first()  # Assuming the Student model has a relation with the User model
+
+    if request.method == 'POST':
+        form = StudentProfileForm(request.POST, instance=student, user=user, student=student)
+        if form.is_valid():
+            form.save()  # Save the updated student data
+            return redirect('student_settings')  # Redirect after successful update
+    else:
+        form = StudentProfileForm(instance=student, user=user, student=student)
 
     context = {
-        'profile_picture': profile_picture,
+        'form': form,
+        'profile_picture': request.session.get('profile_picture', None),
+        'account_type': request.session.get('account_type', None),
+        'username': user.username,
     }
+    return render(request, 'students/studentSettings.html', context)
+
+
+
+
 
 def check_user(request):
     if request.user.is_authenticated:
