@@ -73,7 +73,11 @@ urlpatterns = [
   re_path(r'^update_category/(?P<category_id>\d+)/$', views.update_category, name='update_category'),
   path('admin/get-appointment/<int:appointment_id>/', views.get_edit_appointment, name='get_edit_appointment'),
 
-
+  path('admin/get_view_appointment/<int:appointment_id>/', views.get_view_appointment, name='get_view_appointment'),
+  
+ path('accounts_logout/', views.accounts_logout, name='accounts_logout'),
+ path('reviewer_logout/', views.reviewer_logout, name='reviewer_logout'),
+  path('admin_logout/', views.admin_logout, name='admin_logout'),
 
 
 

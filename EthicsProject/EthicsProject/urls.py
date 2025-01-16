@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', TemplateView.as_view(template_name='LandingPage.html'), name='home'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    
 ]
 
 if settings.DEBUG:
