@@ -68,15 +68,15 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
-from .models import Schedule, Account_Type
+from .models import Schedule, Account_Type, Reviewer
 from django.http import JsonResponse
 
 class ReviewerScheduleView(View): 
     def post(self, request):
         userId = request.session.get('id', None)
-        accId = "3" 
-        acc_instance = Account_Type.objects.get(id=accId)
-        accId = Accounts.objects.get(reviewer_id__auth_user=userId)
+        reviewer_id = Reviewer.objects.get(auth_user_id=userId)
+        accId = Accounts.objects.get(reviewer_id=reviewer_id)
+
         schedule_type = request.POST.get('schedule-type')
         schedule_date = request.POST.get('schedule-date')
         schedule_start_time = request.POST.get('schedule-start-time')
@@ -115,7 +115,7 @@ class ReviewerScheduleView(View):
 
         try:
             schedule = Schedule(
-                account_id=acc_instance,
+                account_id=accId,
                 schedule_type=schedule_type,
                 schedule_date=schedule_date,
                 schedule_start_time=schedule_start_time,
@@ -133,9 +133,9 @@ class ReviewerScheduleDataView(View):
     def get(self, request):
         today = datetime.now().date()
         userId = request.session.get('id', None)
-        accId = "3" 
-        acc_instance = Account_Type.objects.get(id=accId)
-        schedules = Schedule.objects.filter(schedule_date__gte=today, account_id=acc_instance)
+        reviewer_id = Reviewer.objects.get(auth_user_id=userId)
+        accId = Accounts.objects.get(reviewer_id=reviewer_id)
+        schedules = Schedule.objects.filter(schedule_date__gte=today, account_id=accId)
 
         events = []
 

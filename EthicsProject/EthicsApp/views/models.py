@@ -69,7 +69,7 @@ class Accounts(models.Model):
         return f"{self.account_typeid}"
 
 class Schedule(models.Model):
-    account_id = models.ForeignKey(Account_Type, on_delete=models.CASCADE, null=True)
+    account_id = models.ForeignKey(Accounts, on_delete=models.CASCADE, null=True)
     schedule_type = models.CharField(max_length=255, null=True)
     schedule_date = models.DateField(null=True)
     schedule_start_time = models.TimeField(null=True)
@@ -144,5 +144,14 @@ class EthicalRiskAnswers(models.Model):
 
     def __str__(self):
         return f"{self.ethicalAnswers} {self.ethicalQuestions} {self.appointment_id}"
+
+class ClaimStabs(models.Model):
+    appointment_id = models.ForeignKey(Appointments, on_delete=models.CASCADE, null=True)
+    typeOfReview = models.CharField(max_length=255, null=True)
+    releaseDate = models.DateField(null=True) 
+    received_by = models.CharField(max_length=800, null=True) 
+
+    def __str__(self):
+        return f"{self.releaseDate}"
 
 

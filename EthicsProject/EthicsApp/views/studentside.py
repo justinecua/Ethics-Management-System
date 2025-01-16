@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Accounts
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from .models import Schedule, Accounts, Student, Appointments, Manuscripts, ThesisType, College, EthicalRiskQuestions, EthicalRiskAnswers, Category, TypeOfStudy 
+from .models import Schedule, Accounts, Student, Appointments, Manuscripts, ThesisType, College, EthicalRiskQuestions, EthicalRiskAnswers, Category, TypeOfStudy, ClaimStabs 
 from django.views.decorators.http import require_POST
 from datetime import datetime
 from django.shortcuts import get_object_or_404
@@ -83,6 +83,18 @@ def studentdashboard(request):
 
         thesis_title = manuscript.thesis_title if manuscript else None
 
+        # Fetch the associated account
+        try:
+            account = Accounts.objects.get(student_id=student)
+        except Accounts.DoesNotExist:
+            account = None
+
+        # Fetch appointments for the account (if it exists)
+        appointments = Appointments.objects.filter(account_id=account) if account else []
+
+        # Fetch ClaimStabs for the appointments
+        claim_stabs = ClaimStabs.objects.filter(appointment_id__in=appointments)
+
         context = {
             'profile_picture': profile_picture,
             'account_type': account_type,
@@ -93,9 +105,11 @@ def studentdashboard(request):
             'thesis_id': thesis_id,
             'completeProfile_empty': completeProfile,
             'thesis_no_members': thesis_no_members,
+            'claim_stabs': claim_stabs,  # Adding the ClaimStabs to the context
         }
 
     return render(request, 'students/studentdashboard.html', context)
+
 
 def update_thesis_info(request):
     if request.user.is_authenticated:
@@ -163,17 +177,22 @@ def studentAppointment(request):
     account_id = account.id
 
     manuscript_id = student_id.manuscript_id
-    thesis_members = Student.objects.filter(manuscript_id=manuscript_id).distinct()
-    thesis_members_names = ", ".join(
-        f"{member.auth_user.first_name} {member.auth_user.last_name}"
-        for member in thesis_members
-    )
-    thesis_title = manuscript_id.thesis_title
-    thesis_description = manuscript_id.thesis_description
-    thesis_id = manuscript_id.id
+    if manuscript_id:
+        thesis_members = Student.objects.filter(manuscript_id=manuscript_id).distinct()
+        thesis_members_names = ", ".join(
+            f"{member.auth_user.first_name} {member.auth_user.last_name}"
+            for member in thesis_members
+        )
+        thesis_title = manuscript_id.thesis_title
+        thesis_description = manuscript_id.thesis_description
+        thesis_id = manuscript_id.id
+    else:
+        thesis_members_names = "N/A"
+        thesis_title = "N/A"
+        thesis_description = "N/A"
+        thesis_id = None
+
     thesis_types = ThesisType.objects.all()
-
-
     categories = Category.objects.all()
     study_types = TypeOfStudy.objects.all()
     basic_requirements = BasicRequirements.objects.all()
@@ -201,9 +220,10 @@ def studentAppointment(request):
     }
     return render(request, 'students/studentappointment.html', context)
 
+
 def get_admin_schedule(request):
     admin_account_id = 2  
-    schedules = Schedule.objects.filter(account_id=admin_account_id)
+    schedules = Schedule.objects.filter(account_id__account_typeid=admin_account_id)
 
     events = []
     for schedule in schedules:

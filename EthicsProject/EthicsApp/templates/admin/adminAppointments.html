@@ -14,6 +14,7 @@
 {% block content %}
 {% include 'modal/admineditAppointment.html' %}
 {% include 'modal/adminViewAppointment.html' %}
+{% include 'modal/adminAssignApp.html' %}
 <div class="MainContainer">
     {% include './adminTopNav.html' %}
     <div class="MC-Bottom">
@@ -57,6 +58,10 @@
                         <td>
                             <button class="EditAppointment-btn"  data-id="{{ x.id }}" type="button">Edit</button>
                             <button id="ViewAppointment-btn" class="TableEdit-Btn">View</button>
+			    <button class="AssignAppointment-btn" 
+				data-manuscript-id="{{ x.account_id.student_id.manuscript_id.id }}" 
+				data-id="{{ x.account_id.college_id.id }}" 
+				type="button">Assign</button>
 			</td>
                     </tr>
                     {% endfor %}

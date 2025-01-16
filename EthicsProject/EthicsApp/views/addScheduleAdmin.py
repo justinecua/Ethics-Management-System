@@ -8,8 +8,8 @@ from django.http import JsonResponse
 class ScheduleView(View): 
     def post(self, request):
         userId = request.session.get('id', None)
-        accId = "2" 
-        acc_instance = Account_Type.objects.get(id=accId)
+        admin_id = Student.objects.get(auth_user_id=userId)
+        accId = Accounts.objects.get(student_id=admin_id)
         schedule_type = request.POST.get('schedule-type')
         schedule_date = request.POST.get('schedule-date')
         schedule_start_time = request.POST.get('schedule-start-time')
@@ -47,7 +47,7 @@ class ScheduleView(View):
 
         try:
             schedule = Schedule(
-                account_id=acc_instance,
+                account_id=accId,
                 schedule_type=schedule_type,
                 schedule_date=schedule_date,
                 schedule_start_time=schedule_start_time,
@@ -66,9 +66,9 @@ class ScheduleDataView(View):
         today = datetime.now().date()
 
         userId = request.session.get('id', None)
-        accId = "2" 
-        acc_instance = Account_Type.objects.get(id=accId)
-        schedules = Schedule.objects.filter(schedule_date__gte=today, account_id=acc_instance)
+        admin_id = Student.objects.get(auth_user_id=userId)
+        accId = Accounts.objects.get(student_id=admin_id)
+        schedules = Schedule.objects.filter(schedule_date__gte=today, account_id=accId)
 
         events = []
 

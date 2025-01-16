@@ -1,4 +1,4 @@
-<form method="POST" action=""> 
+<form method="POST" action="{% url 'save_claimStabs' %}"> 
   {% csrf_token %}
   <div id="Modal-Edit-Appointment-Overlay">
       <div id="MEA-Container">
@@ -11,43 +11,40 @@
               <p>Claim Stab</p>
           </div>
           <div class="MEA-Bottom">
-              <!-- Researchers -->
+
               <div class="MEAB1">
                   <label for="category-name">Researcher/s:</label>
                   <p id="researchers-list">No researchers</p> 
               </div>
 
-              <!-- Department -->
               <div class="MEAB2">
                   <label for="category-name">Department:</label>
                   <p id="department-name">N/A</p> 
               </div>
 
-              <!-- Transaction Code -->
               <div class="MEAB2">
                   <label for="category-name">Transaction Code:</label>
-                  <p id="transaction-code">N/A</p> 
+                  <p id="transaction-code">N/A</p>
+		  <input type="hidden" name="transactionCode" id="transactionCode">
               </div>
 
-              <!-- Type of Review -->
               <div class="MEAB2">
                   <label for="category-name">Type of Review:</label>
                   <p>Ethics Review</p>
+		  <input type="hidden" name="appID" id="appID">
+		  <input type="hidden" value="Ethics Review" name="typeOfReview" id="release-date">
               </div>
 
-              <!-- Email -->
               <div class="MEAB2">
                   <label for="category-name">Email:</label>
                   <p id="email-address">N/A</p> 
               </div>
 
-              <!-- Release Date -->
               <div class="MEAB2">
                   <label for="category-name">Release Date:</label>
                   <input type="date" name="release_date" id="release-date">
               </div>
 
-              <!-- Received By -->
               <div class="MEAB2">
                   <label for="category-name">Received By:</label>
                   <input type="text" name="received_by" id="received-by">

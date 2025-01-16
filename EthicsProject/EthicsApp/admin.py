@@ -20,4 +20,5 @@ admin.site.register(SupplementaryRequirements)
 admin.site.register(EthicalRiskQuestions)
 admin.site.register(EthicalRiskAnswers)
 admin.site.register(ThesisType)
+admin.site.register(ClaimStabs)
 

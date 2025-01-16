@@ -24,8 +24,9 @@ urlpatterns = [
     path('completeProfile/', views.completeProfile, name='completeProfile'),
     path('addMemberStudent/', views.addMemberStudent, name='addMemberStudent'),
     re_path(r'^get_admin_schedule/$', views.get_admin_schedule, name='get_admin_schedule'),
-
-
+    path('get_reviewers/<int:college_id>/', views.get_reviewers_by_college, name='get_reviewers_by_college'),
+    path('save_claimStabs/', views.save_claimStabs, name='save_claimStabs'),
+    path('assign_reviewer/', views.assign_reviewer, name='assign_reviewer'),
 
 
 

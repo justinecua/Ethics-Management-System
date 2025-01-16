@@ -316,8 +316,8 @@ body {
 
 .SMC-Bottom {
   display: flex;
-  flex-direction: column;
   height: 94%;
+  gap: 1%
 }
 
 .ProfilePic1 {
@@ -363,9 +363,8 @@ body {
 
 
 .SMCB-Top {
-  margin-top: 0.5rem;
-  padding: 1rem;
-  margin-bottom: 0.8rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
 
 }
 
@@ -390,7 +389,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
   border: 1px solid var(--container-border);
   border-radius: 10px;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 

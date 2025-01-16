@@ -38,6 +38,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         var endTime = arg.event.end ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
         var scheduleTypeClass = arg.event.extendedProps.schedule_type === "Available" ? "Available" : "Not-Available";
         var scheduleId = arg.event.extendedProps.schedule_id;
+  	var slot = arg.event.extendedProps.slot; 
 
         var deleteButton = document.createElement('img');
         deleteButton.className = 'delete-event';
@@ -57,7 +58,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         
         var eventTime = document.createElement('div');
         eventTime.className = 'event-time';
-        eventTime.innerText = `${startTime} - ${endTime}`;
+        eventTime.innerText = `${startTime} - ${endTime} (Slot: ${slot})`;
 
         availabilityIndicator.append(eventTime);
         eventContainer.appendChild(availabilityIndicator);

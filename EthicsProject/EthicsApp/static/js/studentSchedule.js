@@ -12,36 +12,22 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     events: '/get_admin_schedule/', 
     initialDate: new Date(),
     hiddenDays: [0],
-    eventClick: function(info) {
-	var event = info.event;
-	/*
-        
-        var scheduleId = event.extendedProps.schedule_id;
+eventClick: function(info) {
+    var event = info.event;
 
-    
-        EModalScheduleOverlay.style.display = "flex";
-        document.getElementById('eschedule-type').value = event.extendedProps.schedule_type || "Available";
-        document.getElementById('eschedule-date').value = event.extendedProps.schedule_date;
+    // Check if getting_started_conditions are met
+    if (getting_started_conditions) {
+        // Show an error overlay instead of the modal
+        let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
+        gettingStartedConditionErrorOverlay.style.display = "flex";
+    } else {
+        // Show the modal for scheduling
+        ModalScheduleOverlay.style.display = "flex";
+        document.getElementById('appointment_date').value = info.dateStr;
+        console.log("Selected Date:", info.dateStr);
+    }
+},
 
-        document.getElementById('eschedule-start-time').value = 
-            event.start ? event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
-        
-        document.getElementById('eschedule-end-time').value = 
-            event.end ? event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
-
-        */
-
-	if (getting_started_conditions) {
-          let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
-          gettingStartedConditionErrorOverlay.style.display = "flex";
-      } else {
-          ModalScheduleOverlay.style.display = "flex";
-          document.getElementById('appointment_date').value = info.dateStr;
-	      	console.log("Selected Date:", info.dateStr);
-      }
-
-	
-    },
 
     /*
     dateClick: function(info) {
