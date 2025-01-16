@@ -4,6 +4,9 @@ from django.contrib import messages
 from .models import Student, Accounts, Reviewer, Account_Type, College, Category, TypeOfStudy, BasicRequirements, SupplementaryRequirements, EthicalRiskQuestions, Appointments
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .models import *
+from django.views import View
+from datetime import datetime
 
 
 def get_google_profile_picture(user):
@@ -22,10 +25,23 @@ def adminDashboard(request):
     }
     return render(request, 'admin/adminDashboard.html', context)
 
+
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Student, Reviewer, Accounts, Account_Type
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Prefetch, Q
+
+
 def adminAccounts(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
 
+    # Get the search query from the request
+    search_query = request.GET.get('search', '').strip()
+
+    # Querysets for Students, Reviewers, and Admins
     students = Student.objects.filter(
         auth_user__isnull=False,
         auth_user__is_superuser=False
@@ -56,27 +72,101 @@ def adminAccounts(request):
         )
     )
 
-    accountType = Account_Type.objects.exclude(Account_type='Student')
+    # Apply search filters
+    if search_query:
+        students = students.filter(
+            Q(auth_user__username__icontains=search_query) |
+            Q(auth_user__first_name__icontains=search_query) |
+            Q(auth_user__last_name__icontains=search_query) |
+            Q(auth_user__email__icontains=search_query)
+        )
+        reviewers = reviewers.filter(
+            Q(auth_user__username__icontains=search_query) |
+            Q(auth_user__first_name__icontains=search_query) |
+            Q(auth_user__last_name__icontains=search_query) |
+            Q(auth_user__email__icontains=search_query)
+        )
+        admins = admins.filter(
+            Q(auth_user__username__icontains=search_query) |
+            Q(auth_user__first_name__icontains=search_query) |
+            Q(auth_user__last_name__icontains=search_query) |
+            Q(auth_user__email__icontains=search_query)
+        )
 
-
+    # Add profile pictures
     for student in students:
         student.google_picture = get_google_profile_picture(student.auth_user)
-
     for reviewer in reviewers:
         reviewer.google_picture = get_google_profile_picture(reviewer.auth_user)
-
     for admin in admins:
         admin.google_picture = get_google_profile_picture(admin.auth_user)
+
+    # Handle invitation
+    if request.method == 'POST' and 'invite' in request.POST:
+        email = request.POST.get('email', '').strip()
+        account_type = request.POST.get('account_type', '').strip()
+
+        if email and account_type:
+            # Create a new user invitation logic
+            try:
+                # Check if email already exists
+                if Accounts.objects.filter(auth_user__email=email).exists():
+                    return HttpResponse("This email is already registered.")
+                
+                # Generate invitation logic (e.g., sending an email)
+                subject = f"Invitation to Join as {account_type}"
+                message = f"Dear User,\n\nYou are invited to join as a {account_type}.\n\nBest Regards!"
+                from_email = 'admin@example.com'
+
+                # Send an email invitation
+                send_mail(subject, message, from_email, [email])
+                
+                # Optionally, store some information in the database for the invitation (e.g., a pending user)
+                # PendingUser.objects.create(email=email, account_type=account_type)
+
+                return HttpResponse("Invitation sent successfully.")
+
+            except Exception as e:
+                return HttpResponse(f"Error sending invitation: {str(e)}")
+
+    # Paginate Students
+    student_page_number = request.GET.get('students_page', 1)
+    student_paginator = Paginator(students, 10)
+    try:
+        students_page = student_paginator.page(student_page_number)
+    except (EmptyPage, PageNotAnInteger):
+        students_page = student_paginator.page(1)
+
+    # Paginate Reviewers
+    reviewer_page_number = request.GET.get('reviewers_page', 1)
+    reviewer_paginator = Paginator(reviewers, 10)
+    try:
+        reviewers_page = reviewer_paginator.page(reviewer_page_number)
+    except (EmptyPage, PageNotAnInteger):
+        reviewers_page = reviewer_paginator.page(1)
+
+    # Paginate Admins
+    admin_page_number = request.GET.get('admins_page', 1)
+    admin_paginator = Paginator(admins, 10)
+    try:
+        admins_page = admin_paginator.page(admin_page_number)
+    except (EmptyPage, PageNotAnInteger):
+        admins_page = admin_paginator.page(1)
+
+    accountType = Account_Type.objects.exclude(Account_type='Student')
 
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
-        'students': students,
-        'reviewers': reviewers,
-        'admins': admins,
+        'students_page': students_page,
+        'reviewers_page': reviewers_page,
+        'admins_page': admins_page,
         'accountTypes': accountType,
+        'search_query': search_query,
     }
+
     return render(request, 'admin/adminAccounts.html', context)
+
 
 def adminAppointments(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -268,5 +358,24 @@ def adminEditEthicalRiskQuestions(request):
         return redirect('adminEthicalRiskQuestions')
 
 
+def remove_reviewer(request, reviewer_id):
+    # Check if the user is authorized to perform this action
+    if request.method == 'POST':
+        try:
+            reviewer = Reviewer.objects.get(id=reviewer_id)
+            reviewer.delete()
+            return JsonResponse({'success': True})
+        except Reviewer.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Reviewer not found'})
 
+def resend_invite(request, reviewer_id):
+    # Logic to resend the invite (depending on your invite system)
+    if request.method == 'POST':
+        try:
+            reviewer = Reviewer.objects.get(id=reviewer_id)
+            # Your logic to resend the invite goes here
+            return JsonResponse({'success': True})
+        except Reviewer.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Reviewer not found'})
+        
 

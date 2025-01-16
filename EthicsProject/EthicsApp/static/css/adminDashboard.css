@@ -421,3 +421,121 @@ table th {
   border: none;
   border-radius: 5px;
 }
+
+/* Pagination Controls Styling */
+.pagination-controls {
+  display: flex;
+  justify-content: center;  /* Center the pagination controls */
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls2 {
+  display: flex;
+  justify-content: center; /* Center the pagination controls */
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls3 {
+  display: flex;
+  justify-content: center; /* Center the pagination controls */
+  align-items: center;
+  margin-top: 20px;
+}
+
+
+
+.pagination-button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  color: #333;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background-color: #ddd;
+  color: #000;
+}
+
+.pagination-controls span {
+  font-size: 14px;
+  margin: 0 10px;
+  color: #555;
+}
+
+/* Ensure separation between sections */
+#StudentAcc-Area, #ReviewerAcc-Area, #AdminAcc-Area {
+  margin-bottom: 40px; /* Space between sections */
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.SearchButton {
+  margin-left: 40rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.SearchWrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.search-icon {
+  color: #888;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+#HomeSearch {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  width: 250px;
+  color: #333;
+}
+
+.search-submit-button {
+  background-color: #c7c7c7;
+  color: rgb(48, 48, 48);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.search-submit-button:hover {
+  background-color: #868686;
+}
+
+

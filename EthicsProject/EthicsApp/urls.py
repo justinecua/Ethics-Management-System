@@ -111,6 +111,10 @@ urlpatterns = [
     re_path(r'^adminEditEthicalRiskQuestions/$', views.adminEditEthicalRiskQuestions, name='adminEditEthicalRiskQuestions'),
 
     re_path(r'^adminDeleteEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminDeleteEthicalRiskQuestions, name='adminDeleteEthicalRiskQuestions'),
+    # path('api/schedulesReviewer/', views.AdminReviewerScheduleDataView.as_view(), name='admin_reviewer_schedule_data'),
+    path('remove_reviewer/<int:reviewer_id>/', views.remove_reviewer, name='remove_reviewer'),
+    path('resend_invite/<int:reviewer_id>/', views.resend_invite, name='resend_invite'),
+
 
 
 

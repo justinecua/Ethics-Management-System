@@ -255,3 +255,66 @@
     filter: invert(34%) sepia(88%) saturate(7471%) hue-rotate(180deg) brightness(1.1) contrast(1);
   }
   
+
+  /* Specific Styling for Settings Content */
+.MainContainer #Settings-Content {
+  padding: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+/* Heading inside Settings Content */
+.MainContainer #Settings-Content h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Paragraph inside Settings Content */
+.MainContainer #Settings-Content p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Button Styling inside Settings Content */
+.MainContainer #Settings-Content button.btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.MainContainer #Settings-Content button.btn:hover {
+  background-color: #45a049;
+}
+
+.MainContainer #Settings-Content button.btn i {
+  margin-right: 10px;
+}
+
+/* Font Awesome Icons */
+.MainContainer #Settings-Content .fas {
+  font-size: 18px;
+}
+
+/* Responsive Design for Settings Content */
+@media (max-width: 768px) {
+  .MainContainer #Settings-Content {
+      margin-left: 0;
+      padding: 20px;
+      width: 100%;
+  }
+  
+  .MainContainer #Settings-Content button.btn {
+      width: 100%;
+  }
+}
