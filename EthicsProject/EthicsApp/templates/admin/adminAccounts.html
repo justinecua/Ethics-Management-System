@@ -29,17 +29,15 @@
                       <button id="Admin-Accounts">Admin</button>
                   </div>
 
-                  <div class="SearchButton">
-                    <form method="get" action="">
-                        <div class="SearchWrapper">
-                            <i class="fa fa-search search-icon"></i>
-                            <input type="text" name="search" id="HomeSearch" placeholder="Search" value="{{ search_query|default:'' }}">
-                            <button type="submit" class="search-submit-button">Search</button>
-                        </div>
-                    </form>
-                  </div>
+
 
                   <div class="ACT-Right">
+                    <form method="get" action="">
+                        <div class="SearchWrapper">
+                            <input type="text" name="search" id="HomeSearch" placeholder="Search Users ..." value="{{ search_query|default:'' }}">
+                        </div>
+                    </form>
+
                       <button id="InviteAcc-btn">Invite User</button>
                   </div>
               </div>

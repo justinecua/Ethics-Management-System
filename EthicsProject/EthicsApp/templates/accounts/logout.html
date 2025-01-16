@@ -1,35 +1,45 @@
 {% block content %}
 <div class="logout">
-  <h1 class="s-out">Sign Out</h1>
-  <p class="txt">Are you sure you want to sign out?</p>
-  <div class="logout-form">
-    <form method="POST" action="{% url 'accounts_logout' %}">
-      {% csrf_token %}
-      <div class="buttons-container">
-        <button type="submit" class="button">Sign Out</button>
-        <a class="Cancel" href="{% url 'studentdashboard' %}">Cancel</a>
-      </div>
-    </form>
+  <div class="logout-container">
+    <h1 class="s-out">Sign Out</h1>
+    <p class="txt">Are you sure you want to sign out?</p>
+    <div class="logout-form">
+      <form method="POST" action="{% url 'accounts_logout' %}">
+        {% csrf_token %}
+        <div class="buttons-container">
+          <button type="submit" class="button">Sign Out</button>
+          <a class="Cancel" href="{% url 'studentdashboard' %}">Cancel</a>
+        </div>
+      </form>
+    </div>
   </div>
+
 </div>
 {% endblock %}
 
 <style> 
 .logout-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  width: 30rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  z-index: 2;
 }
 
 .logout {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 30%;
-  margin-right: auto;
-  margin-left: auto;  
-  margin-top: 10%;
+  width: 100vw;
+  height: 100vh;
+  background-color: #18191b18;
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  overflow: hidden;
 }
 
 .s-out {
@@ -45,7 +55,7 @@
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center horizontally */
+  justify-content: center; 
 }
 
 .logout-form {

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.db.models import Count, F
 import json
-from .models import *from .models import *
+from .models import *
 from django.views import View
 from datetime import datetime
 
@@ -74,6 +74,30 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Prefetch, Q
 
 
+@csrf_exempt
+def adminEditCollege(request, college_id):
+    college = get_object_or_404(College, id=college_id)
+    if request.method == 'POST':
+        college_name = request.POST.get('college_name')
+        college_initials = request.POST.get('college_initials')
+        college.college_name = college_name
+        college.college_initials = college_initials
+        college.save()
+
+        messages.success(request, "College updated successfully!")
+    return redirect('adminColleges')
+
+
+@csrf_exempt
+def adminDeleteCollege(request, college_id):
+    if request.method == 'POST':
+        try:
+            college = College.objects.get(id=college_id)
+            college.delete()
+            return JsonResponse({"success": True, "message": "College deleted successfully!"}, status=200)
+        except College.DoesNotExist:
+            return JsonResponse({"success": False, "message": "College not found."}, status=404)
+    return JsonResponse({"success": False, "message": "Invalid request method."}, status=400)
 
 
 def adminAccounts(request):

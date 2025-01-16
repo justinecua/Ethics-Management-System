@@ -1,5 +1,4 @@
-{% extends "master.html" %}
-{% load static %}
+{% extends "master.html" %}{% load static %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
@@ -15,9 +14,6 @@
         {% include './adminNav.html' %}
         
     <div class="new-container">
-
-        <h1 class="title-container">Admin Dashboard</h1>
-
         <div class="counts">
             {% for title, count in counts.items %}
             <div class="count-box">
@@ -102,5 +98,7 @@
         'Accounts by College'
     );
 </script>
+    </div>
+</div>
 
 {% endblock %}

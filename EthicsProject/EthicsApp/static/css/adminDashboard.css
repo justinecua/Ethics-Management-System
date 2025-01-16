@@ -83,9 +83,9 @@ body {
 }
 
 .MCT-Right {
-  width: 30%;
+  width: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 .MCT-Left img {
@@ -363,7 +363,15 @@ table th {
 
 .MEAB2{
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f8f9fd;
+
+}
+
+.MEAB3{
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
   background-color: #f8f9fd;
@@ -403,8 +411,7 @@ table th {
   justify-content: center;
   align-items: center;
   margin: auto;
-  max-width: 40rem;
-  min-width: 30rem;
+  max-width: 50rem;
   background-color: var(--modal-container);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -603,13 +610,7 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.SearchButton {
-  margin-left: 40rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
+
 
 .SearchWrapper {
   display: flex;
@@ -722,7 +723,7 @@ tr:nth-child(even) {
 }
 
 .SearchButton {
-  margin-left: 40rem;
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -743,7 +744,7 @@ tr:nth-child(even) {
 }
 
 #HomeSearch {
-  padding: 8px;
+  padding: 0.6rem 1.4rem;
   border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;

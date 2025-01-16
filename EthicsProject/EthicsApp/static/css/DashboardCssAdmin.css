@@ -35,19 +35,20 @@
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    width: 20%;
-    min-width: 200px;
+    width: 100%;
+
     margin: 5px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .count-box h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1rem;
     color: #333;
 }
 
 .count-box p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #326ae2;
     font-weight: 600;
 }
@@ -73,7 +74,7 @@
     padding: 20px;
     border-radius: 8px;
     flex: 1; /* Ensures equal width for each section */
-    min-width: 300px; /* Minimum width to maintain readability */
+    min-width: 450px; /* Minimum width to maintain readability */
     max-width: 32%; /* Adjust maximum width to fit in one row */
     display: flex;
     flex-direction: column;
@@ -83,7 +84,7 @@
 
 /* Dashboard Section Title */
 .dashboard-section h2 {
-    font-size: 1.8rem;
+    font-size: 1rem;
     margin-bottom: 20px;
     color: #333;
     text-align: center;
