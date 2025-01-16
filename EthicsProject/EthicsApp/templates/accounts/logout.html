@@ -5,15 +5,14 @@
   <div class="logout-form">
     <form method="POST" action="{% url 'accounts_logout' %}">
       {% csrf_token %}
-      <button type="submit" class="button">Sign Out</button>
-    </form>
-    <div class="justify-center">
+      <div class="buttons-container">
+        <button type="submit" class="button">Sign Out</button>
         <a class="Cancel" href="{% url 'studentdashboard' %}">Cancel</a>
-    </div>
+      </div>
+    </form>
   </div>
 </div>
 {% endblock %}
-
 
 <style> 
 .logout-container {
@@ -55,27 +54,34 @@
   align-items: center;
 }
 
-.button {
+.buttons-container {
+  display: flex;
+  justify-content: space-between; /* Places buttons on the same line */
+  width: 100%; /* Take up the full width */
+  gap: 10px; /* Adds space between buttons */
+}
+
+.button, .Cancel {
   padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.button {
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .button:hover {
   background-color: #0056b3;
 }
 
-.Cancel{
-  padding: 10px 20px;
+.Cancel {
   background-color: #dc3545;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none; /* Remove underline */
 }
 
 .Cancel:hover {
