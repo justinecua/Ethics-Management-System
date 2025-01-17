@@ -107,7 +107,38 @@
           </div>
       </div>
       {% endif %}
-
+{% if claim_stabs %}
+    <div class="claim-stabs-container">
+	
+	<div class="CSC-Top">
+		<h3>Claim Stab</h3>
+	</div>
+        {% for claim_stab in claim_stabs %}
+            <div class="claim-stab">
+                <div class="claim-stab-details">
+		   <div class="ribbon-image">
+			   <img src="../static/images/ribbon2.png">
+		   </div>
+                    <div class="detail-group">
+                        <p><strong>Appointment:</strong> {{ claim_stab.appointment }}</p>
+                        <p><strong>Release Date:</strong> {{ claim_stab.release_date }}</p>
+                        <p><strong>Received by:</strong> {{ claim_stab.received_by }}</p>
+                    </div>
+                    {% if claim_stab.members %}
+                        <div class="detail-group2">
+                            <p><strong>Researchers:</strong></p>
+                            <ul>
+                                {% for member in claim_stab.members %}
+				<li>{{ member.member_fname }} {{ member.member_lname}} - {{ member.college }} - {{ member.email }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
       </div>
 

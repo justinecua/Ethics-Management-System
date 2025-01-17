@@ -83,17 +83,37 @@ def studentdashboard(request):
 
         thesis_title = manuscript.thesis_title if manuscript else None
 
-        # Fetch the associated account
         try:
             account = Accounts.objects.get(student_id=student)
         except Accounts.DoesNotExist:
             account = None
 
-        # Fetch appointments for the account (if it exists)
         appointments = Appointments.objects.filter(account_id=account) if account else []
 
-        # Fetch ClaimStabs for the appointments
         claim_stabs = ClaimStabs.objects.filter(appointment_id__in=appointments)
+
+        claim_stab_data = []
+        for claim_stab in claim_stabs:
+
+            appointment = claim_stab.appointment_id
+            account = appointment.account_id 
+            student = account.student_id
+            manuscript = student.manuscript_id
+
+            members = Student.objects.filter(manuscript_id=manuscript).exclude(pk=student.pk)
+            member_data = []
+            for member in members:
+                account = Accounts.objects.get(student_id=student)
+                college = account.college_id.college_name
+                email = member.auth_user.email
+                member_data.append({'member_fname': member.auth_user.first_name, 'member_lname': member.auth_user.last_name, 'college': college, 'email': email})
+
+            claim_stab_data.append({
+                'appointment': claim_stab.appointment_id,
+                'release_date': claim_stab.releaseDate,
+                'received_by': claim_stab.received_by,
+                'members': member_data,
+            })
 
         context = {
             'profile_picture': profile_picture,
@@ -105,7 +125,7 @@ def studentdashboard(request):
             'thesis_id': thesis_id,
             'completeProfile_empty': completeProfile,
             'thesis_no_members': thesis_no_members,
-            'claim_stabs': claim_stabs,  # Adding the ClaimStabs to the context
+            'claim_stabs': claim_stab_data,
         }
 
     return render(request, 'students/studentdashboard.html', context)

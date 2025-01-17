@@ -23,7 +23,7 @@ def get_google_profile_picture(user):
 def adminDashboard(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    # Data aggregation
+
     manuscript_count = Manuscripts.objects.count()
     student_count = Student.objects.count()
     reviewer_count = Reviewer.objects.count()
@@ -31,18 +31,14 @@ def adminDashboard(request):
     schedule_count = Schedule.objects.count()
     appointment_count = Appointments.objects.count()
 
-    # Manuscripts by category and type of study
     manuscripts_by_category = Manuscripts.objects.values('category_name_id__category_name').annotate(total=Count('id'))
     manuscripts_by_study_type = Manuscripts.objects.values('type_of_study_id__type_of_study').annotate(total=Count('id'))
 
-    # Accounts by college
     accounts_by_college = Accounts.objects.values('college_id__college_initials').annotate(total=Count('id'))
 
-    # Notifications and comments counts
     notification_count = Notification.objects.count()
     comment_count = Comments.objects.count()
 
-    # Prepare counts dictionary
     counts = {
         "Manuscripts": manuscript_count,
         "Students": student_count,
@@ -52,7 +48,6 @@ def adminDashboard(request):
         "Appointments": appointment_count,
     }
 
-    # Prepare data for JSON-safe rendering
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
@@ -104,10 +99,8 @@ def adminAccounts(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
 
-    # Get the search query from the request
     search_query = request.GET.get('search', '').strip()
 
-    # Querysets for Students, Reviewers, and Admins
     students = Student.objects.filter(
         auth_user__isnull=False,
         auth_user__is_superuser=False
@@ -138,7 +131,6 @@ def adminAccounts(request):
         )
     )
 
-    # Apply search filters
     if search_query:
         students = students.filter(
             Q(auth_user__username__icontains=search_query) |
@@ -159,7 +151,6 @@ def adminAccounts(request):
             Q(auth_user__email__icontains=search_query)
         )
 
-    # Add profile pictures
     for student in students:
         student.google_picture = get_google_profile_picture(student.auth_user)
     for reviewer in reviewers:
@@ -167,35 +158,28 @@ def adminAccounts(request):
     for admin in admins:
         admin.google_picture = get_google_profile_picture(admin.auth_user)
 
-    # Handle invitation
     if request.method == 'POST' and 'invite' in request.POST:
         email = request.POST.get('email', '').strip()
         account_type = request.POST.get('account_type', '').strip()
 
         if email and account_type:
-            # Create a new user invitation logic
+
             try:
-                # Check if email already exists
+
                 if Accounts.objects.filter(auth_user__email=email).exists():
                     return HttpResponse("This email is already registered.")
-                
-                # Generate invitation logic (e.g., sending an email)
+
                 subject = f"Invitation to Join as {account_type}"
                 message = f"Dear User,\n\nYou are invited to join as a {account_type}.\n\nBest Regards!"
                 from_email = 'admin@example.com'
 
-                # Send an email invitation
                 send_mail(subject, message, from_email, [email])
-                
-                # Optionally, store some information in the database for the invitation (e.g., a pending user)
-                # PendingUser.objects.create(email=email, account_type=account_type)
 
                 return HttpResponse("Invitation sent successfully.")
 
             except Exception as e:
                 return HttpResponse(f"Error sending invitation: {str(e)}")
 
-    # Paginate Students
     student_page_number = request.GET.get('students_page', 1)
     student_paginator = Paginator(students, 10)
     try:
@@ -203,7 +187,6 @@ def adminAccounts(request):
     except (EmptyPage, PageNotAnInteger):
         students_page = student_paginator.page(1)
 
-    # Paginate Reviewers
     reviewer_page_number = request.GET.get('reviewers_page', 1)
     reviewer_paginator = Paginator(reviewers, 10)
     try:
@@ -211,7 +194,6 @@ def adminAccounts(request):
     except (EmptyPage, PageNotAnInteger):
         reviewers_page = reviewer_paginator.page(1)
 
-    # Paginate Admins
     admin_page_number = request.GET.get('admins_page', 1)
     admin_paginator = Paginator(admins, 10)
     try:
@@ -285,12 +267,19 @@ def assign_reviewer(request):
     return redirect('adminAppointments')
 
 
+from django.db.models import Max
+
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+import re
+
 def get_edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointments, id=appointment_id)
     account = appointment.account_id
     manuscript_id = account.student_id.manuscript_id
     researchers_data = Student.objects.filter(manuscript_id=manuscript_id)
 
+    # Gather researchers' data
     researchers = [
         {
             'id': student.id,
@@ -300,24 +289,36 @@ def get_edit_appointment(request, appointment_id):
         for student in researchers_data
     ]
     college_data = account.college_id
-
-    # Transaction Code Algorithm
     collegeInitials = college_data.college_initials
     preTemplate = "SMCREC"
     yearTemplate = "24"
-    latest_transaction = Appointments.objects.filter(institution=collegeInitials).aggregate(
-        Max('transaction_id')
-    )['transaction_id__max']
 
-    if latest_transaction:
-        latest_num = int(latest_transaction.split('-')[-1])
-        numTemplate = latest_num + 1
+    if appointment.transaction_id:
+
+        transaction_code = appointment.transaction_id
     else:
-        numTemplate = 1  
+        regex = r"^SMCREC24-" + re.escape(collegeInitials) + r"-(\d+)$"
+        latest_transaction = Appointments.objects.filter(
+            transaction_id__regex=regex
+        ).order_by('-transaction_id').first()
 
-    numTemplate_str = str(numTemplate).zfill(4)
-    transaction_code = f"{preTemplate}{yearTemplate}-{collegeInitials}-{numTemplate_str}"
+        if latest_transaction and latest_transaction.transaction_id:
+            match = re.search(regex, latest_transaction.transaction_id)
+            if match:
+                try:
+                    latest_num = int(match.group(1))
+                    numTemplate = latest_num + 1
+                except ValueError:
+                    numTemplate = 1
+            else:
+                numTemplate = 1 
+        else:
+            numTemplate = 1
 
+        numTemplate_str = str(numTemplate).zfill(4)
+        transaction_code = f"SMCREC24-{collegeInitials}-{numTemplate_str}"
+
+    # Prepare response data
     data = {
         'appointment_id': appointment.id,
         'researchers': researchers,
@@ -327,6 +328,7 @@ def get_edit_appointment(request, appointment_id):
     }
 
     return JsonResponse(data)
+
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
