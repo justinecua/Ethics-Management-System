@@ -7,16 +7,18 @@
 <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
 <link rel="stylesheet" href="{% static './css/StudentModal.css' %}">
 <link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
+<link rel="stylesheet" href="{% static './css/logout.css' %}">
 {% endblock %}
 
 {% block content %}
-
+{% include '../accounts/logout.html' %}
 {% include '../modal/addthesisInfo.html' %}
 {% include '../modal/completeProfileModal.html' %}
 {% include '../modal/addThesisMembers.html' %}
 <script type="module" src="{% static './js/gettingStarted.js' %}"></script>
 
 {% include 'students/studentNavbar.html' %}
+
   <div class="StudentMain-Content">
       <div class="SMC-Top">
          <div class="SMCT-Left">
@@ -47,13 +49,13 @@
 
       </div>
       <div class="SMC-Bottom">
-
+   
       <div class="SMCB-Bottom">
-
+        <div class="SMCB-Top">
+            <h3 id="GettingStartedTitle">Getting Started</h3>
+        </div> 
         {% if thesis_empty %}
 		<div class="SMCB-Top">
-        <h3>Getting Started</h3>
-        </div>
         <div class="GS-Container">
           <div class="GS-Left">
               <div class="GSL-Container">
@@ -149,6 +151,13 @@
   </div>
 <script>
     let getting_started_conditions = {% if thesis_empty or completeProfile_empty or thesis_no_members %} true {% else %} false {% endif %};
+    let GettingStartedTitle = document.getElementById('GettingStartedTitle');
+    
+    if(getting_started_conditions == false){
+      GettingStartedTitle.style.display = "none";
+    }
+    console.log(getting_started_conditions);
+
 </script>
 
 {% include './navJsConfig.html' %}

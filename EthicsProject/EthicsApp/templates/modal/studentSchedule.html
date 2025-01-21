@@ -3,29 +3,46 @@
 
   <div id="Modal-Schedule-Overlay">
       <div id="MS-Container" class="MS-Container active-container">
+        <div class="MSC-Top">
+          <h3>Application for Ethics Review</h3>
+          <p>Instructions to the Researchers: Please complete this form and ensure that you have included in your submission the documents you checked in Section 2. (This form is adapted from DOST, PHREB and MU-REB)</p>
+      </div>
+      <div class="MSC-Bottom">
+          <div class="ThesisTypeSched">
+                <div class="GenCont1Left1">
+                  <label for="schedule-type">Thesis Type</label>
+                              <select name="thesis_type">
+                                  {% for thesis in thesisTypes %}
+                                  <option name="thesis_type" value="{{ thesis.id }}">{{ thesis.ThesisType }}</option>
+                                  {% endfor %}
+                              </select>
+                </div>
+          </div>
+        </div>
+
+        <div class="MSC-Bottom2">
+          <button type="button" class="firstButton" id="cancel-sched">Cancel</button>
+          <button type="button" class="secButton" id="next-step0">Next</button>
+      </div>
+      </div>
+
+      <div id="MS-Container1" class="MS-Container">
           <div class="schedule-step-1">
-              <div class="MSC-Top">
-                  <h3>Application for Ethics Review</h3>
-                  <p>Instructions to the Researchers: Please complete this form and ensure that you have included in your submission the documents you checked in Section 2. (This form is adapted from DOST, PHREB and MU-REB)</p>
-              </div>
+            <div class="MSC-Top">
+              <h3>Step 2: Thesis Information</h3>
+              <p>Please provide further details about your thesis.</p>
+            </div>
               <div class="MSC-Bottom">
                 <div class="ThesisTypeSched">
-		<div class="GenCont1Left">
-		  <label for="schedule-type">Thesis Type</label>
-                  <select name="thesis_type">
-                      {% for thesis in thesisTypes %}
-                      <option name="thesis_type" value="{{ thesis.id }}">{{ thesis.ThesisType }}</option>
-                      {% endfor %}
-                  </select>
-		</div>
-		<div class="GenCont1Right">
-	          <label for="college-type">College</label>
-                  <select name="college_id">
-                      {% for college in colleges %}
-                      <option name="college_id" value="{{ college.id }}">{{ college.college_name }}</option>
-                      {% endfor %}
-                  </select>
-		</div>
+                <div class="GenCont1Left">
+
+                        <label for="college-type">College</label>
+                              <select name="college_id">
+                                  {% for college in colleges %}
+                                  <option name="college_id" value="{{ college.id }}">{{ college.college_name }}</option>
+                                  {% endfor %}
+                              </select>
+                </div>
                 </div>
 
                 <h4>I. General Information</h4>
@@ -72,8 +89,8 @@
                 </div>
               </div>
               <div class="MSC-Bottom2">
-                  <button type="button" class="firstButton" id="cancel-sched">Cancel</button>
-                  <button type="button" class="secButton" id="next-step">Next</button>
+                  <button type="button" class="firstButton" id="back-step1">Back</button>
+                  <button type="button" class="secButton" id="next-step1">Next</button>
               </div>
           </div>
       </div>
@@ -81,7 +98,7 @@
       <div id="MS-Container2" class="MS-Container">
           <div class="schedule-step-2">
               <div class="MSC-Top">
-                  <h3>Step 2: Checklist of Documents</h3>
+                  <h3>Step 3: Checklist of Documents</h3>
                   <p>Please provide further details to complete the review process.</p>
               </div>
               <div class="MSC-Bottom">
@@ -149,7 +166,7 @@
 
               </div>
               <div class="MSC-Bottom2">
-                  <button type="button" class="firstButton" id="back-step">Back</button>
+                  <button type="button" class="firstButton" id="back-step2">Back</button>
                   <button  type="button"  class="secButton" id="next-step2">Next</button>
               </div>
           </div>
@@ -158,7 +175,7 @@
       <div id="MS-Container3" class="MS-Container">
           <div class="schedule-step-2">
               <div class="MSC-Top">
-                  <h3>Step 3: Ethical Questions</h3>
+                  <h3>Step 4: Ethical Questions</h3>
                   <p>Will your study / research involve:</p>
               </div>
               <div class="MSC-BottomEQ">
@@ -180,7 +197,7 @@
               </div>
 
               <div class="MSC-Bottom2">
-                  <button type="button" class="firstButton" id="back-step2">Back</button>
+                  <button type="button" class="firstButton" id="back-step3">Back</button>
                   <button type="button" class="secButton" id="next-step3">Next</button>
               </div>
           </div>
@@ -189,19 +206,19 @@
       <div id="MS-Container4" class="MS-Container">
         <div class="schedule-step-2">
             <div class="MSC-Top">
-                <h3>Step 4: Add Manuscript Document</h3>
+                <h3>Step 5: Add Manuscript Document</h3>
                 <p>Will your study / research involve:</p>
             </div>
-	<div class="MSC-BottomEQ">
-	  <div class="GenCont1Bottom">
-	    <button type="button" id="manuscript_upload_button" class="secButton">Upload Manuscript</button>
-	    <input type="file" id="manuscript_file" name="manuscript_file" accept=".pdf" style="display: none;">
-	    <p id="file_name_display" style="margin-top: 10px; color: #555;"></p>
-	  </div>
-	</div>
+        <div class="MSC-BottomEQ">
+          <div class="GenCont1Bottom">
+            <button type="button" id="manuscript_upload_button" class="secButton">Upload Manuscript</button>
+            <input type="file" id="manuscript_file" name="manuscript_file" accept=".pdf" style="display: none;">
+            <p id="file_name_display" style="margin-top: 10px; color: #555;"></p>
+          </div>
+        </div>
 
             <div class="MSC-Bottom2">
-                <button type="button" class="firstButton" id="back-step3">Back</button>
+                <button type="button" class="firstButton" id="back-step4">Back</button>
                 <button type="submit" class="secButton" id="submitAppointment">Submit</button>
             </div>
         </div>
@@ -214,12 +231,14 @@
     const getting_started_conditions = {{ getting_started_conditions|yesno:"true,false" }};
     const modalOverlay = document.getElementById('Modal-Schedule-Overlay');
     const containers = document.querySelectorAll('.MS-Container');
-    const nextStepBtn = document.getElementById('next-step');
+    const nextStepBtn0 = document.getElementById('next-step0');
+    const nextStepBtn1 = document.getElementById('next-step1');
     const nextStepBtn2 = document.getElementById('next-step2');
     const nextStepBtn3 = document.getElementById('next-step3');
-    const backStepBtn = document.getElementById('back-step');
+    const backStepBtn1 = document.getElementById('back-step1');
     const backStepBtn2 = document.getElementById('back-step2');
     const backStepBtn3 = document.getElementById('back-step3');
+    const backStepBtn4 = document.getElementById('back-step4');
     const cancelBtn = document.getElementById('cancel-sched');
     const submitAppointment = document.getElementById('submitAppointment');
     const manuscriptFileInput = document.getElementById('manuscript_file');
@@ -233,29 +252,39 @@
 
     showContainer(0);
 
-    nextStepBtn.addEventListener('click', () => {
+    nextStepBtn0.addEventListener('click', () => {
         showContainer(1);
     });
 
-    nextStepBtn2.addEventListener('click', () => {
+    nextStepBtn1.addEventListener('click', () => {
         showContainer(2);
     });
 
-    nextStepBtn3.addEventListener('click', () => {
-      showContainer(3);
-  });
+    nextStepBtn2.addEventListener('click', () => {
+        showContainer(3);
+    });
 
-    backStepBtn.addEventListener('click', () => {
+    nextStepBtn3.addEventListener('click', () => {
+      showContainer(4);
+    });
+
+
+    backStepBtn1.addEventListener('click', () => {
         showContainer(0);
     });
 
-  backStepBtn2.addEventListener('click', () => {
-      showContainer(1);
-  });
+    backStepBtn2.addEventListener('click', () => {
+        showContainer(1);
+    });
 
     backStepBtn3.addEventListener('click', () => {
         showContainer(2);
     });
+
+    backStepBtn4.addEventListener('click', () => {
+        showContainer(3);
+    });
+
 
     cancelBtn.addEventListener('click', () => {
         modalOverlay.style.display = 'none';

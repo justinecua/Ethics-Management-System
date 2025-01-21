@@ -99,80 +99,85 @@
         </div>
 	</div>
 
+{% if manuscript_file_url %}
 <script>
-var url = '{{ manuscript.file.url }}';  
-var currentPage = 1;  // Start at page 1
-var zoomLevel = 1.5; // Default zoom level
-
-if (window.pdfjsLib) {
-    var pdfjsLib = window['pdfjs-dist/build/pdf'];
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
-
-    pdfjsLib.getDocument(url).promise.then(function (pdf) {
-        var totalPages = pdf.numPages;  
-	document.getElementById('total-pages').textContent = totalPages;
-
-        function renderPage(pageNum) {
-            pdf.getPage(pageNum).then(function (page) {
-                var viewport = page.getViewport({ scale: zoomLevel });
-
-                var canvas = document.createElement('canvas');
-                var context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                canvas.style.backgroundColor = '#ffffff';
-
-                page.render({
-                    canvasContext: context,
-                    viewport: viewport
-                }).promise.then(function () {
-                    document.getElementById('pdf-container').innerHTML = '';  // Clear previous content
-                    document.getElementById('pdf-container').appendChild(canvas);
-		    document.getElementById('current-page').textContent = currentPage;
+    var url = '{{ manuscript.file.url }}';  
+    var currentPage = 1;  // Start at page 1
+    var zoomLevel = 1.5; // Default zoom level
+    
+    if (window.pdfjsLib) {
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+    
+        pdfjsLib.getDocument(url).promise.then(function (pdf) {
+            var totalPages = pdf.numPages;  
+        document.getElementById('total-pages').textContent = totalPages;
+    
+            function renderPage(pageNum) {
+                pdf.getPage(pageNum).then(function (page) {
+                    var viewport = page.getViewport({ scale: zoomLevel });
+    
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+    
+                    canvas.style.backgroundColor = '#ffffff';
+    
+                    page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise.then(function () {
+                        document.getElementById('pdf-container').innerHTML = '';  // Clear previous content
+                        document.getElementById('pdf-container').appendChild(canvas);
+                document.getElementById('current-page').textContent = currentPage;
+                    });
                 });
+            }
+    
+            renderPage(currentPage);
+    
+            document.getElementById('next-page').addEventListener('click', function () {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPage(currentPage);
+                }
             });
-        }
-
-        renderPage(currentPage);
-
-        document.getElementById('next-page').addEventListener('click', function () {
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderPage(currentPage);
-            }
+    
+            document.getElementById('prev-page').addEventListener('click', function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPage(currentPage);
+                }
+            });
+    
+            document.getElementById('page-number').addEventListener('input', function (e) {
+                var pageNumberInput = e.target.value;
+                if (pageNumberInput && pageNumberInput >= 1 && pageNumberInput <= totalPages) {
+                    currentPage = parseInt(pageNumberInput);
+                    renderPage(currentPage);
+                }
+            });
+    
+            document.getElementById('jump-to-page').addEventListener('click', function () {
+                var pageNumberInput = document.getElementById('page-number').value;
+                if (pageNumberInput && pageNumberInput >= 1 && pageNumberInput <= totalPages) {
+                    currentPage = parseInt(pageNumberInput);
+                    renderPage(currentPage);
+                }
+            });
+    
         });
+    } else {
+        console.error("PDF.js library is not loaded properly.");
+    }
+    
+    </script>
+{% else %}
+    <p>No file associated with the manuscript.</p>
+{% endif %}
 
-        document.getElementById('prev-page').addEventListener('click', function () {
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage(currentPage);
-            }
-        });
-
-        document.getElementById('page-number').addEventListener('input', function (e) {
-            var pageNumberInput = e.target.value;
-            if (pageNumberInput && pageNumberInput >= 1 && pageNumberInput <= totalPages) {
-                currentPage = parseInt(pageNumberInput);
-                renderPage(currentPage);
-            }
-        });
-
-        document.getElementById('jump-to-page').addEventListener('click', function () {
-            var pageNumberInput = document.getElementById('page-number').value;
-            if (pageNumberInput && pageNumberInput >= 1 && pageNumberInput <= totalPages) {
-                currentPage = parseInt(pageNumberInput);
-                renderPage(currentPage);
-            }
-        });
-
-    });
-} else {
-    console.error("PDF.js library is not loaded properly.");
-}
-
-</script>
 
 {% include './navJsConfig.html' %}
 {% endblock %}

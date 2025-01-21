@@ -363,8 +363,8 @@ body {
 
 
 .SMCB-Top {
-  margin-top: 1.4rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1.2rem;
+  margin-bottom: -0.2rem;
 
 }
 
@@ -377,7 +377,6 @@ body {
 .SMCB-Bottom {
   display: flex;
   flex-direction: column;
-  row-gap: 1.3rem;
   width: 40%;
 }
 

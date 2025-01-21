@@ -188,6 +188,10 @@ from .models import (
 )
 
 def studentAppointment(request):
+    is_new_user = check_user(request)
+    thesis_empty_value = check_thesis_empty(request)
+    completeProfile = check_completeProfile(request)
+    thesis_no_members = check_thesis_members(request)
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
     user = request.session.get('id', None)
@@ -237,6 +241,10 @@ def studentAppointment(request):
         'manuscript_id': thesis_id,
         'colleges': colleges,
         'account_id': account_id,
+        'is_new_user': is_new_user,
+        'thesis_empty': thesis_empty_value,
+        'completeProfile_empty': completeProfile,
+        'thesis_no_members': thesis_no_members,
     }
     return render(request, 'students/studentappointment.html', context)
 
@@ -265,28 +273,34 @@ import os
 def studentManuscript(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    user_id = request.session.get('id', None)  # User ID from session
+    user_id = request.session.get('id', None)  
 
     appointments = []
-    manuscript = None  # Initialize manuscript as None
+    manuscript = None 
+    manuscript_file_url = None  
+
     if user_id:
         try:
             student = Student.objects.get(auth_user__id=user_id)
             account = Accounts.objects.get(student_id=student)
             appointments = Appointments.objects.filter(account_id=account)
-            
-            # Fetch the manuscript associated with the student
+
             manuscript = Manuscripts.objects.filter(student__auth_user__id=user_id).first()
+
+            if manuscript and manuscript.file:
+                manuscript_file_url = manuscript.file.url 
         except (Student.DoesNotExist, Accounts.DoesNotExist, Manuscripts.DoesNotExist):
-            pass  
+            pass
 
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
         'appointments': appointments,
         'manuscript': manuscript,
+        'manuscript_file_url': manuscript_file_url,  
     }
     return render(request, 'students/studentmanuscript.html', context)
+
 
 
 from django.shortcuts import render, redirect

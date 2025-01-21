@@ -59,8 +59,8 @@
                 </a>
             </li>
 
-            <li>
-                <a href="{% url 'accounts_logout' %}">
+            <li id="LogoutBTN">
+                <a>
                     <span class="icon">
                         <ion-icon name="log-out-outline"></ion-icon>
                     </span>
@@ -71,6 +71,14 @@
     </div>
 </div>
 
+<script>
+    let LogoutBTN = document.getElementById('LogoutBTN');
+    let ModalLogoutOverlay = document.getElementById('Modal-Logout-Overlay');
+
+    LogoutBTN.addEventListener('click', function(){
+        ModalLogoutOverlay.style.display = "flex";
+    })
+</script>
 
 
 
