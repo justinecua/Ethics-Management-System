@@ -249,9 +249,20 @@ def studentAppointment(request):
     return render(request, 'students/studentappointment.html', context)
 
 
+from datetime import datetime
+
 def get_admin_schedule(request):
     admin_account_id = 2  
-    schedules = Schedule.objects.filter(account_id__account_typeid=admin_account_id)
+    current_date = datetime.now().date()
+    current_time = datetime.now().time()
+
+    schedules = Schedule.objects.filter(
+        account_id__account_typeid=admin_account_id
+    ).filter(
+        schedule_date__gte=current_date
+    ).exclude(
+        schedule_date=current_date, schedule_end_time__lt=current_time
+    )
 
     events = []
     for schedule in schedules:
@@ -265,6 +276,7 @@ def get_admin_schedule(request):
         })
 
     return JsonResponse(events, safe=False)
+
 
 from django.shortcuts import render
 from .models import Appointments, Accounts, Student, Manuscripts

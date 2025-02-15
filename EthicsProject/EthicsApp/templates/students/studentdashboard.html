@@ -11,14 +11,15 @@
 {% endblock %}
 
 {% block content %}
-{% include '../accounts/logout.html' %}
+
 {% include '../modal/addthesisInfo.html' %}
 {% include '../modal/completeProfileModal.html' %}
 {% include '../modal/addThesisMembers.html' %}
-<script type="module" src="{% static './js/gettingStarted.js' %}"></script>
 
+{% include '../accounts/logout.html' %}
 {% include 'students/studentNavbar.html' %}
-
+<script type="module" src="{% static './js/gettingStarted.js' %}"></script>
+<script type="module" src="{% static './js/logout.js' %}"></script>
   <div class="StudentMain-Content">
       <div class="SMC-Top">
          <div class="SMCT-Left">

@@ -1,21 +1,25 @@
-{% extends "master.html" %}
+
+
 {% load static %}
 
-  <div id="Modal-Logout-Overlay">
-      <div id="MSLog-Container">
-        <h1 class="s-out">Sign Out</h1>
-        <p class="txt">Are you sure you want to sign out?</p>
-        <div class="logout-form">
-          <form method="POST" action="{% url 'accounts_logout' %}">
-            {% csrf_token %}
-            <div class="buttons-container">
-              <button type="submit" class="button">Sign Out</button>
-              <a class="Cancel" href="{% url 'studentdashboard' %}">Cancel</a>
-            </div>
-      </div>
-  </div>
-
-<style> 
 
 
-</style>
+{% block content %}
+
+<div id="Logout-Overlay">
+    <div id="Logout-container">
+        <p>Are you sure you want to logout?</p>
+
+        <div class="LC-Bottom">
+            <button id="LC-Back">Cancel</button>
+
+            <form action="{% url 'accounts_logout' %}" method="post" >
+                {% csrf_token %}
+                <button id="LC-Logout" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

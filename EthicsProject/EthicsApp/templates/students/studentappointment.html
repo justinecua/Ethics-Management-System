@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
 <link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
 <link rel="stylesheet" href="{% static './css/studentSchedule.css' %}">
+<link rel="stylesheet" href="{% static './css/logout.css' %}">
 <script type="module" src="{% static 'js/studentSchedule.js' %}"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@6.1.15/main.min.css" rel="stylesheet" />
@@ -13,9 +14,11 @@
 {% endblock %}
 
 {% block content %}
+	{% include '../accounts/logout.html' %}
         {% include './studentNavbar.html' %}
         {% include 'modal/studentSchedule.html' %}
         {% include 'modal/gettingStartedConditions.html' %}
+	<script type="module" src="{% static 'js/logout.js' %}"></script>
   <div class="StudentMain-Content">
       <div class="SMC-Top">
           <div class="SMCT-Left">

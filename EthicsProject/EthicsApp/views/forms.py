@@ -78,5 +78,10 @@ class StudentProfileForm(forms.ModelForm):
             if student.manuscript_id:
                 manuscript = student.manuscript_id
                 self.fields['manuscript_title'].initial = manuscript.thesis_title
-                self.fields['manuscript_category'].initial = manuscript.category_name.category_name  # Assuming Category model
-                self.fields['manuscript_type_of_study'].initial = manuscript.type_of_study.type_of_study  # Assuming TypeOfStudy model
+                self.fields['manuscript_category'].initial = (
+                    manuscript.category_name.category_name if manuscript.category_name else None
+                )
+                self.fields['manuscript_type_of_study'].initial = (
+                    manuscript.type_of_study.type_of_study if manuscript.type_of_study else None
+                )
+
