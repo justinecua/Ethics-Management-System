@@ -1,0 +1,48 @@
+#Logout-Overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: #565a6241;
+    z-index: 5;
+    position: fixed;
+    display: none;
+    overflow: hidden;
+  }
+  
+  #Logout-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 28rem;
+    background-color: var(--modal-container);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-out forwards;
+    padding: 1.7rem;
+  }
+
+.LC-Bottom{
+    display: flex;
+    gap: 0.1rem;
+}
+
+.LC-Bottom button{
+   margin-top: 1rem;
+   padding: 0.6rem 1.4rem;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+#LC-Back{
+    border: 1px solid #d7dde0;
+    background-color: #ffffff;
+    margin-right: 0.5rem;
+}
+
+#LC-Logout{
+   border: none;
+   color: white;
+   background-color: #0084ff;
+}
+  

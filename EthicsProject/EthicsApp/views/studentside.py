@@ -83,17 +83,37 @@ def studentdashboard(request):
 
         thesis_title = manuscript.thesis_title if manuscript else None
 
-        # Fetch the associated account
         try:
             account = Accounts.objects.get(student_id=student)
         except Accounts.DoesNotExist:
             account = None
 
-        # Fetch appointments for the account (if it exists)
         appointments = Appointments.objects.filter(account_id=account) if account else []
 
-        # Fetch ClaimStabs for the appointments
         claim_stabs = ClaimStabs.objects.filter(appointment_id__in=appointments)
+
+        claim_stab_data = []
+        for claim_stab in claim_stabs:
+
+            appointment = claim_stab.appointment_id
+            account = appointment.account_id 
+            student = account.student_id
+            manuscript = student.manuscript_id
+
+            members = Student.objects.filter(manuscript_id=manuscript).exclude(pk=student.pk)
+            member_data = []
+            for member in members:
+                account = Accounts.objects.get(student_id=student)
+                college = account.college_id.college_name
+                email = member.auth_user.email
+                member_data.append({'member_fname': member.auth_user.first_name, 'member_lname': member.auth_user.last_name, 'college': college, 'email': email})
+
+            claim_stab_data.append({
+                'appointment': claim_stab.appointment_id,
+                'release_date': claim_stab.releaseDate,
+                'received_by': claim_stab.received_by,
+                'members': member_data,
+            })
 
         context = {
             'profile_picture': profile_picture,
@@ -105,7 +125,7 @@ def studentdashboard(request):
             'thesis_id': thesis_id,
             'completeProfile_empty': completeProfile,
             'thesis_no_members': thesis_no_members,
-            'claim_stabs': claim_stabs,  # Adding the ClaimStabs to the context
+            'claim_stabs': claim_stab_data,
         }
 
     return render(request, 'students/studentdashboard.html', context)
@@ -168,6 +188,10 @@ from .models import (
 )
 
 def studentAppointment(request):
+    is_new_user = check_user(request)
+    thesis_empty_value = check_thesis_empty(request)
+    completeProfile = check_completeProfile(request)
+    thesis_no_members = check_thesis_members(request)
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
     user = request.session.get('id', None)
@@ -217,13 +241,28 @@ def studentAppointment(request):
         'manuscript_id': thesis_id,
         'colleges': colleges,
         'account_id': account_id,
+        'is_new_user': is_new_user,
+        'thesis_empty': thesis_empty_value,
+        'completeProfile_empty': completeProfile,
+        'thesis_no_members': thesis_no_members,
     }
     return render(request, 'students/studentappointment.html', context)
 
 
+from datetime import datetime
+
 def get_admin_schedule(request):
     admin_account_id = 2  
-    schedules = Schedule.objects.filter(account_id__account_typeid=admin_account_id)
+    current_date = datetime.now().date()
+    current_time = datetime.now().time()
+
+    schedules = Schedule.objects.filter(
+        account_id__account_typeid=admin_account_id
+    ).filter(
+        schedule_date__gte=current_date
+    ).exclude(
+        schedule_date=current_date, schedule_end_time__lt=current_time
+    )
 
     events = []
     for schedule in schedules:
@@ -238,6 +277,7 @@ def get_admin_schedule(request):
 
     return JsonResponse(events, safe=False)
 
+
 from django.shortcuts import render
 from .models import Appointments, Accounts, Student, Manuscripts
 import os
@@ -245,38 +285,63 @@ import os
 def studentManuscript(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    user_id = request.session.get('id', None)  # User ID from session
+    user_id = request.session.get('id', None)  
 
     appointments = []
-    manuscript = None  # Initialize manuscript as None
+    manuscript = None 
+    manuscript_file_url = None  
+
     if user_id:
         try:
             student = Student.objects.get(auth_user__id=user_id)
             account = Accounts.objects.get(student_id=student)
             appointments = Appointments.objects.filter(account_id=account)
-            
-            # Fetch the manuscript associated with the student
+
             manuscript = Manuscripts.objects.filter(student__auth_user__id=user_id).first()
+
+            if manuscript and manuscript.file:
+                manuscript_file_url = manuscript.file.url 
         except (Student.DoesNotExist, Accounts.DoesNotExist, Manuscripts.DoesNotExist):
-            pass  
+            pass
 
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
         'appointments': appointments,
         'manuscript': manuscript,
+        'manuscript_file_url': manuscript_file_url,  
     }
     return render(request, 'students/studentmanuscript.html', context)
 
 
 
+from django.shortcuts import render, redirect
+from .forms import StudentProfileForm
+from .models import Student
+
 def studentSettings(request):
-    profile_picture = request.session.get('profile_picture', None)
-    account_type = request.session.get('account_type', None)
+    user = request.user  # Get the authenticated user
+    student = Student.objects.filter(auth_user=user).first()  # Assuming the Student model has a relation with the User model
+
+    if request.method == 'POST':
+        form = StudentProfileForm(request.POST, instance=student, user=user, student=student)
+        if form.is_valid():
+            form.save()  # Save the updated student data
+            return redirect('student_settings')  # Redirect after successful update
+    else:
+        form = StudentProfileForm(instance=student, user=user, student=student)
 
     context = {
-        'profile_picture': profile_picture,
+        'form': form,
+        'profile_picture': request.session.get('profile_picture', None),
+        'account_type': request.session.get('account_type', None),
+        'username': user.username,
     }
+    return render(request, 'students/studentSettings.html', context)
+
+
+
+
 
 def check_user(request):
     if request.user.is_authenticated:

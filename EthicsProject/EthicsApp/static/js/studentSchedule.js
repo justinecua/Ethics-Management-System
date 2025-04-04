@@ -3,7 +3,7 @@ let ModalScheduleOverlay = document.getElementById('Modal-Schedule-Overlay');
 
 let scheduledate = document.getElementById('schedule-date');
 let cancelsched = document.getElementById('cancel-sched');
-
+let db_schedule_id = document.getElementById('schedule_id');
 
 var calendarEl = document.getElementById('calendar');
 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -12,21 +12,20 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     events: '/get_admin_schedule/', 
     initialDate: new Date(),
     hiddenDays: [0],
-eventClick: function(info) {
-    var event = info.event;
+	eventClick: function(info) {
+	    var event = info.event;
 
-    // Check if getting_started_conditions are met
-    if (getting_started_conditions) {
-        // Show an error overlay instead of the modal
-        let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
-        gettingStartedConditionErrorOverlay.style.display = "flex";
-    } else {
-        // Show the modal for scheduling
-        ModalScheduleOverlay.style.display = "flex";
-        document.getElementById('appointment_date').value = info.dateStr;
-        console.log("Selected Date:", info.dateStr);
-    }
-},
+	    if (getting_started_conditions) {
+
+		let gettingStartedConditionErrorOverlay = document.getElementById('gettingStartedConditionError-Overlay');
+		gettingStartedConditionErrorOverlay.style.display = "flex";
+	    } else {
+
+		ModalScheduleOverlay.style.display = "flex";
+		document.getElementById('appointment_date').value = info.dateStr;
+		console.log("Selected Date:", info.dateStr);
+	    }
+	},
 
 
     /*
@@ -48,6 +47,9 @@ eventClick: function(info) {
         var scheduleId = arg.event.extendedProps.schedule_id;
   	var slot = arg.event.extendedProps.slot; 
 	    
+	db_schedule_id.value = arg.event.extendedProps.schedule_id;
+	console.log(arg.event.extendedProps.schedule_id);
+
         var eventContainer = document.createElement('div');
         eventContainer.className = `event-container ${scheduleTypeClass}`;
     

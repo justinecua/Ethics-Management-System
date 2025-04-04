@@ -1,0 +1,112 @@
+.MC-Bottom {
+    background-color: #f8f8fa;
+}
+
+.new-container {
+    margin-left: 30px;
+    background-color: #f8f8fa;
+}
+
+/* Title Container */
+.title-container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 5px;
+    border-radius: 10px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    margin-top: 50px;
+}
+
+/* Counts Section Styling */
+.counts {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.count-box {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.count-box h3 {
+    font-size: 1rem;
+    color: #333;
+}
+
+.count-box p {
+    font-size: 1rem;
+    color: #326ae2;
+    font-weight: 600;
+}
+
+.graph-section {
+    margin-top: 4rem;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.graphs-row {
+    display: flex;
+    justify-content: space-between; /* Adjusts spacing between graphs */
+    gap: 10px; /* Adds spacing between sections */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    grid-template-rows: repeat(3, 1fr);
+}
+
+
+.dashboard-section {
+    background-color: #ffffff;
+    grid-template-rows: repeat(3, 1fr);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1; /* Ensures equal width for each section */
+    min-width: 450px; /* Minimum width to maintain readability */
+    max-width: 32%; /* Adjust maximum width to fit in one row */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+/* Dashboard Section Title */
+.dashboard-section h2 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Graph Canvas */
+#manuscriptsByCategory, 
+#manuscriptsByStudyType, 
+#accountsByCollege {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+}
+
+/* Media Query for Smaller Screens */
+@media screen and (max-width: 768px) {
+    .graphs-row {
+        flex-direction: column; /* Stack graphs vertically */
+        gap: 20px; /* Increase gap between sections */
+    }
+
+    .dashboard-section {
+        width: 100%; /* Expand section to full width */
+    }
+}

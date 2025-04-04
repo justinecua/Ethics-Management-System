@@ -1,145 +1,202 @@
 {% extends "master.html" %}
 
 {% load static %}
-{% block css %}
 
+{% block css %}
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
 <link rel="stylesheet" href="{% static './css/adminAccount.css' %}">
 <script type="module" src="{% static 'js/adminAccounts.js' %}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 {% endblock %}
 
 {% block content %}
-{% include 'modal/addAccountAdmin.html' %}
-<div class="MainContainer">
+  {% include 'modal/addAccountAdmin.html' %}
 
-    {% include './adminTopNav.html' %}    
+  <div class="MainContainer">
+      {% include './adminTopNav.html' %}
 
     <div class="MC-Bottom">
-        {% include './adminNav.html' %}      
-        
-        <div id="Accounts-Content"> 
-            <div class="AC-Top">
-              <div class="ACT-Left">
-                    <button id="Students-Accounts">Students</button>
-                    <button id="Reviewer-Accounts">Reviewer</button>
-                    <button id="Admin-Accounts">Admin</button> 
-                </div> 
-                <div class="ACT-Right">
-                    <button id="InviteAcc-btn">Invite User</button> 
-                </div> 
+          {% include './adminNav.html' %}
+
+          <div id="Accounts-Content">
+              <div class="AC-Top">
+                  <div class="ACT-Left">
+                      <button id="Students-Accounts">Students</button>
+                      <button id="Reviewer-Accounts">Reviewer</button>
+                      <button id="Admin-Accounts">Admin</button>
+                  </div>
+
+
+
+                  <div class="ACT-Right">
+                    <form method="get" action="">
+                        <div class="SearchWrapper">
+                            <input type="text" name="search" id="HomeSearch" placeholder="Search Users ..." value="{{ search_query|default:'' }}">
+                        </div>
+                    </form>
+
+                      <button id="InviteAcc-btn">Invite User</button>
+                  </div>
               </div>
-             <div id="StudentAcc-Area">
-                <table>
-                  <tr>
-                    <th>Profile</th>
-                    <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>College</th>
-                  </tr>
-                  {% for student in students %}
-                  <tr>
-                    <td>
-                        {% if student.google_picture %}
-                            <img class="studentProfilePic" src="{{ student.google_picture }}" />
-                        {% else %}
-                            <img class="studentProfilePic2" src="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
-                        {% endif %}    
-                    </td>
-                    <td>{{ student.auth_user.username }}</td>
-                    <td>{{ student.auth_user.firstname }}</td>
-                    <td>{{ student.auth_user.lastname }}</td>
-                    <td>{{ student.auth_user.email }}</td>
-                    <td>
-                      {% for account in student.accounts_set.all %}
-                        {{ account.college_id.college_name }}
-                      {% endfor %}
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </table>
-              </div>
-              <div id="ReviewerAcc-Area">
-                <table>
-                    <tr>
-                        <th>Profile</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>College</th>
-                        <th>Invite Status</th>
-                        <th>Action</th>
-                    </tr>
-                    {% for reviewer in reviewers %}
-                        <tr>
-                            <td>
-                                {% if reviewer.google_picture %}
-                                    <img class="studentProfilePic" src="{{ reviewer.google_picture }}" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
-                                {% else %}
-                                    <img class="studentProfilePic2" src="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
-                                {% endif %}
-                            </td>
-                            <td>{{ reviewer.auth_user.first_name }}</td>
-                            <td>{{ reviewer.auth_user.last_name }}</td>
-                            <td>{{ reviewer.auth_user.email }}</td>
-                            
-                            {% for reviewerAcc in reviewer.accounts_set.all %}
-                                <td>{{ reviewerAcc.college_id.college_initials }}</td>
-                                <td>{{ reviewerAcc.invite_status }}</td>
-                                <td>
-                                    {% if reviewerAcc.invite_status == "Expired" %}
-                                        <button class="TableDelete-Btn" type="button">Resend</button>
-                                    {% else %}
-                                        <button class="TableDelete-Btn" type="button">Remove</button>
-                                    {% endif %}
-                                </td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
-              </div>
-              <div id="AdminAcc-Area">
-                <table>
-                  <tr>
-                    <th>Profile</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Invite Status</th>
-                    <th>Action</th>
-                  </tr>
-                  {% for admin in admins %}
-                  <tr>
-                    <td>
-                        {% if admin.google_picture %}
-                            <img class="studentProfilePic" src="{{ admin.google_picture }}" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
-                        {% else %}
-                            <img class="studentProfilePic2" src="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" alt="../../static/images/User-2-Fill--Streamline-Mingcute-Fill.png" />
-                        {% endif %}    
-                    </td>
-                    <td>{{ admin.auth_user.first_name }}</td>
-                    <td>{{ admin.auth_user.last_name }}</td>
-                    <td>{{ admin.auth_user.email }}</td>
-                       {% for adminAcc in admin.accounts_set.all %}
-                      <td>
-                            {{ adminAcc.invite_status }}
-                              {% if adminAcc.invite_status == "Expired" %}
-                                  <td><button class="TableDelete-Btn" type="button">Resend</button></td>
+
+              <!-- Students Section -->
+            
+              <div id="StudentAcc-Area">
+                  <table>
+                      <tr>
+                          <th>Profile</th>
+                          <th>Username</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>College</th>
+                      </tr>
+                      {% for student in students_page %}
+                      <tr>
+                          <td>
+                              {% if student.google_picture %}
+                                  <img class="studentProfilePic" src="{{ student.google_picture }}" />
                               {% else %}
-                              <td><button class="TableDelete-Btn" type="">Remove</button></td>  
-                            {% endif %} 
+                                  <img class="studentProfilePic2" src="{% static 'images/User-2-Fill--Streamline-Mingcute-Fill.png' %}" />
+                              {% endif %}
+                          </td>
+                          <td>{{ student.auth_user.username }}</td>
+                          <td>{{ student.auth_user.firstname }}</td>
+                          <td>{{ student.auth_user.lastname }}</td>
+                          <td>{{ student.auth_user.email }}</td>
+                          <td>
+                              {% for account in student.accounts_set.all %}
+                                  {{ account.college_id.college_name }}
+                              {% endfor %}
+                          </td>
+                          
+                      </tr>
+                      {% endfor %}
+                      
+                  </table>
+
+                    <div class="pagination-controls">
+                      {% if students_page.has_previous %}
+                          <a href="?students_page={{ students_page.previous_page_number }}" class="pagination-button"><</a>
+                      {% endif %}
+                      <span>Page {{ students_page.number }} of {{ students_page.paginator.num_pages }}</span>
+                      {% if students_page.has_next %}
+                          <a href="?students_page={{ students_page.next_page_number }}" class="pagination-button">></a>
+                      {% endif %}
+                    </div>
                   
-                         {% endfor %}
-                  </tr>
-                  {% endfor %}
-                </table>
+                  
+                </div>
+              
+              
+
+              <!-- Reviewers Section -->
+              <div id="ReviewerAcc-Area">
+                  <table>
+                      <tr>
+                          <th>Profile</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>College</th>
+                          <th>Invite Status</th>
+                          <th>Action</th>
+                      </tr>
+                      {% for reviewer in reviewers_page %}
+                      <tr>
+                          <td>
+                              {% if reviewer.google_picture %}
+                                  <img class="studentProfilePic" src="{{ reviewer.google_picture }}" />
+                              {% else %}
+                                  <img class="studentProfilePic2" src="{% static 'images/User-2-Fill--Streamline-Mingcute-Fill.png' %}" />
+                              {% endif %}
+                          </td>
+                          <td>{{ reviewer.auth_user.first_name }}</td>
+                          <td>{{ reviewer.auth_user.last_name }}</td>
+                          <td>{{ reviewer.auth_user.email }}</td>
+                          <td>
+                              {% for account in reviewer.accounts_set.all %}
+                                  {{ account.college_id.college_initials }}
+                              {% endfor %}
+                          </td>
+                          <td>{{ account.invite_status }}</td>
+                          <td>
+                            {% if account.invite_status == "Expired" %}
+                                <button class="TableDelete-Btn" onclick="resendInvite({{ reviewer.id }})">Resend</button>
+                            {% else %}
+                                <button class="TableDelete-Btn" onclick="removeAccount({{ reviewer.id }})">Remove</button>
+                            {% endif %}
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  </table>
+                
+
+                  <div class="pagination-controls2">
+                      {% if reviewers_page.has_previous %}
+                          <a href="?reviewers_page={{ reviewers_page.previous_page_number }}" class="pagination-button">Previous</a>
+                      {% endif %}
+                      <span>Page {{ reviewers_page.number }} of {{ reviewers_page.paginator.num_pages }}</span>
+                      {% if reviewers_page.has_next %}
+                          <a href="?reviewers_page={{ reviewers_page.next_page_number }}" class="pagination-button">Next</a>
+                      {% endif %}
+                  </div>
+                </div>
+                
+              
+
+              <!-- Admins Section -->
+              <div id="AdminAcc-Area">
+                  <table>
+                      <tr>
+                          <th>Profile</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Email</th>
+                          <th>Invite Status</th>
+                          <th>Action</th>
+                      </tr>
+                      {% for admin in admins_page %}
+                      <tr>
+                          <td>
+                              {% if admin.google_picture %}
+                                  <img class="studentProfilePic" src="{{ admin.google_picture }}" />
+                              {% else %}
+                                  <img class="studentProfilePic2" src="{% static 'images/User-2-Fill--Streamline-Mingcute-Fill.png' %}" />
+                              {% endif %}
+                          </td>
+                          <td>{{ admin.auth_user.first_name }}</td>
+                          <td>{{ admin.auth_user.last_name }}</td>
+                          <td>{{ admin.auth_user.email }}</td>
+                          <td>{{ admin.accounts_set.first.invite_status }}</td>
+                          <td>
+                              {% if admin.accounts_set.first.invite_status == "Expired" %}
+                                  <button class="TableDelete-Btn">Resend</button>
+                              {% else %}
+                                  <button class="TableDelete-Btn">Remove</button>
+                              {% endif %}
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  </table>
+
+                  <div class="pagination-controls3">
+                      {% if admins_page.has_previous %}
+                          <a href="?admins_page={{ admins_page.previous_page_number }}" class="pagination-button">Previous</a>
+                      {% endif %}
+                      <span>Page {{ admins_page.number }} of {{ admins_page.paginator.num_pages }}</span>
+                      {% if admins_page.has_next %}
+                          <a href="?admins_page={{ admins_page.next_page_number }}" class="pagination-button">Next</a>
+                      {% endif %}
+                  </div>
               </div>
-        </div>
+          </div>
+
+      </div>
     </div>
-</div>
+  </div>
 
 {% endblock %}

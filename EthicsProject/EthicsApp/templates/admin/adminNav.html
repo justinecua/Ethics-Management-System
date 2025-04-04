@@ -29,7 +29,7 @@
       </a>
 
       <a href="{% url 'adminEthicalRiskQuestions' %}">
-        <li class="{% if request.path == '/admin/ethical-risk-questions/' %}active{% endif %}">
+        <li class="{% if request.path == '/adminEthicalRiskQuestions/' %}active{% endif %}">
             <div class="NavContainer">
                 <img src="../../static/images/Calendar-Note--Streamline-Plump (1).png" alt="">
             </div>
@@ -74,7 +74,7 @@
         </li>
       </a>
 
-      <a href="{% url 'logout' %}">
+      <a href="{% url 'admin_logout' %}">
         <li>
           <div class="NavContainer">
             <img src="../../static/images/Logout-3--Streamline-Solar.png" alt="">

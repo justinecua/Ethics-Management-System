@@ -22,15 +22,43 @@ def reviewerdashboard(request):
     }
     return render (request, 'Reviewer/reviewerDashboard.html', context)
 
+from django.shortcuts import render
+from .models import Appointments, Accounts, Student, Manuscripts
+import os
+
 def reviewerManuscript(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
-    
+    user_id = request.session.get('id', None)
+
+    manuscript = None
+    appointments = []
+    if user_id:
+        try:
+            # Fetch Reviewer and associated manuscript
+            reviewer = Reviewer.objects.get(auth_user__id=user_id)
+            manuscript = reviewer.manuscript_id
+
+            # Fetch appointments for the reviewer
+            account = Accounts.objects.get(reviewer_id=reviewer)
+            appointments = Appointments.objects.filter(account_id=account)
+        except Reviewer.DoesNotExist:
+            print("Reviewer not found.")
+        except Accounts.DoesNotExist:
+            print("Account not found for the reviewer.")
+        except Appointments.DoesNotExist:
+            print("No appointments found.")
+        except Manuscripts.DoesNotExist:
+            print("No manuscript found.")
+
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
+        'appointments': appointments,
+        'manuscript': manuscript,
     }
     return render(request, 'Reviewer/reviewerManuscripts.html', context)
+
 
 def reviewerSettings(request):
     profile_picture = request.session.get('profile_picture', None)

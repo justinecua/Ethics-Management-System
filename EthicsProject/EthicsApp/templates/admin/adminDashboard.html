@@ -1,21 +1,103 @@
-{% extends "master.html" %}
+{% extends "master.html" %}{% load static %}
 
-{% load static %}
 {% block css %}
-
 <link rel="stylesheet" href="{% static './css/adminDashboard.css' %}">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{% static './css/DashboardCssAdmin.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-
 <div class="MainContainer">
     {% include './adminTopNav.html' %}
+
     <div class="MC-Bottom">
-        {% include './adminNav.html' %}      
+        {% include './adminNav.html' %}
+        
+    <div class="new-container">
+        <div class="counts">
+            {% for title, count in counts.items %}
+            <div class="count-box">
+                <h3>{{ title }}</h3>
+                <p>{{ count }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="graph-section">
+            <div class="graphs-row">
+                <div class="dashboard-section">
+                    <h2>Manuscripts by Category</h2>
+                    <canvas id="manuscriptsByCategory"></canvas>
+                </div>
+        
+                <div class="dashboard-section">
+                    <h2>Manuscripts by Type of Study</h2>
+                    <canvas id="manuscriptsByStudyType"></canvas>
+                </div>
+        
+                <div class="dashboard-section">
+                    <h2>Accounts by College</h2>
+                    <canvas id="accountsByCollege"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>    
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const createChart = (ctx, labels, data, label) => {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    };
+
+    // Parse data
+    const manuscriptsByCategory = JSON.parse('{{ manuscripts_by_category|escapejs }}');
+    const manuscriptsByStudyType = JSON.parse('{{ manuscripts_by_study_type|escapejs }}');
+    const accountsByCollege = JSON.parse('{{ accounts_by_college|escapejs }}');
+
+    // Prepare chart data
+    createChart(
+    document.getElementById('manuscriptsByCategory'),
+    manuscriptsByCategory.map(item => item.category_name_id__category_name || 'Unknown'), // Access category_name_id__category_name here
+    manuscriptsByCategory.map(item => item.total),
+    'Manuscripts by Category'
+    );
+
+    createChart(
+        document.getElementById('manuscriptsByStudyType'),
+        manuscriptsByStudyType.map(item => item.type_of_study_id__type_of_study || 'Unknown'), // Access type_of_study_id__type_of_study here
+        manuscriptsByStudyType.map(item => item.total),
+        'Manuscripts by Type of Study'
+    );
+
+
+    createChart(
+        document.getElementById('accountsByCollege'),
+        accountsByCollege.map(item => item.college_id__college_initials || 'New Users'),
+        accountsByCollege.map(item => item.total),
+        'Accounts by College'
+    );
+</script>
     </div>
 </div>
 

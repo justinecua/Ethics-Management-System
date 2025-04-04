@@ -81,11 +81,6 @@ body {
   align-items: center;
 }
 
-.MCT-Right {
-  width: 20%;
-  display: flex;
-  justify-content: space-evenly;
-}
 
 .MCT-Left img {
   width: 2.6rem;

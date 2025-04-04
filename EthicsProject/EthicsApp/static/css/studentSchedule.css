@@ -336,6 +336,20 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+  width: 34rem;
+  background-color: var(--modal-container);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 2.4rem;
+}
+
+#MS-Container1 {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   width: 45rem;
   background-color: var(--modal-container);
   border-radius: 10px;
@@ -576,6 +590,20 @@ textarea:disabled {
   color: var(--nav-p);
   font-size: 1rem;
 }
+
+.GenCont1Left1 {
+  width: 100%;
+}
+
+.GenCont1Left1 label {
+  width: 100%;
+}
+
+.GenCont1Left1 input {
+  width: 100%;
+  margin-top: 1rem;
+}
+
 
 .GenCont1Left {
   width: 50%;

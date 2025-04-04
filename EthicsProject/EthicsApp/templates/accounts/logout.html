@@ -1,0 +1,25 @@
+
+
+{% load static %}
+
+
+
+{% block content %}
+
+<div id="Logout-Overlay">
+    <div id="Logout-container">
+        <p>Are you sure you want to logout?</p>
+
+        <div class="LC-Bottom">
+            <button id="LC-Back">Cancel</button>
+
+            <form action="{% url 'accounts_logout' %}" method="post" >
+                {% csrf_token %}
+                <button id="LC-Logout" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

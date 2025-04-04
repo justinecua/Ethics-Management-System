@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
 <link rel="stylesheet" href="{% static './css/StudentModal.css' %}">
 <link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
+<link rel="stylesheet" href="{% static './css/logout.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -14,9 +15,11 @@
 {% include '../modal/addthesisInfo.html' %}
 {% include '../modal/completeProfileModal.html' %}
 {% include '../modal/addThesisMembers.html' %}
-<script type="module" src="{% static './js/gettingStarted.js' %}"></script>
 
+{% include '../accounts/logout.html' %}
 {% include 'students/studentNavbar.html' %}
+<script type="module" src="{% static './js/gettingStarted.js' %}"></script>
+<script type="module" src="{% static './js/logout.js' %}"></script>
   <div class="StudentMain-Content">
       <div class="SMC-Top">
          <div class="SMCT-Left">
@@ -47,13 +50,13 @@
 
       </div>
       <div class="SMC-Bottom">
-
+   
       <div class="SMCB-Bottom">
-
+        <div class="SMCB-Top">
+            <h3 id="GettingStartedTitle">Getting Started</h3>
+        </div> 
         {% if thesis_empty %}
 		<div class="SMCB-Top">
-        <h3>Getting Started</h3>
-        </div>
         <div class="GS-Container">
           <div class="GS-Left">
               <div class="GSL-Container">
@@ -107,7 +110,38 @@
           </div>
       </div>
       {% endif %}
-
+{% if claim_stabs %}
+    <div class="claim-stabs-container">
+	
+	<div class="CSC-Top">
+		<h3>Claim Stab</h3>
+	</div>
+        {% for claim_stab in claim_stabs %}
+            <div class="claim-stab">
+                <div class="claim-stab-details">
+		   <div class="ribbon-image">
+			   <img src="../static/images/ribbon2.png">
+		   </div>
+                    <div class="detail-group">
+                        <p><strong>Appointment:</strong> {{ claim_stab.appointment }}</p>
+                        <p><strong>Release Date:</strong> {{ claim_stab.release_date }}</p>
+                        <p><strong>Received by:</strong> {{ claim_stab.received_by }}</p>
+                    </div>
+                    {% if claim_stab.members %}
+                        <div class="detail-group2">
+                            <p><strong>Researchers:</strong></p>
+                            <ul>
+                                {% for member in claim_stab.members %}
+				<li>{{ member.member_fname }} {{ member.member_lname}} - {{ member.college }} - {{ member.email }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
       </div>
 
@@ -118,6 +152,13 @@
   </div>
 <script>
     let getting_started_conditions = {% if thesis_empty or completeProfile_empty or thesis_no_members %} true {% else %} false {% endif %};
+    let GettingStartedTitle = document.getElementById('GettingStartedTitle');
+    
+    if(getting_started_conditions == false){
+      GettingStartedTitle.style.display = "none";
+    }
+    console.log(getting_started_conditions);
+
 </script>
 
 {% include './navJsConfig.html' %}

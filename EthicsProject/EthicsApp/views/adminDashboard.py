@@ -6,6 +6,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.db.models import Count, F
+import json
+from .models import *
+from django.views import View
+from datetime import datetime
 
 
 def get_google_profile_picture(user):
@@ -14,19 +19,87 @@ def get_google_profile_picture(user):
         return social_account.extra_data.get('picture')
     return None
 
+
 def adminDashboard(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
 
+    manuscript_count = Manuscripts.objects.count()
+    student_count = Student.objects.count()
+    reviewer_count = Reviewer.objects.count()
+    college_count = College.objects.count()
+    schedule_count = Schedule.objects.count()
+    appointment_count = Appointments.objects.count()
+
+    manuscripts_by_category = Manuscripts.objects.values('category_name_id__category_name').annotate(total=Count('id'))
+    manuscripts_by_study_type = Manuscripts.objects.values('type_of_study_id__type_of_study').annotate(total=Count('id'))
+
+    accounts_by_college = Accounts.objects.values('college_id__college_initials').annotate(total=Count('id'))
+
+    notification_count = Notification.objects.count()
+    comment_count = Comments.objects.count()
+
+    counts = {
+        "Manuscripts": manuscript_count,
+        "Students": student_count,
+        "Reviewers": reviewer_count,
+        "Colleges": college_count,
+        "Schedules": schedule_count,
+        "Appointments": appointment_count,
+    }
+
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
+        'counts': counts,
+        'manuscripts_by_category': json.dumps(list(manuscripts_by_category)),
+        'manuscripts_by_study_type': json.dumps(list(manuscripts_by_study_type)),
+        'accounts_by_college': json.dumps(list(accounts_by_college)),
+        'notification_count': notification_count,
+        'comment_count': comment_count,
     }
     return render(request, 'admin/adminDashboard.html', context)
+
+
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Student, Reviewer, Accounts, Account_Type
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Prefetch, Q
+
+
+@csrf_exempt
+def adminEditCollege(request, college_id):
+    college = get_object_or_404(College, id=college_id)
+    if request.method == 'POST':
+        college_name = request.POST.get('college_name')
+        college_initials = request.POST.get('college_initials')
+        college.college_name = college_name
+        college.college_initials = college_initials
+        college.save()
+
+        messages.success(request, "College updated successfully!")
+    return redirect('adminColleges')
+
+
+@csrf_exempt
+def adminDeleteCollege(request, college_id):
+    if request.method == 'POST':
+        try:
+            college = College.objects.get(id=college_id)
+            college.delete()
+            return JsonResponse({"success": True, "message": "College deleted successfully!"}, status=200)
+        except College.DoesNotExist:
+            return JsonResponse({"success": False, "message": "College not found."}, status=404)
+    return JsonResponse({"success": False, "message": "Invalid request method."}, status=400)
+
 
 def adminAccounts(request):
     profile_picture = request.session.get('profile_picture', None)
     account_type = request.session.get('account_type', None)
+
+    search_query = request.GET.get('search', '').strip()
 
     students = Student.objects.filter(
         auth_user__isnull=False,
@@ -58,27 +131,90 @@ def adminAccounts(request):
         )
     )
 
-    accountType = Account_Type.objects.exclude(Account_type='Student')
-
+    if search_query:
+        students = students.filter(
+            Q(auth_user__username__icontains=search_query) |
+            Q(auth_user__first_name__icontains=search_query) |
+            Q(auth_user__last_name__icontains=search_query) |
+            Q(auth_user__email__icontains=search_query)
+        )
+        reviewers = reviewers.filter(
+            Q(auth_user__username__icontains=search_query) |
+            Q(auth_user__first_name__icontains=search_query) |
+            Q(auth_user__last_name__icontains=search_query) |
+            Q(auth_user__email__icontains=search_query)
+        )
+        admins = admins.filter(
+            Q(auth_user__username__icontains=search_query) |
+            Q(auth_user__first_name__icontains=search_query) |
+            Q(auth_user__last_name__icontains=search_query) |
+            Q(auth_user__email__icontains=search_query)
+        )
 
     for student in students:
         student.google_picture = get_google_profile_picture(student.auth_user)
-
     for reviewer in reviewers:
         reviewer.google_picture = get_google_profile_picture(reviewer.auth_user)
-
     for admin in admins:
         admin.google_picture = get_google_profile_picture(admin.auth_user)
+
+    if request.method == 'POST' and 'invite' in request.POST:
+        email = request.POST.get('email', '').strip()
+        account_type = request.POST.get('account_type', '').strip()
+
+        if email and account_type:
+
+            try:
+
+                if Accounts.objects.filter(auth_user__email=email).exists():
+                    return HttpResponse("This email is already registered.")
+
+                subject = f"Invitation to Join as {account_type}"
+                message = f"Dear User,\n\nYou are invited to join as a {account_type}.\n\nBest Regards!"
+                from_email = 'admin@example.com'
+
+                send_mail(subject, message, from_email, [email])
+
+                return HttpResponse("Invitation sent successfully.")
+
+            except Exception as e:
+                return HttpResponse(f"Error sending invitation: {str(e)}")
+
+    student_page_number = request.GET.get('students_page', 1)
+    student_paginator = Paginator(students, 10)
+    try:
+        students_page = student_paginator.page(student_page_number)
+    except (EmptyPage, PageNotAnInteger):
+        students_page = student_paginator.page(1)
+
+    reviewer_page_number = request.GET.get('reviewers_page', 1)
+    reviewer_paginator = Paginator(reviewers, 10)
+    try:
+        reviewers_page = reviewer_paginator.page(reviewer_page_number)
+    except (EmptyPage, PageNotAnInteger):
+        reviewers_page = reviewer_paginator.page(1)
+
+    admin_page_number = request.GET.get('admins_page', 1)
+    admin_paginator = Paginator(admins, 10)
+    try:
+        admins_page = admin_paginator.page(admin_page_number)
+    except (EmptyPage, PageNotAnInteger):
+        admins_page = admin_paginator.page(1)
+
+    accountType = Account_Type.objects.exclude(Account_type='Student')
 
     context = {
         'profile_picture': profile_picture,
         'account_type': account_type,
-        'students': students,
-        'reviewers': reviewers,
-        'admins': admins,
+        'students_page': students_page,
+        'reviewers_page': reviewers_page,
+        'admins_page': admins_page,
         'accountTypes': accountType,
+        'search_query': search_query,
     }
+
     return render(request, 'admin/adminAccounts.html', context)
+
 
 def adminAppointments(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -131,12 +267,19 @@ def assign_reviewer(request):
     return redirect('adminAppointments')
 
 
+from django.db.models import Max
+
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+import re
+
 def get_edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointments, id=appointment_id)
     account = appointment.account_id
     manuscript_id = account.student_id.manuscript_id
     researchers_data = Student.objects.filter(manuscript_id=manuscript_id)
 
+    # Gather researchers' data
     researchers = [
         {
             'id': student.id,
@@ -146,24 +289,36 @@ def get_edit_appointment(request, appointment_id):
         for student in researchers_data
     ]
     college_data = account.college_id
-
-    # Transaction Code Algorithm
     collegeInitials = college_data.college_initials
     preTemplate = "SMCREC"
     yearTemplate = "24"
-    latest_transaction = Appointments.objects.filter(institution=collegeInitials).aggregate(
-        Max('transaction_id')
-    )['transaction_id__max']
 
-    if latest_transaction:
-        latest_num = int(latest_transaction.split('-')[-1])
-        numTemplate = latest_num + 1
+    if appointment.transaction_id:
+
+        transaction_code = appointment.transaction_id
     else:
-        numTemplate = 1  
+        regex = r"^SMCREC24-" + re.escape(collegeInitials) + r"-(\d+)$"
+        latest_transaction = Appointments.objects.filter(
+            transaction_id__regex=regex
+        ).order_by('-transaction_id').first()
 
-    numTemplate_str = str(numTemplate).zfill(4)
-    transaction_code = f"{preTemplate}{yearTemplate}-{collegeInitials}-{numTemplate_str}"
+        if latest_transaction and latest_transaction.transaction_id:
+            match = re.search(regex, latest_transaction.transaction_id)
+            if match:
+                try:
+                    latest_num = int(match.group(1))
+                    numTemplate = latest_num + 1
+                except ValueError:
+                    numTemplate = 1
+            else:
+                numTemplate = 1 
+        else:
+            numTemplate = 1
 
+        numTemplate_str = str(numTemplate).zfill(4)
+        transaction_code = f"SMCREC24-{collegeInitials}-{numTemplate_str}"
+
+    # Prepare response data
     data = {
         'appointment_id': appointment.id,
         'researchers': researchers,
@@ -174,6 +329,9 @@ def get_edit_appointment(request, appointment_id):
 
     return JsonResponse(data)
 
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 def save_claimStabs(request):
     appID = request.POST.get('appID')
@@ -252,6 +410,63 @@ def get_reviewers_by_college(request, college_id):
             return JsonResponse({"success": False, "message": str(e)}, status=500)
     else:
         return JsonResponse({"success": False, "message": "Invalid request method"}, status=400)
+def get_view_appointment(request, appointment_id):
+    # Fetch the appointment object
+    appointment = get_object_or_404(Appointments, id=appointment_id)
+    account = appointment.account_id
+    manuscript_id = account.student_id.manuscript_id
+
+    # Handle null values for college and email
+    college_initials = account.college_id.college_initials if account.college_id else 'N/A'
+    email = account.student_id.auth_user.email if account.student_id else 'N/A'
+
+    # Handle null values for basic and supplementary requirements
+    basic_requirements = appointment.basicRequirements_id.basicRequirements if appointment.basicRequirements_id else 'N/A'
+    supplementary_requirements = appointment.supplementaryRequirements_id.supplementaryRequirements if appointment.supplementaryRequirements_id else 'N/A'
+
+    # Prepare researchers data
+    researchers_data = Student.objects.filter(manuscript_id=manuscript_id)
+    researchers = [
+        {
+            'id': student.id,
+            'name': student.auth_user.get_full_name(),
+            'receipt_no': student.receipt_no
+        }
+        for student in researchers_data
+    ]
+
+    # Fetch ethical risk answers related to the appointment
+    ethical_answers_data = EthicalRiskAnswers.objects.filter(appointment_id=appointment)
+    ethical_answers = [
+        {
+            'ethical_question': answer.ethicalQuestions.ethicalQuestions if answer.ethicalQuestions else 'N/A',
+            'ethical_answer': answer.ethicalAnswers if answer.ethicalAnswers else 'N/A',
+        }
+        for answer in ethical_answers_data
+    ]
+
+    # Prepare response data
+    data = {
+        'appointment_id': appointment.id,
+        'college': college_initials,
+        'transaction_id': appointment.transaction_id,
+        'email': email,
+        'researchers': researchers,
+        'manuscript_id': manuscript_id.id,
+        'thesis_title': manuscript_id.thesis_title,
+        'thesis_description': manuscript_id.thesis_description,
+        'category_name': manuscript_id.category_name.category_name if manuscript_id.category_name else 'N/A',
+        'type_of_study': manuscript_id.type_of_study.type_of_study if manuscript_id.type_of_study else 'N/A',
+        'study_site': manuscript_id.study_site,
+        'basic_requirements': basic_requirements,
+        'supplementary_requirements': supplementary_requirements,
+        'institution': appointment.institution if appointment.institution else 'N/A',
+        'address_of_institution': appointment.address_of_institution if appointment.address_of_institution else 'N/A',
+        'status': appointment.status if appointment.status else 'N/A',
+        'ethical_answers': ethical_answers,
+    }
+
+    return JsonResponse(data)
 
 def adminManuscripts(request):
     profile_picture = request.session.get('profile_picture', None)
@@ -395,5 +610,24 @@ def adminEditEthicalRiskQuestions(request):
         return redirect('adminEthicalRiskQuestions')
 
 
+def remove_reviewer(request, reviewer_id):
+    # Check if the user is authorized to perform this action
+    if request.method == 'POST':
+        try:
+            reviewer = Reviewer.objects.get(id=reviewer_id)
+            reviewer.delete()
+            return JsonResponse({'success': True})
+        except Reviewer.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Reviewer not found'})
 
+def resend_invite(request, reviewer_id):
+    # Logic to resend the invite (depending on your invite system)
+    if request.method == 'POST':
+        try:
+            reviewer = Reviewer.objects.get(id=reviewer_id)
+            # Your logic to resend the invite goes here
+            return JsonResponse({'success': True})
+        except Reviewer.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Reviewer not found'})
+        
 

@@ -73,7 +73,11 @@ urlpatterns = [
   re_path(r'^update_category/(?P<category_id>\d+)/$', views.update_category, name='update_category'),
   path('admin/get-appointment/<int:appointment_id>/', views.get_edit_appointment, name='get_edit_appointment'),
 
-
+  path('admin/get_view_appointment/<int:appointment_id>/', views.get_view_appointment, name='get_view_appointment'),
+  
+ path('accounts_logout/', views.accounts_logout, name='accounts_logout'),
+ path('reviewer_logout/', views.reviewer_logout, name='reviewer_logout'),
+  path('admin_logout/', views.admin_logout, name='admin_logout'),
 
 
 
@@ -112,6 +116,15 @@ urlpatterns = [
     re_path(r'^adminEditEthicalRiskQuestions/$', views.adminEditEthicalRiskQuestions, name='adminEditEthicalRiskQuestions'),
 
     re_path(r'^adminDeleteEthicalRiskQuestions/(?P<question_id>\d+)/$', views.adminDeleteEthicalRiskQuestions, name='adminDeleteEthicalRiskQuestions'),
+    # path('api/schedulesReviewer/', views.AdminReviewerScheduleDataView.as_view(), name='admin_reviewer_schedule_data'),
+    path('remove_reviewer/<int:reviewer_id>/', views.remove_reviewer, name='remove_reviewer'),
+    path('resend_invite/<int:reviewer_id>/', views.resend_invite, name='resend_invite'),
+
+
+    re_path(r'^adminEditCollege/(?P<college_id>\d+)/$', views.adminEditCollege, name='adminEditCollege'),
+
+
+    path('adminDeleteCollege/<int:college_id>/', views.adminDeleteCollege, name='adminDeleteCollege'),
 
 
 

@@ -3,8 +3,9 @@
 {% load static %}
 {% block css %}
 
-<link rel="stylesheet" href="{% static './css/reviewerdashboard.css' %}">
-
+<link rel="stylesheet" href="{% static './css/reviewerDashboard.css' %}">
+<link rel="stylesheet" href="{% static './css/studentmanuscript.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,9 +19,146 @@
         {% include 'Reviewer/reviewerTopNav.html' %}
         <div class="MC-Bottom">
             {% include 'Reviewer/reviewerNav.html' %}      
+ 
+    
+	<div class="Manuscript-Section-Main">
+
+        <div class="PDF-Preview-Left">
+            <div class="pdf-preview">
+            {% if manuscript.file %}
+               <div class="pdf-previewTop">
+                   <h3> Thesis Preview </h3>
+                    <p>Page: <span id="current-page">1</span> / <span id="total-pages"></span></p>
+               </div>
+               <div id="pdf-container"></div>
+    
+                <div id="pdf-controls">
+                    <button id="prev-page"><</button>
+                    <button id="next-page">></button>
+    
+                    <input type="number" id="page-number" min="1" placeholder="Page No" />
+                    <button id="jump-to-page">Go</button>
+    
+                </div>
+    
+            {% endif %}
+            </div>
+        </div>
+    
+    
+            <div class="Sections-Right">
+                <div class="AppointmentsSection">
+                    {% if appointments %}
+                        <div class="appointment-cards">
+                            {% for appointment in appointments %}
+                                <div class="appointment-card">
+                    <h3> Appointment Status </h3>
+                                    <div class="appointment-title">
+                                        Type of Review: {{ appointment.appointment_name }}
+                                    </div>
+                                    <div class="appointment-details">
+                                        <span>Date: {{ appointment.appointment_date }}</span> 
+                                        <span>Status: <span class="appointment-status">&nbsp;{{ appointment.status }}</span></span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+    
+                    {% endif %}
+                </div>
+    
+                <div class="ManuscriptSection">
+                    {% if manuscript %}
+                        <div class="manuscript-details">
+    
+                            <span>Thesis Title: {{ manuscript.thesis_title }}</span>
+                            <p>{{ manuscript.thesis_description }}</p>
+                            <p><strong>Category:</strong> {{ manuscript.category_name }}</p>
+                            <p><strong>Type of Study:</strong> {{ manuscript.type_of_study }}</p>
+                            <p><strong>Study Site:</strong> {{ manuscript.study_site }}</p>
+                        </div>
+                    {% else %}
+                        <p>No manuscript found for this student.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
+</div>
+    <script>
+    var url = '{{ manuscript.file.url }}';  
+    var currentPage = 1;  // Start at page 1
+    var zoomLevel = 1.5; // Default zoom level
     
+    if (window.pdfjsLib) {
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+    
+        pdfjsLib.getDocument(url).promise.then(function (pdf) {
+            var totalPages = pdf.numPages;  
+        document.getElementById('total-pages').textContent = totalPages;
+    
+            function renderPage(pageNum) {
+                pdf.getPage(pageNum).then(function (page) {
+                    var viewport = page.getViewport({ scale: zoomLevel });
+    
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+    
+                    canvas.style.backgroundColor = '#ffffff';
+    
+                    page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise.then(function () {
+                        document.getElementById('pdf-container').innerHTML = '';  // Clear previous content
+                        document.getElementById('pdf-container').appendChild(canvas);
+                document.getElementById('current-page').textContent = currentPage;
+                    });
+                });
+            }
+    
+            renderPage(currentPage);
+    
+            document.getElementById('next-page').addEventListener('click', function () {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPage(currentPage);
+                }
+            });
+    
+            document.getElementById('prev-page').addEventListener('click', function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPage(currentPage);
+                }
+            });
+    
+            document.getElementById('page-number').addEventListener('input', function (e) {
+                var pageNumberInput = e.target.value;
+                if (pageNumberInput && pageNumberInput >= 1 && pageNumberInput <= totalPages) {
+                    currentPage = parseInt(pageNumberInput);
+                    renderPage(currentPage);
+                }
+            });
+    
+            document.getElementById('jump-to-page').addEventListener('click', function () {
+                var pageNumberInput = document.getElementById('page-number').value;
+                if (pageNumberInput && pageNumberInput >= 1 && pageNumberInput <= totalPages) {
+                    currentPage = parseInt(pageNumberInput);
+                    renderPage(currentPage);
+                }
+            });
+    
+        });
+    } else {
+        console.error("PDF.js library is not loaded properly.");
+    }
+    
+    </script>
     {% endblock %}
 
 

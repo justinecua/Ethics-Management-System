@@ -3,17 +3,50 @@
 {% load static %}
 
 {% block css %}
-
-<link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
-<link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
+    <link rel="stylesheet" href="{% static './css/studentNavbar.css' %}">
+    <link rel="stylesheet" href="{% static './css/editProfile.css' %}">
+    <link rel="stylesheet" href="{% static './css/studentDashboard.css' %}">
+    <link rel="stylesheet" href="{% static './css/logout.css' %}">
 {% endblock %}
 
 {% include '../modal/newUser.html' %}
 
 {% block content %}
+{% include '../accounts/logout.html' %}
 {% include 'students/studentNavbar.html' %}
+<script type="module" src="{% static './js/logout.js' %}"></script>
   <div class="StudentMain-Content">
+    <div class="SMC-Top">
+      <div class="SMCT-Left">
+         <p>Settings</p>
+      </div>
+      <div class="SMCT-Right">
+         <div class="ProfilePic1">
+         {% if profile_picture %}
+             <img src="{{ profile_picture }}" alt="Profile Picture">
+         {% else %}
+           <div class="PPProf1">
+             <img src="../../static/images/Account-Circle-Fill--Streamline-Remix-Fill.png" alt="Default Profile">
+           </div>
+         {% endif %}
 
+           {% if account_type %}
+               <p>{{ account_type }}</p>
+           {% endif %}
+         </div>
+      </div>
+   </div>
+
+   <div class="ProfileUpdateForm">
+       <h2>Student Profile</h2>
+       <form method="POST" action="{% url 'studentSettings' %}" enctype="multipart/form-data">
+
+           {% csrf_token %}
+           {{ form.as_p }}  <!-- Render the form fields -->
+
+ 
+       </form>
+   </div>
   </div>
 
 {% include './navJsConfig.html' %}
