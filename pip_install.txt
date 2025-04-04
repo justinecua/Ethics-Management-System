@@ -1,4 +1,0 @@
-pip install python-decouple
-pip install django-allauth
-pip install whitenoise 
-pip install "django-allauth[socialaccount]"

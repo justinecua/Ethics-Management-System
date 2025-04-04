@@ -1,0 +1,19 @@
+services:
+  ethics:
+    build: .
+    container_name: ethics
+    command: python3 manage.py runserver 0.0.0.0:${CONTAINER_PORT}
+    volumes:
+      - .:/ethics
+      - ./staticfiles:/home/justine/ethics/staticfiles
+    ports:
+      - "${HOST_PORT}:${CONTAINER_PORT}"
+    networks:
+      - mynetwork
+    restart: always
+    environment:
+      - TZ=Asia/Manila
+
+networks:
+  mynetwork:
+    driver: bridge
